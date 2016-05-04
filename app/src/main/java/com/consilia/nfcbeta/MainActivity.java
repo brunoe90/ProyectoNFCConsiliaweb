@@ -142,10 +142,8 @@ public class MainActivity extends Activity {
         });
     }
         public void client() throws IOException{
-            bundle = new Bundle();
 
-            ip = bundle.getString("ip");
-            puerto = bundle.getString("puerto");
+
 
             Thread thread = new Thread() {
 
@@ -155,6 +153,12 @@ public class MainActivity extends Activity {
                     try{
                         {
                             sleep(100);
+                            bundle =  getIntent().getExtras();
+
+                            ip = bundle.getString("ip");
+                            puerto = bundle.getString("puerto");
+                            //DatagramSocket client_socket = new DatagramSocket(3996);
+                           // InetAddress IPAddress = InetAddress.getByName("192.168.43.133");
                             DatagramSocket client_socket = new DatagramSocket(Integer.parseInt(puerto));
                             InetAddress IPAddress = InetAddress.getByName(ip);
 
@@ -164,8 +168,8 @@ public class MainActivity extends Activity {
                             send_data=str.getBytes();
                             //System.out.println("Type Something (q or Q to quit): ");
 
-                            DatagramPacket send_packet = new DatagramPacket(send_data,str.length(), IPAddress, Integer.parseInt(puerto));
-
+                           // DatagramPacket send_packet = new DatagramPacket(send_data,str.length(), IPAddress, Integer.parseInt(puerto));
+                            DatagramPacket send_packet = new DatagramPacket(send_data,str.length(), IPAddress, 3996);
                             client_socket.send(send_packet);
                             //chandra
                             DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);

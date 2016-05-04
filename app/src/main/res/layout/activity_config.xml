@@ -23,6 +23,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/etip"
         android:layout_gravity="center_horizontal"
+        android:text="@string/_192_168_43_133"
         android:inputType="none" />
 
     <TextView
@@ -39,7 +40,8 @@
         android:inputType="number"
         android:ems="10"
         android:id="@+id/etpuerto"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"
+        android:text="@string/_3996" />
 
     <Button
         android:layout_width="wrap_content"
