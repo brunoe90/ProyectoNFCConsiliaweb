@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">NFCBeta</string>
+    <string name="nrf_tag">NRF TAG</string>
+    <string name="temp">temp</string>
+    <string name="test">test</string>
+    <string name="humi">humi</string>
+</resources>
