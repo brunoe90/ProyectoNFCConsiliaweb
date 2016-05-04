@@ -38,6 +38,9 @@ public class MainActivity extends Activity {
     byte[] receiveData = new byte[1024];
     String modifiedSentence;
     Button bt1,bt2,bt3,bt4;
+    Bundle bundle;
+    String ip;
+    String puerto;
 
     // list of NFC technologies detected:
     private final String[][] techList = new String[][] {
@@ -61,11 +64,11 @@ public class MainActivity extends Activity {
         setContentView(R.layout.main_activity);
         txt1   = (TextView)findViewById(R.id.textView1);
         txt5   = (TextView)findViewById(R.id.textView5);
-
         bt1 = (Button) findViewById(R.id.button1);
         bt2 = (Button) findViewById(R.id.button2);
         bt3 = (Button) findViewById(R.id.button3);
         bt4 = (Button) findViewById(R.id.button4);
+
 
 
         bt1.setOnClickListener(new View.OnClickListener(){
@@ -139,6 +142,10 @@ public class MainActivity extends Activity {
         });
     }
         public void client() throws IOException{
+            bundle = new Bundle();
+
+            ip = bundle.getString("ip");
+            puerto = bundle.getString("puerto");
 
             Thread thread = new Thread() {
 
@@ -148,8 +155,8 @@ public class MainActivity extends Activity {
                     try{
                         {
                             sleep(100);
-                            DatagramSocket client_socket = new DatagramSocket(2115);
-                            InetAddress IPAddress = InetAddress.getByName("192.168.0.15");
+                            DatagramSocket client_socket = new DatagramSocket(Integer.parseInt(puerto));
+                            InetAddress IPAddress = InetAddress.getByName(ip);
 
 
                             //while (true)
@@ -157,7 +164,7 @@ public class MainActivity extends Activity {
                             send_data=str.getBytes();
                             //System.out.println("Type Something (q or Q to quit): ");
 
-                            DatagramPacket send_packet = new DatagramPacket(send_data,str.length(), IPAddress, 2115);
+                            DatagramPacket send_packet = new DatagramPacket(send_data,str.length(), IPAddress, Integer.parseInt(puerto));
 
                             client_socket.send(send_packet);
                             //chandra

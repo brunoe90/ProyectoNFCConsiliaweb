@@ -4,4 +4,7 @@
     <string name="temp">temp</string>
     <string name="test">test</string>
     <string name="humi">humi</string>
+    <string name="setear_ip">Setear IP</string>
+    <string name="puerto">Puerto</string>
+    <string name="entrar">entrar</string>
 </resources>
