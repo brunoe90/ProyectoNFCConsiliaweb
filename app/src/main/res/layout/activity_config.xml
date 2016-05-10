@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/etip"
         android:layout_gravity="center_horizontal"
-        android:text="@string/_192_168_0_122"
+        android:text="@string/_192_168_1_4"
         android:inputType="none" />
 
     <TextView

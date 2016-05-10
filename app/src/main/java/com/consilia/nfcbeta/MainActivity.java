@@ -24,10 +24,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -56,7 +59,7 @@ public class MainActivity extends Activity {
     /**
      * Called when the activity is first created.
      */
-    TextView tv, txt1;
+    TextView tv, txt1, formatTxt,contentTxt;
     EditText ettemp;
     byte[] send_data = new byte[1024];
     byte[] receiveData = new byte[1024];
@@ -92,9 +95,11 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
         //txt1   = (TextView)findViewById(R.id.textView1);
-
+        final Activity activity= this;
         tv = (TextView) findViewById(R.id.tv);
         txt1  = (TextView)findViewById(R.id.text);
+        formatTxt = (TextView) findViewById(R.id.formatTxt);
+        contentTxt  = (TextView)findViewById(R.id.contentTxt);
         bt1 = (Button) findViewById(R.id.button1);
         bt2 = (Button) findViewById(R.id.button2);
         bt3 = (Button) findViewById(R.id.button3);
@@ -105,8 +110,9 @@ public class MainActivity extends Activity {
 
         bt4.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-
-
+            //escanea codigo de barras
+                IntentIntegrator scanIntegrator = new IntentIntegrator( activity);
+                scanIntegrator.initiateScan();
 
             }
         });
@@ -231,6 +237,20 @@ public class MainActivity extends Activity {
         thread.start();
         // }
 
+    }
+    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        IntentResult scanningResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
+        if (scanningResult != null) {
+            String scanContent = scanningResult.getContents();
+            String scanFormat = scanningResult.getFormatName();
+            formatTxt.setText("FORMAT: " + scanFormat);
+            contentTxt.setText("CONTENT: " + scanContent);
+        }
+        else{
+            Toast toast = Toast.makeText(getApplicationContext(),
+                    "No scan data received!", Toast.LENGTH_SHORT);
+            toast.show();
+        }
     }
 
 

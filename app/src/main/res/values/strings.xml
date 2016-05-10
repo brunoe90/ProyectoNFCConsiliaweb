@@ -11,4 +11,9 @@
     <string name="_3996">3996</string>
     <string name="recibir_farenheit">recibir farenheit</string>
     <string name="_192_168_0_122">192.168.0.122</string>
+    <string name="escanear_codigo_de_barras">escanear codigo de barras</string>
+    <string name="_192_168_1_4">192.168.1.4</string>
+    <string name="valor_devuelto_por_webservice">Valor devuelto por webservice</string>
+    <string name="formato_de_qr">formato de qr</string>
+    <string name="contenido_del_qr">contenido del qr</string>
 </resources>
