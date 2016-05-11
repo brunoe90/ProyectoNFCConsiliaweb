@@ -2,19 +2,8 @@ package com.consilia.nfcbeta;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
-import android.app.PendingIntent;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.net.Uri;
-import android.nfc.NfcAdapter;
-import android.nfc.tech.IsoDep;
-import android.nfc.tech.MifareClassic;
-import android.nfc.tech.MifareUltralight;
-import android.nfc.tech.Ndef;
-import android.nfc.tech.NfcA;
-import android.nfc.tech.NfcB;
-import android.nfc.tech.NfcF;
-import android.nfc.tech.NfcV;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -32,18 +21,18 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
-import java.io.IOException;
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
-import java.net.InetAddress;
-import java.util.Objects;
-
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.PropertyInfo;
 import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapPrimitive;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
+
+import java.io.IOException;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
+import java.util.Objects;
 
 
 //import com.example.webserviceactivity.R;
@@ -59,17 +48,18 @@ public class MainActivity extends Activity {
     /**
      * Called when the activity is first created.
      */
-    TextView tv, txt1, formatTxt,contentTxt;
+    TextView tv, formatTxt,contentTxt;
     EditText ettemp;
     byte[] send_data = new byte[1024];
     byte[] receiveData = new byte[1024];
     String modifiedSentence, celcius, fahren;
-    Button bt1, bt2, bt3, bt4;
+    Button bt1, bt2, bt3, bt4,bnfc;
     Bundle bundle;
     String ip;
     String puerto;
 
     // list of NFC technologies detected:
+     /*      NFC
     private final String[][] techList = new String[][]{
             new String[]{
                     NfcA.class.getName(),
@@ -80,7 +70,7 @@ public class MainActivity extends Activity {
                     MifareClassic.class.getName(),
                     MifareUltralight.class.getName(), Ndef.class.getName()
             }
-    };
+    };  SACAR */
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -96,33 +86,35 @@ public class MainActivity extends Activity {
         setContentView(R.layout.main_activity);
         //txt1   = (TextView)findViewById(R.id.textView1);
         final Activity activity= this;
-        tv = (TextView) findViewById(R.id.tv);
-        txt1  = (TextView)findViewById(R.id.text);
+        tv = (TextView) findViewById(R.id.text);
         formatTxt = (TextView) findViewById(R.id.formatTxt);
         contentTxt  = (TextView)findViewById(R.id.contentTxt);
         bt1 = (Button) findViewById(R.id.button1);
         bt2 = (Button) findViewById(R.id.button2);
         bt3 = (Button) findViewById(R.id.button3);
         bt4 = (Button) findViewById(R.id.button4);
-        //AsyncCallWS task = new AsyncCallWS();
-        //Call execute
-        //task.execute();
+        bnfc= (Button) findViewById(R.id.buttonNFC);
+
+        bnfc.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+                Intent intent = new Intent(MainActivity.this, NfcActivity.class);
+                //intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
 
         bt4.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-            //escanea codigo de barras
+
                 IntentIntegrator scanIntegrator = new IntentIntegrator( activity);
                 scanIntegrator.initiateScan();
-
             }
         });
 
         bt1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                // Perform action on click
-                //textIn.setText("test");
-                //txt2.setText("text2");
-                //task.execute(null);
+
                 str = "temp";
                 try {
                     client();
@@ -137,10 +129,6 @@ public class MainActivity extends Activity {
 
         bt2.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                // Perform action on click
-                //textIn.setText("test");
-                //txt2.setText("text2");
-                //task.execute(null);
 
                 str = "test";
                 try {
@@ -150,7 +138,6 @@ public class MainActivity extends Activity {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
-
             }
         });
 
@@ -158,10 +145,7 @@ public class MainActivity extends Activity {
 
             @TargetApi(Build.VERSION_CODES.KITKAT)
             public void onClick(View v) {
-                // Perform action on click
-                //textIn.setText("test");
-                //txt2.setText("text2");
-                //task.execute(null);
+
                 ettemp = (EditText) findViewById(R.id.ettemp);
                 if (ettemp.getText().length() != 0 && !Objects.equals(ettemp.getText().toString(), "")) {
                     //Get the text control value
@@ -174,10 +158,13 @@ public class MainActivity extends Activity {
                 } else {
                     tv.setText("Please enter Celcius");
                 }
-
             }
-
         });
+
+        Bundle bundle = getIntent().getExtras();
+        if ((bundle.getString("NFCTAG")) != null) {
+            ((TextView) findViewById(R.id.text)).setText("NFC Tag " + bundle.getString("NFCTAG"));
+        }
 
 
         // ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -186,7 +173,6 @@ public class MainActivity extends Activity {
     }
 
     public void client() throws IOException {
-
 
         Thread thread = new Thread() {
 
@@ -231,13 +217,10 @@ public class MainActivity extends Activity {
                     e.printStackTrace();
                 }
             }
-
-
         };
         thread.start();
-        // }
-
     }
+
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
         IntentResult scanningResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
         if (scanningResult != null) {
@@ -253,7 +236,6 @@ public class MainActivity extends Activity {
         }
     }
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -261,6 +243,8 @@ public class MainActivity extends Activity {
         return true;
     }
 
+
+     /* NFC ACTIVITY
     @Override
     protected void onResume() {
         super.onResume();
@@ -307,9 +291,9 @@ public class MainActivity extends Activity {
             out += hex[i];
         }
         return out;
-    }
+    }*/
 
-
+    // SACAR */
     public void getFahrenheit(String celsius) {
         //Create request
         String METHOD_NAME = "CelsiusToFahrenheit";

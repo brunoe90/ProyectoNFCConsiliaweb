@@ -6,16 +6,15 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/nrf_tag"
+        android:text="dato"
         android:id="@+id/text"
-        android:textSize="30sp" />
+        android:textSize="25sp" />
 
-    <TextView
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/valor_devuelto_por_webservice"
-        android:id="@+id/tv"
-        android:textSize="25sp" />
+        android:text="NFC"
+        android:id="@+id/buttonNFC" />
 
     <Button
         android:layout_width="wrap_content"
