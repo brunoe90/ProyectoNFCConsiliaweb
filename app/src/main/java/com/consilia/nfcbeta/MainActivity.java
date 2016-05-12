@@ -8,18 +8,15 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.zxing.integration.android.IntentIntegrator;
-import com.google.zxing.integration.android.IntentResult;
+
 
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.PropertyInfo;
@@ -53,44 +50,23 @@ public class MainActivity extends Activity {
     byte[] send_data = new byte[1024];
     byte[] receiveData = new byte[1024];
     String modifiedSentence, celcius, fahren;
-    Button bt1, bt2, bt3, bt4,bnfc;
+    Button bt1, bt3, bt4,bnfc;
     Bundle bundle;
     String ip;
     String puerto;
 
-    // list of NFC technologies detected:
-     /*      NFC
-    private final String[][] techList = new String[][]{
-            new String[]{
-                    NfcA.class.getName(),
-                    NfcB.class.getName(),
-                    NfcF.class.getName(),
-                    NfcV.class.getName(),
-                    IsoDep.class.getName(),
-                    MifareClassic.class.getName(),
-                    MifareUltralight.class.getName(), Ndef.class.getName()
-            }
-    };  SACAR */
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
     private GoogleApiClient client;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.main_activity);
-        //txt1   = (TextView)findViewById(R.id.textView1);
-        final Activity activity= this;
+        //final Activity activity= this;//
         tv = (TextView) findViewById(R.id.text);
         formatTxt = (TextView) findViewById(R.id.formatTxt);
         contentTxt  = (TextView)findViewById(R.id.contentTxt);
         bt1 = (Button) findViewById(R.id.button1);
-        bt2 = (Button) findViewById(R.id.button2);
+        //bt2 = (Button) findViewById(R.id.button2);
         bt3 = (Button) findViewById(R.id.button3);
         bt4 = (Button) findViewById(R.id.button4);
         bnfc= (Button) findViewById(R.id.buttonNFC);
@@ -107,8 +83,9 @@ public class MainActivity extends Activity {
         bt4.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-                IntentIntegrator scanIntegrator = new IntentIntegrator( activity);
-                scanIntegrator.initiateScan();
+                Intent intent = new Intent(MainActivity.this, QRBarcodeActivity.class);
+                //intent.putExtras(bundle);
+                startActivity(intent);
             }
         });
 
@@ -127,19 +104,6 @@ public class MainActivity extends Activity {
 
         });
 
-        bt2.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-
-                str = "test";
-                try {
-                    client();
-                    //txt1.setText(modifiedSentence);
-                } catch (IOException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
-            }
-        });
 
         bt3.setOnClickListener(new View.OnClickListener() {
 
@@ -160,11 +124,11 @@ public class MainActivity extends Activity {
                 }
             }
         });
-
+/*
         Bundle bundle = getIntent().getExtras();
         if ((bundle.getString("NFCTAG")) != null) {
             ((TextView) findViewById(R.id.text)).setText("NFC Tag " + bundle.getString("NFCTAG"));
-        }
+        }*/
 
 
         // ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -220,7 +184,7 @@ public class MainActivity extends Activity {
         };
         thread.start();
     }
-
+    /*
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
         IntentResult scanningResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
         if (scanningResult != null) {
@@ -234,15 +198,15 @@ public class MainActivity extends Activity {
                     "No scan data received!", Toast.LENGTH_SHORT);
             toast.show();
         }
-    }
-
+    }// */
+/*
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main_activity, menu);
         return true;
     }
-
+*/
 
      /* NFC ACTIVITY
     @Override
@@ -333,9 +297,6 @@ public class MainActivity extends Activity {
             e.printStackTrace();
         }
     }
-
-
-    //public void buttontemp(View view) {}
 
     @Override
     public void onStart() {

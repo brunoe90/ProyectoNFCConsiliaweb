@@ -47,7 +47,7 @@ public class NfcActivity extends AppCompatActivity {
             public void onClick(View v) {
 
 
-                Intent intent = new Intent(NfcActivity.this, MainActivity.class);
+                Intent intent = new Intent(NfcActivity.this, ServerActivity.class);
                 intent.putExtras(bundle);
                 startActivity(intent);
 

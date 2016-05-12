@@ -3,13 +3,6 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="dato"
-        android:id="@+id/text"
-        android:textSize="25sp" />
-
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -19,14 +12,14 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/temp"
-        android:id="@+id/button1" />
+        android:text="@string/escanear_codigo_de_barras"
+        android:id="@+id/button4" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/test"
-        android:id="@+id/button2" />
+        android:text="@string/temp"
+        android:id="@+id/button1" />
 
     <Button
         android:layout_width="wrap_content"
@@ -40,25 +33,5 @@
         android:inputType="number"
         android:ems="10"
         android:id="@+id/ettemp" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/escanear_codigo_de_barras"
-        android:id="@+id/button4" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/formato_de_qr"
-        android:id="@+id/formatTxt"
-        android:textSize="25sp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/contenido_del_qr"
-        android:id="@+id/contentTxt"
-        android:textSize="20sp" />
 
 </LinearLayout>

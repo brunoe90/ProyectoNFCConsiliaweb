@@ -31,9 +31,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity" />
-
-
-        <activity android:name=".NfcActivity"/>
+        <activity android:name=".NfcActivity" />
+        <activity android:name=".ServerActivity" />
+        <activity android:name=".QRBarcodeActivity"/>
     </application>
 
 </manifest>
