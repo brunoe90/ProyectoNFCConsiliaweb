@@ -39,8 +39,7 @@ import java.util.Objects;
         on those buttons it will communicate with the UDPserver.
 */
 public class MainActivity extends Activity {
-    //private static final String host = null;
-    // private int port;
+
     String str = null;
     /**
      * Called when the activity is first created.
@@ -67,7 +66,7 @@ public class MainActivity extends Activity {
         contentTxt  = (TextView)findViewById(R.id.contentTxt);
         bt1 = (Button) findViewById(R.id.button1);
         //bt2 = (Button) findViewById(R.id.button2);
-        bt3 = (Button) findViewById(R.id.button3);
+        //bt3 = (Button) findViewById(R.id.button3);
         bt4 = (Button) findViewById(R.id.button4);
         bnfc= (Button) findViewById(R.id.buttonNFC);
 
@@ -105,7 +104,7 @@ public class MainActivity extends Activity {
         });
 
 
-        bt3.setOnClickListener(new View.OnClickListener() {
+        /*bt3.setOnClickListener(new View.OnClickListener() {
 
             @TargetApi(Build.VERSION_CODES.KITKAT)
             public void onClick(View v) {
@@ -123,13 +122,7 @@ public class MainActivity extends Activity {
                     tv.setText("Please enter Celcius");
                 }
             }
-        });
-/*
-        Bundle bundle = getIntent().getExtras();
-        if ((bundle.getString("NFCTAG")) != null) {
-            ((TextView) findViewById(R.id.text)).setText("NFC Tag " + bundle.getString("NFCTAG"));
-        }*/
-
+        });*/
 
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
