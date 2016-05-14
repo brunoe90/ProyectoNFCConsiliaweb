@@ -1,43 +1,23 @@
 package com.consilia.nfcbeta;
 
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
 
-
-import org.ksoap2.SoapEnvelope;
-import org.ksoap2.serialization.PropertyInfo;
-import org.ksoap2.serialization.SoapObject;
-import org.ksoap2.serialization.SoapPrimitive;
-import org.ksoap2.serialization.SoapSerializationEnvelope;
-import org.ksoap2.transport.HttpTransportSE;
-
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
-import java.util.Objects;
 
-
-//import com.example.webserviceactivity.R;
-
-/*'     (Android modules i.MX51 and i.MX53) ' Android program, when this application runs on the
-        android device, it will show "temp" and "humi" buttons on the android UI, and as we click
-        on those buttons it will communicate with the UDPserver.
-*/
 public class MainActivity extends Activity {
 
     String str = null;
@@ -45,11 +25,12 @@ public class MainActivity extends Activity {
      * Called when the activity is first created.
      */
     TextView tv, formatTxt,contentTxt;
-    EditText ettemp;
+    //EditText ettemp;
     byte[] send_data = new byte[1024];
     byte[] receiveData = new byte[1024];
-    String modifiedSentence, celcius, fahren;
-    Button bt1, bt3, bt4,bnfc;
+    String modifiedSentence;// celcius, fahren;
+    Button bt1;
+    ImageButton bnfc, bt4;
     Bundle bundle;
     String ip;
     String puerto;
@@ -67,8 +48,8 @@ public class MainActivity extends Activity {
         bt1 = (Button) findViewById(R.id.button1);
         //bt2 = (Button) findViewById(R.id.button2);
         //bt3 = (Button) findViewById(R.id.button3);
-        bt4 = (Button) findViewById(R.id.button4);
-        bnfc= (Button) findViewById(R.id.buttonNFC);
+        bt4 = (ImageButton) findViewById(R.id.button4);
+        bnfc= (ImageButton) findViewById(R.id.buttonNFC);
 
         bnfc.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -177,6 +158,47 @@ public class MainActivity extends Activity {
         };
         thread.start();
     }
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client.connect();
+        Action viewAction = Action.newAction(
+                Action.TYPE_VIEW, // TODO: choose an action type.
+                "Main Page", // TODO: Define a title for the content shown.
+                // TODO: If you have web page content that matches this app activity's content,
+                // make sure this auto-generated web page URL is correct.
+                // Otherwise, set the URL to null.
+                Uri.parse("http://host/path"),
+                // TODO: Make sure this auto-generated app URL is correct.
+                Uri.parse("android-app://com.consilia.nfcbeta/http/host/path")
+        );
+        AppIndex.AppIndexApi.start(client, viewAction);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        Action viewAction = Action.newAction(
+                Action.TYPE_VIEW, // TODO: choose an action type.
+                "Main Page", // TODO: Define a title for the content shown.
+                // TODO: If you have web page content that matches this app activity's content,
+                // make sure this auto-generated web page URL is correct.
+                // Otherwise, set the URL to null.
+                Uri.parse("http://host/path"),
+                // TODO: Make sure this auto-generated app URL is correct.
+                Uri.parse("android-app://com.consilia.nfcbeta/http/host/path")
+        );
+        AppIndex.AppIndexApi.end(client, viewAction);
+        client.disconnect();
+    }
     /*
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
         IntentResult scanningResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
@@ -251,7 +273,7 @@ public class MainActivity extends Activity {
     }*/
 
     // SACAR */
-    public void getFahrenheit(String celsius) {
+    /*public void getFahrenheit(String celsius) {
         //Create request
         String METHOD_NAME = "CelsiusToFahrenheit";
         String NAMESPACE = "http://www.w3schools.com/webservices/";
@@ -289,49 +311,11 @@ public class MainActivity extends Activity {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
+    }*/
 
-    @Override
-    public void onStart() {
-        super.onStart();
 
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client.connect();
-        Action viewAction = Action.newAction(
-                Action.TYPE_VIEW, // TODO: choose an action type.
-                "Main Page", // TODO: Define a title for the content shown.
-                // TODO: If you have web page content that matches this app activity's content,
-                // make sure this auto-generated web page URL is correct.
-                // Otherwise, set the URL to null.
-                Uri.parse("http://host/path"),
-                // TODO: Make sure this auto-generated app URL is correct.
-                Uri.parse("android-app://com.consilia.nfcbeta/http/host/path")
-        );
-        AppIndex.AppIndexApi.start(client, viewAction);
-    }
 
-    @Override
-    public void onStop() {
-        super.onStop();
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        Action viewAction = Action.newAction(
-                Action.TYPE_VIEW, // TODO: choose an action type.
-                "Main Page", // TODO: Define a title for the content shown.
-                // TODO: If you have web page content that matches this app activity's content,
-                // make sure this auto-generated web page URL is correct.
-                // Otherwise, set the URL to null.
-                Uri.parse("http://host/path"),
-                // TODO: Make sure this auto-generated app URL is correct.
-                Uri.parse("android-app://com.consilia.nfcbeta/http/host/path")
-        );
-        AppIndex.AppIndexApi.end(client, viewAction);
-        client.disconnect();
-    }
-
-    private class AsyncCallWS extends AsyncTask<String, Void, Void> {
+    /*private class AsyncCallWS extends AsyncTask<String, Void, Void> {
         @Override
         protected Void doInBackground(String... params) {
             Log.i("TAG", "doInBackground");
@@ -356,7 +340,7 @@ public class MainActivity extends Activity {
             Log.i("TAG", "onProgressUpdate");
         }
 
-    }
+    }*/
 
 
 }

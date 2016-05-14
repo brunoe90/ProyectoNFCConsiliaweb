@@ -43,7 +43,7 @@ public class ServerActivity extends AppCompatActivity {
             public void onClick(View v) {
                 assert edt != null;
                 if (edt.length() > 0) {
-                    //getCelsius(edt.getText().toString());
+                    getCelsius(edt.getText().toString());
                 } else {
                     tresultado.setText("Fahrenheit value can not be empty.");
                 }
