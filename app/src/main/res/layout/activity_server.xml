@@ -15,7 +15,8 @@
         android:layout_height="wrap_content"
         android:inputType="number"
         android:ems="10"
-        android:id="@+id/valor" />
+        android:id="@+id/valor"
+        android:text="25" />
 
     <Button
         android:layout_width="wrap_content"

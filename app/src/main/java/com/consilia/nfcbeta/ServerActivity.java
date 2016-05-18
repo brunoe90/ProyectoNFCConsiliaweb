@@ -43,14 +43,14 @@ public class ServerActivity extends AppCompatActivity {
             public void onClick(View v) {
                 assert edt != null;
                 if (edt.length() > 0) {
-                    getCelsius(edt.getText().toString());
+                    getMensaje(edt.getText().toString());
                 } else {
                     tresultado.setText("Fahrenheit value can not be empty.");
                 }
             }
         });
 /////////////////////////////////////////////////////////////////////////////////////////////////////
-
+        /*
         Thread thread = new Thread() {
 
             @Override
@@ -88,7 +88,7 @@ public class ServerActivity extends AppCompatActivity {
             }
             };
             thread.start();
-
+            */
         Bundle bundle = getIntent().getExtras();
         if ((bundle.getString("NFCTAG")) != null) {
             ((TextView) findViewById(R.id.dato)).setText("NFC Tag " + bundle.getString("NFCTAG"));
@@ -114,7 +114,7 @@ public class ServerActivity extends AppCompatActivity {
         }
     });
 
-    private void getCelsius(final String toConvert) {
+    private void getMensaje(final String toConvert) {
         new Thread(new Runnable() {
 
             @Override

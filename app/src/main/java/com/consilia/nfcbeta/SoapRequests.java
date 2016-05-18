@@ -4,20 +4,23 @@ import android.util.Log;
 
 import org.ksoap2.HeaderProperty;
 import org.ksoap2.SoapEnvelope;
+import org.ksoap2.serialization.KvmSerializable;
+import org.ksoap2.serialization.PropertyInfo;
 import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapPrimitive;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
 import java.net.Proxy;
 import java.util.ArrayList;
+import java.util.Hashtable;
 import java.util.List;
 
 
 public class SoapRequests {
     private static final boolean DEBUG_SOAP_REQUEST_RESPONSE = true;
-    private static final String MAIN_REQUEST_URL = "http://www.w3schools.com/webservices/tempconvert.asmx";
-    private static final String NAMESPACE = "http://www.w3schools.com/webservices/";
-    private static final String SOAP_ACTION = "http://www.w3schools.com/webservices/";
+   private static final String MAIN_REQUEST_URL = "http://www.webservicex.net/stockquote.asmx";
+    private static final String NAMESPACE = "http://www.webservicex.net/";
+    private static final String SOAP_ACTION = "http://www.webserviceX.NET/";
     private static String SESSION_ID;
 
     private void testHttpResponse(HttpTransportSE ht) {
@@ -30,16 +33,18 @@ public class SoapRequests {
 
     public String getCelsiusConversion(String fValue) {
         String data = null;
-        String methodname = "FahrenheitToCelsius";
+        String methodname = "GetQuote";
 
         SoapObject request = new SoapObject(NAMESPACE, methodname);
-        request.addProperty("Fahrenheit", fValue);
+        //request.addProperty("Fahrenheit", fValue);
+        request.addProperty("symbol", fValue);
 
         SoapSerializationEnvelope envelope = getSoapSerializationEnvelope(request);
 
-        HttpTransportSE ht = getHttpTransportSE();
+        HttpTransportSE ht =  getHttpTransportSE();
         try {
             ht.call(SOAP_ACTION + methodname, envelope);
+
             testHttpResponse(ht);
             SoapPrimitive resultsString = (SoapPrimitive)envelope.getResponse();
 
@@ -88,4 +93,26 @@ public class SoapRequests {
 
 
 
+}
+class GoodsObject implements KvmSerializable {
+
+    @Override
+    public Object getProperty(int i) {
+        return null;
+    }
+
+    @Override
+    public int getPropertyCount() {
+        return 0;
+    }
+
+    @Override
+    public void setProperty(int i, Object o) {
+
+    }
+
+    @Override
+    public void getPropertyInfo(int i, Hashtable hashtable, PropertyInfo propertyInfo) {
+
+    }
 }
