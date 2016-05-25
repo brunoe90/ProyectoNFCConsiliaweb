@@ -37,4 +37,10 @@
         android:text="contenido"
         android:id="@+id/dato"
         android:textSize="45sp" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView"
+        android:contentDescription="asd" />
 </LinearLayout>

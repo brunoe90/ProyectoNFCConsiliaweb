@@ -1,37 +1,31 @@
 package com.consilia.nfcbeta;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import org.ksoap2.SoapEnvelope;
-import org.ksoap2.serialization.SoapObject;
-import org.ksoap2.serialization.SoapSerializationEnvelope;
-import org.ksoap2.transport.HttpTransportSE;
-
-
+import java.io.InputStream;
 
 public class ServerActivity extends AppCompatActivity {
-    private static String SOAP_ACTION = "http://tempuri.org/HelloWorld";
-
-    private static String NAMESPACE = "http://tempuri.org/";
-    private static String METHOD_NAME = "HelloWorld";
-
-    private static String URL = "http://bimbim.in/Sample/TestService.asmx?WSDL";
     TextView dato, tresultado;
-    private String celsius;
+    private String stringsoap;
     Button btn;
+    ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_server);
-
 
         final EditText edt = (EditText)findViewById(R.id.valor);
         btn = (Button)findViewById(R.id.btn);
@@ -43,60 +37,26 @@ public class ServerActivity extends AppCompatActivity {
             public void onClick(View v) {
                 assert edt != null;
                 if (edt.length() > 0) {
-                    getMensaje(edt.getText().toString());
+                    getSoap(edt.getText().toString(),"getquote");
                 } else {
-                    tresultado.setText("Fahrenheit value can not be empty.");
+                    tresultado.setText("pone un valor para hacer en codigo de barras");
                 }
             }
         });
-/////////////////////////////////////////////////////////////////////////////////////////////////////
-        /*
-        Thread thread = new Thread() {
 
-            @Override
-            public void run() {
-
-                try {
-                    {
-                        sleep(100);
-                                 //Initialize soap request + add parameters
-                        SoapObject request = new SoapObject(NAMESPACE, METHOD_NAME);
-
-                        //Use this to add parameters
-                        //request.addProperty("Parameter","Value");
-
-                        //Declare the version of the SOAP request
-                        SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
-                        envelope.setOutputSoapObject(request);
-
-                        //Needed to make the internet call
-                        HttpTransportSE androidHttpTransport = new HttpTransportSE(URL);
-                        try {
-                            //this is the actual part that will call the webservice
-                            androidHttpTransport.call(SOAP_ACTION, envelope);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-
-                        // Get the SoapResult from the envelope body.
-                        SoapObject result = (SoapObject)envelope.bodyIn;
-
-                    }
-                    } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-            };
-            thread.start();
-            */
         Bundle bundle = getIntent().getExtras();
         if ((bundle.getString("NFCTAG")) != null) {
-            ((TextView) findViewById(R.id.dato)).setText("NFC Tag " + bundle.getString("NFCTAG"));
+            dato.setText("NFC Tag " + bundle.getString("NFCTAG"));
         }
 
         if ((bundle.getString("QRCONTENIDO")) != null) {
-            ((TextView) findViewById(R.id.dato)).setText("Contentido :" + bundle.getString("QRCONTENIDO"));
+            dato.setText("Contentido :" + bundle.getString("QRCONTENIDO"));
         }
+        if (tresultado.getText().toString().equals("exception")){
+            assert edt != null;
+
+        }
+
 
 
     }
@@ -107,22 +67,59 @@ public class ServerActivity extends AppCompatActivity {
             switch (msg.what) {
 
                 case 0:
-                    tresultado.setText(celsius);
+                    tresultado.setText(stringsoap);
+
+                    getSoap(findViewById(R.id.valor).toString(),"genericbarcode");
+                    new DownloadImageTask((ImageView) findViewById(R.id.imageView)) .execute(stringsoap);
                     break;
             }
             return false;
         }
     });
 
-    private void getMensaje(final String toConvert) {
+    private void getSoap(final String toConvert, final String method) {
         new Thread(new Runnable() {
 
             @Override
             public void run() {
                 SoapRequests ex = new SoapRequests();
-                celsius = ex.getCelsiusConversion(toConvert);
+                switch (method) {
+                    case "getquote":
+                        stringsoap = ex.getquote(toConvert);
+                        break;
+                    case "genericbarcode":
+                        stringsoap = ex.genericbarcode(toConvert);
+                        break;
+                    default:
+                        stringsoap = "vacio";
+                        break;
+                }
                 handler.sendEmptyMessage(0);
             }
         }).start();
+    }
+
+
+    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+        ImageView bmImage= (ImageView)findViewById(R.id.imageView);
+        public DownloadImageTask(ImageView bmImage) {
+            this.bmImage = imageView;
+        }
+
+        protected Bitmap doInBackground(String... urls) {
+            String urldisplay = urls[0];
+            Bitmap mIcon11 = null;
+            try {
+                InputStream in = new java.net.URL(urldisplay).openStream();
+                mIcon11 = BitmapFactory.decodeStream(in);
+            } catch (Exception e) {
+                Log.e("Error", e.getMessage());
+                e.printStackTrace();
+            }
+            return mIcon11;
+        }
+        protected void onPostExecute(Bitmap result) {
+            imageView.setImageBitmap(result);
+        }
     }
 }
