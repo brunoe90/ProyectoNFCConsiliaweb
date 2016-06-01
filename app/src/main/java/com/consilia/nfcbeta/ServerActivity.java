@@ -37,7 +37,7 @@ public class ServerActivity extends AppCompatActivity {
             public void onClick(View v) {
                 assert edt != null;
                 if (edt.length() > 0) {
-                    getSoap(edt.getText().toString(),"getquote");
+                    getSoap(edt.getText().toString(),"getversion");
                 } else {
                     tresultado.setText("pone un valor para hacer en codigo de barras");
                 }
@@ -69,8 +69,8 @@ public class ServerActivity extends AppCompatActivity {
                 case 0:
                     tresultado.setText(stringsoap);
 
-                    getSoap(findViewById(R.id.valor).toString(),"genericbarcode");
-                    new DownloadImageTask((ImageView) findViewById(R.id.imageView)) .execute(stringsoap);
+                    //getSoap(findViewById(R.id.valor).toString(),"genericbarcode");
+                    //new DownloadImageTask((ImageView) findViewById(R.id.imageView)) .execute(stringsoap);
                     break;
             }
             return false;
@@ -83,17 +83,9 @@ public class ServerActivity extends AppCompatActivity {
             @Override
             public void run() {
                 SoapRequests ex = new SoapRequests();
-                switch (method) {
-                    case "getquote":
-                        stringsoap = ex.getquote(toConvert);
-                        break;
-                    case "genericbarcode":
-                        stringsoap = ex.genericbarcode(toConvert);
-                        break;
-                    default:
-                        stringsoap = "vacio";
-                        break;
-                }
+
+                        stringsoap = ex.getversion();
+
                 handler.sendEmptyMessage(0);
             }
         }).start();

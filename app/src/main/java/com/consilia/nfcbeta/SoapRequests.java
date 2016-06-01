@@ -20,8 +20,8 @@ public class SoapRequests {
     private static final boolean DEBUG_SOAP_REQUEST_RESPONSE = true;
     //private static final String MAIN_REQUEST_getquote = "http://www.webservicex.net/stockquote.asmx";
    // private static final String MAIN_REQUEST_GENERIC_BARCODE = "http://www.webservicex.net/genericbarcode.asmx";
-    private static final String NAMESPACE = "http://www.webservicex.net/";
-    private static final String SOAP_ACTION = "http://www.webserviceX.NET/";
+    private static final String NAMESPACE = "http://192.168.0.1/WebService.asmx";
+    private static final String SOAP_ACTION_getversion = "http://controlplus.net/cwpwebservice/GetVersion";
     private static String SESSION_ID;
 
     private void testHttpResponse(HttpTransportSE ht) {
@@ -32,18 +32,18 @@ public class SoapRequests {
         }
     }
 
-    public String getquote(String Value) {
+    public String getversion() {
         String data = null;
-        String methodname = "GetQuote";
+        String methodname = "GetVersion";
 
         SoapObject request = new SoapObject(NAMESPACE, methodname);
-        request.addProperty("symbol", Value);
+        //request.addProperty("symbol", Value);
 
         SoapSerializationEnvelope envelope = getSoapSerializationEnvelope(request);
 
-        HttpTransportSE ht =  getHttpTransportSE( "http://www.webservicex.net/stockquote.asmx");
+        HttpTransportSE ht =  getHttpTransportSE( "http://192.168.0.1/WebService.asmx");
         try {
-            ht.call(SOAP_ACTION + methodname, envelope);
+            ht.call(SOAP_ACTION_getversion, envelope);
 
             testHttpResponse(ht);
             SoapPrimitive resultsString = (SoapPrimitive)envelope.getResponse();
@@ -80,7 +80,7 @@ public class SoapRequests {
 
         HttpTransportSE ht =  getHttpTransportSE(methodname);
         try {
-            ht.call(SOAP_ACTION + methodname, envelope);
+            ht.call(SOAP_ACTION_getversion, envelope);
 
             testHttpResponse(ht);
             SoapPrimitive resultsString = (SoapPrimitive)envelope.getResponse();
