@@ -17,11 +17,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 public class NfcActivity extends AppCompatActivity {
 
-    Button botonvolver;
+    Button botonvolver, benviarid;
+    EditText editText;
+
     final Bundle bundle= new Bundle();
 
     private final String[][] techList = new String[][]{
@@ -41,7 +44,8 @@ public class NfcActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nfc);
         botonvolver = (Button) findViewById(R.id.bvolver);
-
+        benviarid = (Button)findViewById(R.id.bidsocio);
+        editText = (EditText)findViewById(R.id.edtsocio);
 
         botonvolver.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -54,6 +58,16 @@ public class NfcActivity extends AppCompatActivity {
             }
         });
 
+        benviarid.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+                bundle.putInt("idSocio",Integer.valueOf(editText.getText().toString()));
+                Intent intent = new Intent(NfcActivity.this, ServerActivity.class);
+                intent.putExtras(bundle);
+                startActivity(intent);
+
+            }
+        });
     }
 
 
@@ -109,5 +123,8 @@ public class NfcActivity extends AppCompatActivity {
         }
         return out;
     }
+
+
+
 
 }

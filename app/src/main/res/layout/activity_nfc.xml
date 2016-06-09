@@ -13,7 +13,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="NFC TAG:"
+        android:text="@string/nfc_tag"
         android:id="@+id/textView"
         android:textSize="40sp" />
 
@@ -22,12 +22,32 @@
         android:layout_height="wrap_content"
         android:id="@+id/text"
         android:textSize="30sp"
-        android:text="tag aqui" />
+        android:text="@string/tag_aqui" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="enviar"
+        android:text="@string/enviar_nfc"
         android:id="@+id/bvolver" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/id_socio"
+        android:id="@+id/textView5"
+        android:textSize="40sp" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/edtsocio" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/enviar_id_socio"
+        android:id="@+id/bidsocio" />
 
 </LinearLayout>

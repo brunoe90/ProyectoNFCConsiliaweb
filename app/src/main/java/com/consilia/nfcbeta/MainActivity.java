@@ -13,27 +13,22 @@ import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
 
-import java.io.IOException;
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
-import java.net.InetAddress;
-
 public class MainActivity extends Activity {
 
-    String str = null;
+    //String str = null;
     /**
      * Called when the activity is first created.
      */
     TextView tv, formatTxt,contentTxt;
     //EditText ettemp;
-    byte[] send_data = new byte[1024];
-    byte[] receiveData = new byte[1024];
-    String modifiedSentence;// celcius, fahren;
+    //byte[] send_data = new byte[1024];
+    //byte[] receiveData = new byte[1024];
+    //String modifiedSentence;// celcius, fahren;
     Button bt1;
     ImageButton bnfc, bt4;
-    Bundle bundle;
-    String ip;
-    String puerto;
+    //Bundle bundle;
+    //String ip;
+    //String puerto;
 
     private GoogleApiClient client;
 
@@ -72,14 +67,14 @@ public class MainActivity extends Activity {
         bt1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-                str = "temp";
+               /* str = "temp";
                 try {
                     client();
                     //txt1.setText(modifiedSentence);
                 } catch (IOException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
-                }
+                }*/
             }
 
         });
@@ -110,7 +105,7 @@ public class MainActivity extends Activity {
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
-    public void client() throws IOException {
+   /* public void client() throws IOException {
 
         Thread thread = new Thread() {
 
@@ -123,7 +118,7 @@ public class MainActivity extends Activity {
                         bundle = getIntent().getExtras();
 
                         ip = bundle.getString("ip");
-                        puerto = bundle.getString("puerto");
+                        //puerto = bundle.getString("puerto");
                         //DatagramSocket client_socket = new DatagramSocket(3996);
                         // InetAddress IPAddress = InetAddress.getByName("192.168.43.133");
                         DatagramSocket client_socket = new DatagramSocket(Integer.parseInt(puerto));
@@ -157,7 +152,7 @@ public class MainActivity extends Activity {
             }
         };
         thread.start();
-    }
+    }*/
 
 
     @Override

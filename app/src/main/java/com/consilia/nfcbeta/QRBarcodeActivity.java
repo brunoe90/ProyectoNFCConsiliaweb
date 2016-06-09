@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,9 +17,10 @@ import com.google.zxing.integration.android.IntentResult;
 
 public class QRBarcodeActivity extends AppCompatActivity {
 
-    Button bqr,benviar;
+    Button bqr,benviar,benviarid;
     TextView formatTxt,contentTxt;
     Bundle bundle= new Bundle();
+    EditText editText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +30,8 @@ public class QRBarcodeActivity extends AppCompatActivity {
         final Activity activity= this;
         bqr = (Button) findViewById(R.id.bqr);
         benviar = (Button) findViewById(R.id.benviar);
-
+        benviarid = (Button)findViewById(R.id.bidsocio);
+        editText = (EditText)findViewById(R.id.editText4);
 
         bqr.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -44,6 +47,18 @@ public class QRBarcodeActivity extends AppCompatActivity {
                 Intent intent = new Intent(QRBarcodeActivity.this, ServerActivity.class);
                 intent.putExtras(bundle);
                 startActivity(intent);
+            }
+        });
+
+
+        benviarid.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+                bundle.putInt("idSocio",Integer.valueOf(editText.getText().toString()));
+                Intent intent = new Intent(QRBarcodeActivity.this, ServerActivity.class);
+                intent.putExtras(bundle);
+                startActivity(intent);
+
             }
         });
     }

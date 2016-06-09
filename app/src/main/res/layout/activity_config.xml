@@ -13,7 +13,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/setear_ip"
+        android:text="@string/url"
         android:id="@+id/setearip"
         android:layout_gravity="center_horizontal"
         android:textSize="30sp" />
@@ -23,25 +23,49 @@
         android:layout_height="wrap_content"
         android:id="@+id/etip"
         android:layout_gravity="center_horizontal"
-        android:text="192.168.1.5"
+        android:text="@string/http_192_168_0_1_webservice_asmx"
         android:inputType="none" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/puerto"
-        android:id="@+id/tvpuerto"
+        android:text="@string/estadio"
+        android:id="@+id/textView3"
         android:layout_gravity="center_horizontal"
-        android:textSize="25sp" />
+        android:textSize="26sp" />
+
+    <Spinner
+        android:id="@+id/Estadio"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:entries="@array/country_arrays"
+        android:prompt="@string/country_prompt"
+        android:spinnerMode="dropdown" />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="number"
         android:ems="10"
-        android:id="@+id/etpuerto"
+        android:id="@+id/editText2"
         android:layout_gravity="center_horizontal"
-        android:text="@string/_3996" />
+        android:text="@string/numero_de_estadio" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/puerta"
+        android:id="@+id/textView2"
+        android:layout_gravity="center_horizontal"
+        android:textSize="20sp" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/etstadio"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/_1"
+        android:inputType="none" />
 
     <Button
         android:layout_width="wrap_content"

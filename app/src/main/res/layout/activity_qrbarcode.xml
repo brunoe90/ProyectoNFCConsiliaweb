@@ -16,16 +16,10 @@
         android:text="escanear codigo de barras"
         android:id="@+id/bqr" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="enviar"
-        android:id="@+id/benviar" />
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Formato"
+        android:text="@string/formato"
         android:id="@+id/formatTxt"
         android:textSize="40sp" />
 
@@ -35,4 +29,33 @@
         android:text="Contenido"
         android:id="@+id/contentTxt"
         android:textSize="30sp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/enviar"
+        android:id="@+id/benviar" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView6"
+        android:textSize="40sp"
+        android:text="@string/id_socio"
+        android:layout_gravity="bottom" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/editText4"
+        android:layout_gravity="bottom" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/enviar_id_socio"
+        android:id="@+id/bidsocio"
+        android:layout_gravity="bottom" />
 </LinearLayout>

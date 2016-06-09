@@ -16,4 +16,33 @@
     <string name="valor_devuelto_por_webservice">Valor devuelto por webservice</string>
     <string name="formato_de_qr">formato de qr</string>
     <string name="contenido_del_qr">contenido del qr</string>
+    <string name="url">URL</string>
+    <string name="http_192_168_0_1_webservice_asmx">http://192.168.0.1/WebService.asmx</string>
+    <string name="idstadio">idStadio</string>
+    <string name="_12">12</string>
+    <string name="puerta">Puerta</string>
+    <string name="_1">1</string>
+    <string name="country_prompt">Estadio:</string>
+    <string name="estadio">Estadio</string>
+    <string name="numero_de_estadio">numero de estadio</string>
+    <string name="contenido">contenido</string>
+    <string name="resultado">resultado</string>
+    <string name="convertir">convertir</string>
+    <string name="introducir_pedido">introducir pedido</string>
+    <string name="id_socio">ID SOCIO:</string>
+    <string name="nfc_tag">NFC TAG:</string>
+    <string name="tag_aqui">tag aqui</string>
+    <string name="enviar_nfc">Enviar NFC</string>
+    <string name="enviar_id_socio">Enviar ID SOCIO</string>
+    <string name="formato">Formato</string>
+    <string name="enviar">enviar</string>
+    <string-array name="country_arrays">
+        <item>Boca</item>
+        <item>River</item>
+        <item>Racing</item>
+        <item>Velez</item>
+        <item>Geba</item>
+        <item>La Plata</item>
+        <item>Luna Park</item>
+    </string-array>
 </resources>

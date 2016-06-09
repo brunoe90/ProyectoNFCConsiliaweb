@@ -10,31 +10,36 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.consilia.nfcbeta.ServerActivity">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Introducir pedido soap"
+        android:id="@+id/textView4"
+        android:textSize="24sp" />
+
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="number"
-        android:ems="10"
         android:id="@+id/valor"
-        android:text="25" />
+        android:inputType="none" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="convertir"
+        android:text="@string/convertir"
         android:id="@+id/btn" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="resultado"
+        android:text="@string/resultado"
         android:id="@+id/tresultado"
         android:textSize="24sp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="contenido"
+        android:text="@string/contenido"
         android:id="@+id/dato"
         android:textSize="45sp" />
 
