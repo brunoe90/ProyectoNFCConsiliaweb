@@ -42,15 +42,6 @@
         android:prompt="@string/country_prompt"
         android:spinnerMode="dropdown" />
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="number"
-        android:ems="10"
-        android:id="@+id/editText2"
-        android:layout_gravity="center_horizontal"
-        android:text="@string/numero_de_estadio" />
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

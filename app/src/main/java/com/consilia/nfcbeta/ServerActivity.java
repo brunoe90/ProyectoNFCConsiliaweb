@@ -134,7 +134,7 @@ public class ServerActivity extends AppCompatActivity {
 
                         int numSocio;
                         String tipodoc = "DNI";
-                        numSocio = ex.getsociobydoc(idStadium, idSocio, tipodoc); //type="s:int" devuelve entero ////////// ENTRA unsigned byte idStadium -- string idTipoDoc -- long documento
+                        numSocio = ex.getsociobydoc(2, 23974462, tipodoc); //type="s:int" devuelve entero ////////// ENTRA unsigned byte idStadium -- string idTipoDoc -- long documento
                         stringsoap = String.valueOf(numSocio);
                         break;
                     }

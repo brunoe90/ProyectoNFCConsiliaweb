@@ -50,7 +50,8 @@
         android:inputType="number"
         android:ems="10"
         android:id="@+id/editText4"
-        android:layout_gravity="bottom" />
+        android:layout_gravity="bottom"
+        android:text="2" />
 
     <Button
         android:layout_width="wrap_content"
