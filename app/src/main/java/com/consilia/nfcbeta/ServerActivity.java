@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.server.converter.StringToIntConverter;
 
 
 public class ServerActivity extends AppCompatActivity {
@@ -132,9 +133,9 @@ public class ServerActivity extends AppCompatActivity {
                     }
                     case "buscar": {
 
-                        int numSocio;
+                        String numSocio;
                         String tipodoc = "DNI";
-                        numSocio = ex.getsociobydoc(2, 23974462, tipodoc); //type="s:int" devuelve entero ////////// ENTRA unsigned byte idStadium -- string idTipoDoc -- long documento
+                        numSocio = ex.getsociobydoc("2", "23974462", tipodoc); //type="s:int" devuelve entero ////////// ENTRA unsigned byte idStadium -- string idTipoDoc -- long documento
                         stringsoap = String.valueOf(numSocio);
                         break;
                     }

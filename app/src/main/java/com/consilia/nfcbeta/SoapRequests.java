@@ -6,6 +6,7 @@ import org.ksoap2.HeaderProperty;
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.AttributeInfo;
 import org.ksoap2.serialization.Marshal;
+import org.ksoap2.serialization.MarshalBase64;
 import org.ksoap2.serialization.PropertyInfo;
 import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapPrimitive;
@@ -15,11 +16,16 @@ import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlSerializer;
 
+import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.lang.annotation.ElementType;
+import java.net.HttpURLConnection;
 import java.net.Proxy;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.List;
 
 
@@ -76,34 +82,29 @@ public class SoapRequests {
     }
 
 
-    public int getsociobydoc(int idStatium, long documento, String idTipoDoc) {
+    public String getsociobydoc(String idStadium, String documento, String idTipoDoc) {
 
-        int data = 0   ;
-        byte idStadiumq = 2;
+        String data = null  ;
+
         String methodname = "SearchSocioByDoc";
 
         SoapObject request = new SoapObject("http://controlplus.net/cwpwebservice",methodname);// new SoapObject(NAMESPACE, methodname);
 
-        PropertyInfo pi=new PropertyInfo();
+        request.addProperty("idStadium", idStadium);
+        request.addProperty("idTipoDoc",idTipoDoc);
+        request.addProperty("documento",documento);
 
-     //   pi = new PropertyInfo();
-        request.addProperty("idStatium","2");
-        request.addProperty("idTipoDoc","DNI");
-        request.addProperty("documento","23974462");
+        SoapSerializationEnvelope envelope;
+        envelope = getSoapSerializationEnvelope(request);
 
-        SoapSerializationEnvelope envelope = getSoapSerializationEnvelope(request);
-
-        envelope.bodyOut = request;
-        envelope.encodingStyle = SoapSerializationEnvelope.ENC2003;
-        envelope.dotNet = true;
-        envelope.setOutputSoapObject(request);
         HttpTransportSE ht =  getHttpTransportSE( "http://192.168.0.1/WebService.asmx");
         try {
-
-            ht.call(SOAP_ACTION_SearchSocioByDoc, envelope);
+            MarshalString marshalString = new MarshalString();
+            marshalString.register(envelope);
+            ht.call(SOAP_ACTION_SearchSocioByDoc,  envelope);
 
             testHttpResponse(ht);
-            SoapPrimitive resultsString = (SoapPrimitive)envelope.getResponse();
+            SoapPrimitive resultsString = (SoapPrimitive) envelope.getResponse();
 
             List<HeaderProperty> COOKIE_HEADER = (List<HeaderProperty>) ht.getServiceConnection().getResponseProperties();
 
@@ -117,7 +118,7 @@ public class SoapRequests {
                     break;
                 }
             }
-            data = Integer.getInteger(resultsString.toString());
+            data = (resultsString.toString());
 
         } catch (Exception q) {
             q.printStackTrace();
@@ -186,7 +187,7 @@ public class SoapRequests {
 
     private  SoapSerializationEnvelope getSoapSerializationEnvelope(SoapObject request) {
         SoapSerializationEnvelope envelope;
-        envelope = new SoapSerializationEnvelope(SoapEnvelope.VER10);
+        envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
         envelope.dotNet = true;
         envelope.implicitTypes = true;
         envelope.setAddAdornments(false);
@@ -239,7 +240,7 @@ class MarshalByte implements Marshal {
     }
 
     public void register(SoapSerializationEnvelope cm) {
-        cm.addMapping(cm.xsd, null, Byte.class, this);
+        cm.addMapping(cm.xsd, "byte", Byte.class, this);
 
     }
 
