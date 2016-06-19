@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/valor"
         android:inputType="none"
-        android:text="socio" />
+        android:text="estado" />
 
     <Button
         android:layout_width="wrap_content"
@@ -35,7 +35,7 @@
         android:layout_height="wrap_content"
         android:text="@string/resultado"
         android:id="@+id/tresultado"
-        android:textSize="24sp" />
+        android:textSize="15sp" />
 
     <TextView
         android:layout_width="wrap_content"

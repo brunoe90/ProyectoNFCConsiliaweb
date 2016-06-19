@@ -30,6 +30,7 @@ public class ServerActivity extends AppCompatActivity {
     Bitmap decodedByte = null;
     ImageView imageView;
     Bundle bundle;
+
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -65,6 +66,8 @@ public class ServerActivity extends AppCompatActivity {
 
                 } else if (edt.getText().toString().equals("foto")) {
                     getSoap(edt.getText().toString(), "GetFotoSocio");
+                }else if (edt.getText().toString().equals("estado")) {
+                    getSoap(edt.getText().toString(), "getestado");
                 }
             }
         });
@@ -84,6 +87,7 @@ public class ServerActivity extends AppCompatActivity {
             assert edt != null;
 
         }
+
 
 
         // ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -137,6 +141,16 @@ public class ServerActivity extends AppCompatActivity {
                         String tipodoc = "DNI";
                         numSocio = ex.getsociobydoc("2", "23974462", tipodoc); //type="s:int" devuelve entero ////////// ENTRA unsigned byte idStadium -- string idTipoDoc -- long documento
                         stringsoap = String.valueOf(numSocio);
+                        break;
+                    }
+                    case "getestado": {
+
+                        String numSocio;
+                        //String tipodoc = "DNI";
+                        numSocio = ex.getsocio("2","53185", "23974462"); //type="s:int" devuelve entero ////////// ENTRA unsigned byte idStadium -- string idTipoDoc -- long documento
+                        stringsoap = String.valueOf(numSocio);
+
+
                         break;
                     }
                     //case
@@ -213,3 +227,5 @@ public class ServerActivity extends AppCompatActivity {
         }
     }*/
 }
+
+
