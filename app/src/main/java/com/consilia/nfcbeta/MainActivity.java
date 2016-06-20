@@ -1,13 +1,17 @@
 package com.consilia.nfcbeta;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
@@ -36,13 +40,10 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
-        //final Activity activity= this;//
         tv = (TextView) findViewById(R.id.text);
         formatTxt = (TextView) findViewById(R.id.formatTxt);
         contentTxt  = (TextView)findViewById(R.id.contentTxt);
         bt1 = (Button) findViewById(R.id.button1);
-        //bt2 = (Button) findViewById(R.id.button2);
-        //bt3 = (Button) findViewById(R.id.button3);
         bt4 = (ImageButton) findViewById(R.id.button4);
         bnfc= (ImageButton) findViewById(R.id.buttonNFC);
 
@@ -67,43 +68,51 @@ public class MainActivity extends Activity {
         bt1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-               /* str = "temp";
-                try {
-                    client();
-                    //txt1.setText(modifiedSentence);
-                } catch (IOException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }*/
-            }
+                new Thread(new Runnable() {
 
+                    @Override
+                    public void run() {
+
+                        SoapRequests ex = new SoapRequests();
+                        String stringsoap = ex.getversion();
+                        if (stringsoap!=null ) {
+                            if (!stringsoap.equals("0")) {
+                                handler.sendEmptyMessage(1);
+
+                            } else {
+                                handler.sendEmptyMessage(0);
+                            }
+                        }else handler.sendEmptyMessage(0);
+
+                    }
+
+                }).start();
+
+            }
         });
 
-
-        /*bt3.setOnClickListener(new View.OnClickListener() {
-
-            @TargetApi(Build.VERSION_CODES.KITKAT)
-            public void onClick(View v) {
-
-                ettemp = (EditText) findViewById(R.id.ettemp);
-                if (ettemp.getText().length() != 0 && !Objects.equals(ettemp.getText().toString(), "")) {
-                    //Get the text control value
-                    celcius = ettemp.getText().toString();
-                    //Create instance for AsyncCallWS
-                    AsyncCallWS task = new AsyncCallWS();
-                    //Call execute
-                    task.execute();
-                    //If text control is empty
-                } else {
-                    tv.setText("Please enter Celcius");
-                }
-            }
-        });*/
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
+
+    public Handler handler = new Handler(new Handler.Callback() {
+
+        @Override
+        public boolean handleMessage(Message msg) {
+            Context context = getApplicationContext();
+            switch (msg.what) {
+
+                case 1:{ Toast toast = Toast.makeText(context, "Se conecto al servidor!", Toast.LENGTH_SHORT);
+                toast.show(); break;
+                }
+                case 0:{
+                Toast toast = Toast.makeText(context, "No se logro conectar!", Toast.LENGTH_LONG);
+                toast.show();break;
+                }
+
+            }
+            return false;
+        }
+    });
 
    /* public void client() throws IOException {
 

@@ -18,12 +18,12 @@
         android:layout_weight="9"
         android:src="@drawable/qrbutton"
         android:layout_gravity="center_horizontal"
-        android:contentDescription="asd" />
+        android:contentDescription="@string/asd" />
 
     <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="VERIF SERVIDOR"
+        android:text="@string/verif_servidor"
         android:id="@+id/button1"
         android:layout_weight="1" />
 

@@ -20,6 +20,8 @@ import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.server.converter.StringToIntConverter;
 
+import java.io.UnsupportedEncodingException;
+
 
 public class ServerActivity extends AppCompatActivity {
     TextView dato, tresultado;
@@ -45,6 +47,7 @@ public class ServerActivity extends AppCompatActivity {
 
         final EditText edt = (EditText) findViewById(R.id.valor);
         btn = (Button) findViewById(R.id.btn);
+        imageView = (ImageView) findViewById(R.id.imageView);
         tresultado = (TextView) findViewById(R.id.tresultado);
         dato = (TextView) findViewById(R.id.dato);
         bundle = getIntent().getExtras();
@@ -101,16 +104,21 @@ public class ServerActivity extends AppCompatActivity {
         public boolean handleMessage(Message msg) {
             switch (msg.what) {
 
-                case 0:
-                    tresultado.setText(stringsoap);
+                case 0: tresultado.setText(stringsoap); break;
+
+                case 1:{
                     if (decodedByte != null) {
-                        imageView.setImageBitmap(decodedByte);
+
+                        try {
+                            imageView.setImageBitmap(decodedByte);
+                        } catch (Exception q) {
+                            q.printStackTrace();
+                        }
                     }
+                    break;}
+                case 2: tresultado.setText(stringsoap); break;
 
-                    //getSoap(findViewById(R.id.valor).toString(),"genericbarcode");
-                    //new DownloadImageTask((ImageView) findViewById(R.id.imageView)) .execute(stringsoap);
-
-                    break;
+                case 3:tresultado.setText(stringsoap);  break;
             }
             return false;
         }
@@ -127,13 +135,20 @@ public class ServerActivity extends AppCompatActivity {
                     case "getversion":
 
                         stringsoap = ex.getversion();
+                        handler.sendEmptyMessage(0);
                         break;
                     case "GetFotoSocio": {
-
-                        String foto = ex.getfotosocio(1, idStadium);
-                        byte[] decodedString = Base64.decode(foto, Base64.URL_SAFE);
-                        decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, foto.length());
-                        break; //type="s:base64Binary" devuelve base 64
+                        idStadium =2;
+                        byte[] foto = ex.getfotosocio(String.valueOf(idStadium),"53185" );
+                        String text = null;
+                        try {
+                            text = new String(foto, "UTF-8");
+                            decodedByte = BitmapFactory.decodeByteArray(foto, 0, foto.length);
+                        } catch (UnsupportedEncodingException e) {
+                            e.printStackTrace();
+                        }
+                        handler.sendEmptyMessage(1);
+                        break;
                     }
                     case "buscar": {
 
@@ -141,6 +156,7 @@ public class ServerActivity extends AppCompatActivity {
                         String tipodoc = "DNI";
                         numSocio = ex.getsociobydoc("2", "23974462", tipodoc); //type="s:int" devuelve entero ////////// ENTRA unsigned byte idStadium -- string idTipoDoc -- long documento
                         stringsoap = String.valueOf(numSocio);
+                        handler.sendEmptyMessage(2);
                         break;
                     }
                     case "getestado": {
@@ -149,16 +165,11 @@ public class ServerActivity extends AppCompatActivity {
                         //String tipodoc = "DNI";
                         numSocio = ex.getsocio("2","53185", "23974462"); //type="s:int" devuelve entero ////////// ENTRA unsigned byte idStadium -- string idTipoDoc -- long documento
                         stringsoap = String.valueOf(numSocio);
-
+                        handler.sendEmptyMessage(3);
 
                         break;
                     }
-                    //case
-
-
                 }
-
-                handler.sendEmptyMessage(0);
             }
         }).start();
     }

@@ -1,5 +1,6 @@
 package com.consilia.nfcbeta;
 
+import android.util.Base64;
 import android.util.Log;
 
 import org.ksoap2.HeaderProperty;
@@ -11,14 +12,13 @@ import org.ksoap2.transport.HttpTransportSE;
 import java.net.Proxy;
 import java.util.List;
 
-
 public class SoapRequests {
     private static final boolean DEBUG_SOAP_REQUEST_RESPONSE = true;
-    private static final String NAMESPACE = "http://192.168.0.1/WebService.asmx";
-    private static final String SOAP_ACTION_getversion = "http://controlplus.net/cwpwebservice/GetVersion";
-    private static final String SOAP_ACTION_SearchSocioByDoc = "http://controlplus.net/cwpwebservice/SearchSocioByDoc";
-    private static final String SOAP_ACTION_SearchSocio ="http://controlplus.net/cwpwebservice/SearchSocio";
-    private static final String SOAP_ACTION_getfoto = "http://controlplus.net/cwpwebservice/GetFotoSocio";
+    private static final String NAMESPACE =                     "http://192.168.0.1/WebService.asmx";
+    private static final String SOAP_ACTION_getversion =        "http://controlplus.net/cwpwebservice/GetVersion";
+    private static final String SOAP_ACTION_SearchSocioByDoc =  "http://controlplus.net/cwpwebservice/SearchSocioByDoc";
+    private static final String SOAP_ACTION_SearchSocio =       "http://controlplus.net/cwpwebservice/SearchSocio";
+    private static final String SOAP_ACTION_getfoto =           "http://controlplus.net/cwpwebservice/GetFotoSocio";
     private static String SESSION_ID;
 
     private void testHttpResponse(HttpTransportSE ht) {
@@ -30,9 +30,10 @@ public class SoapRequests {
     }
 
     public String getversion() {
-        String data = null;
-        String methodname = "GetVersion";
 
+        String data = null;
+
+        String methodname = "GetVersion";
         SoapObject request = new SoapObject(NAMESPACE, methodname);
         //request.addProperty("symbol", Value);
 
@@ -65,13 +66,11 @@ public class SoapRequests {
         return data;
     }
 
-
     public String getsociobydoc(String idStadium, String documento, String idTipoDoc) {
 
         String data = null  ;
 
         String methodname = "SearchSocioByDoc";
-
         SoapObject request = new SoapObject("http://controlplus.net/cwpwebservice",methodname);// new SoapObject(NAMESPACE, methodname);
 
         request.addProperty("idStadium", idStadium);
@@ -108,7 +107,6 @@ public class SoapRequests {
         }
         return data;
     }
-
 
     public String getsocio(String idStadium,  String numSocio,String documento) {
 
@@ -162,32 +160,23 @@ public class SoapRequests {
         return data;
     }
 
+    public byte[] getfotosocio(String idStadium, String numSocio) {
 
-
-
-
-    public String getfotosocio(int idStatium, int numSocio) {
-
-
-
-
-        String data = null;
+        byte data[] = new byte[0];
         String methodname = "GetFotoSocio";
 
-        SoapObject request = new SoapObject(NAMESPACE, methodname);
-        request.addProperty("idStatium", idStatium);
+        SoapObject request = new SoapObject("http://controlplus.net/cwpwebservice", methodname);
+        request.addProperty("idStadium", idStadium);
         request.addProperty("numSocio", numSocio);
-
 
         SoapSerializationEnvelope envelope = getSoapSerializationEnvelope(request);
 
-
-        HttpTransportSE ht =  getHttpTransportSE(methodname);
+        HttpTransportSE ht =  getHttpTransportSE( "http://192.168.0.1/WebService.asmx");
         try {
             ht.call(SOAP_ACTION_getfoto, envelope);
 
             testHttpResponse(ht);
-            SoapPrimitive resultsString = (SoapPrimitive)envelope.getResponse();
+            SoapPrimitive resultsString = (SoapPrimitive) envelope.getResponse();
 
             List<HeaderProperty> COOKIE_HEADER = (List<HeaderProperty>) ht.getServiceConnection().getResponseProperties();
 
@@ -201,7 +190,8 @@ public class SoapRequests {
                     break;
                 }
             }
-            data = resultsString.toString();
+            String decode =resultsString.toString();
+            data = Base64.decode(decode.getBytes(), Base64.DEFAULT); //resultsString.toString();
 
         } catch (Exception q) {
             q.printStackTrace();
@@ -227,7 +217,7 @@ public class SoapRequests {
     }
 
     private HttpTransportSE getHttpTransportSE(String method   ) {
-        HttpTransportSE ht = new HttpTransportSE(Proxy.NO_PROXY,method,60000);
+        HttpTransportSE ht = new HttpTransportSE(Proxy.NO_PROXY,method,4000);
         ht.debug = true;
         ht.setXmlVersionTag("<?xml version=\"1.0\" encoding= \"UTF-8\" ?>");
         return ht;
