@@ -20,6 +20,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.util.Arrays;
+
 public class NfcActivity extends AppCompatActivity {
 
     Button botonvolver, benviarid;
@@ -111,17 +113,24 @@ public class NfcActivity extends AppCompatActivity {
 
     private String ByteArrayToHexString(byte[] inarray) {
         int i, j, in;
+        long  a;
         String[] hex = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F"};
         String out = "";
 
-        for (j = 0; j < inarray.length; ++j) {
-            in = (int) inarray[j] & 0xff;
+        for (j = inarray.length; j >0 ; j--) {
+            in = (int) inarray[j-1] & 0xff;
             i = (in >> 4) & 0x0f;
             out += hex[i];
             i = in & 0x0f;
             out += hex[i];
         }
-        return out;
+        //try{
+          a =Long.parseLong(out,16);
+
+        /*}  catch (Exception q) {
+        q.printStackTrace();
+        }*/
+        return String.valueOf(a);
     }
 
 

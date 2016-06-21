@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,10 +17,6 @@ import android.widget.TextView;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.server.converter.StringToIntConverter;
-
-import java.io.UnsupportedEncodingException;
-
 
 public class ServerActivity extends AppCompatActivity {
     TextView dato, tresultado;
@@ -54,6 +49,8 @@ public class ServerActivity extends AppCompatActivity {
         idSocio = (bundle.getInt("idSocio"));
         idStadium = bundle.getInt("idStadium");
 
+        idSocio = 23974462;
+
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -71,10 +68,12 @@ public class ServerActivity extends AppCompatActivity {
                     getSoap(edt.getText().toString(), "GetFotoSocio");
                 }else if (edt.getText().toString().equals("estado")) {
                     getSoap(edt.getText().toString(), "getestado");
+                }else if (edt.getText().toString().equals("tarjeta")) {
+                    getSoap(edt.getText().toString(), "getcarnet");
                 }
+
             }
         });
-
 
         if ((bundle.getString("NFCTAG")) != null) {
             dato.setText("NFC Tag " + bundle.getString("NFCTAG"));
@@ -88,10 +87,7 @@ public class ServerActivity extends AppCompatActivity {
         }
         if (tresultado.getText().toString().equals("exception")) {
             assert edt != null;
-
         }
-
-
 
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -139,13 +135,10 @@ public class ServerActivity extends AppCompatActivity {
                         break;
                     case "GetFotoSocio": {
                         idStadium =2;
-                        byte[] foto = ex.getfotosocio(String.valueOf(idStadium),"53185" );
-                        String text = null;
-                        try {
-                            text = new String(foto, "UTF-8");
+                        byte[] foto = ex.getfotosocio(String.valueOf(idStadium),String.valueOf(idSocio ));
+
+                        if (decodedByte != null){
                             decodedByte = BitmapFactory.decodeByteArray(foto, 0, foto.length);
-                        } catch (UnsupportedEncodingException e) {
-                            e.printStackTrace();
                         }
                         handler.sendEmptyMessage(1);
                         break;
@@ -154,7 +147,7 @@ public class ServerActivity extends AppCompatActivity {
 
                         String numSocio;
                         String tipodoc = "DNI";
-                        numSocio = ex.getsociobydoc("2", "23974462", tipodoc); //type="s:int" devuelve entero ////////// ENTRA unsigned byte idStadium -- string idTipoDoc -- long documento
+                        numSocio = ex.getsociobydoc(String.valueOf(idStadium), String.valueOf(idSocio ), tipodoc); //type="s:int" devuelve entero ////////// ENTRA unsigned byte idStadium -- string idTipoDoc -- long documento
                         stringsoap = String.valueOf(numSocio);
                         handler.sendEmptyMessage(2);
                         break;
@@ -163,11 +156,14 @@ public class ServerActivity extends AppCompatActivity {
 
                         String numSocio;
                         //String tipodoc = "DNI";
-                        numSocio = ex.getsocio("2","53185", "23974462"); //type="s:int" devuelve entero ////////// ENTRA unsigned byte idStadium -- string idTipoDoc -- long documento
+                        numSocio = ex.getsocio(String.valueOf(idStadium),"53185", String.valueOf(idSocio )); //type="s:int" devuelve entero ////////// ENTRA unsigned byte idStadium -- string idTipoDoc -- long documento
                         stringsoap = String.valueOf(numSocio);
                         handler.sendEmptyMessage(3);
 
                         break;
+                    }
+                    case "getcarnet": {
+
                     }
                 }
             }
