@@ -49,7 +49,7 @@ public class ServerActivity extends AppCompatActivity {
         idSocio = (bundle.getInt("idSocio"));
         idStadium = bundle.getInt("idStadium");
 
-        idSocio = 23974462;
+        //idSocio = 23974462;
 
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,7 +103,7 @@ public class ServerActivity extends AppCompatActivity {
                 case 0: tresultado.setText(stringsoap); break;
 
                 case 1:{
-                    if (decodedByte != null) {
+                     {
 
                         try {
                             imageView.setImageBitmap(decodedByte);
@@ -114,7 +114,7 @@ public class ServerActivity extends AppCompatActivity {
                     break;}
                 case 2: tresultado.setText(stringsoap); break;
 
-                case 3:tresultado.setText(stringsoap);  break;
+                case 3: tresultado.setText(stringsoap);  break;
             }
             return false;
         }
@@ -136,10 +136,7 @@ public class ServerActivity extends AppCompatActivity {
                     case "GetFotoSocio": {
                         idStadium =2;
                         byte[] foto = ex.getfotosocio(String.valueOf(idStadium),String.valueOf(idSocio ));
-
-                        if (decodedByte != null){
-                            decodedByte = BitmapFactory.decodeByteArray(foto, 0, foto.length);
-                        }
+                        decodedByte = BitmapFactory.decodeByteArray(foto, 0, foto.length);
                         handler.sendEmptyMessage(1);
                         break;
                     }
@@ -155,15 +152,14 @@ public class ServerActivity extends AppCompatActivity {
                     case "getestado": {
 
                         String numSocio;
-                        //String tipodoc = "DNI";
-                        numSocio = ex.getsocio(String.valueOf(idStadium),"53185", String.valueOf(idSocio )); //type="s:int" devuelve entero ////////// ENTRA unsigned byte idStadium -- string idTipoDoc -- long documento
+                        numSocio = ex.getsocio(String.valueOf(idStadium),String.valueOf(idSocio ),String.valueOf(idSocio ) ); //type="s:int" devuelve entero ////////// ENTRA unsigned byte idStadium -- string idTipoDoc -- long documento
                         stringsoap = String.valueOf(numSocio);
                         handler.sendEmptyMessage(3);
 
                         break;
                     }
                     case "getcarnet": {
-
+                        stringsoap = ex.getcaret("2",bundle.getString("NFCTAG"));
                     }
                 }
             }

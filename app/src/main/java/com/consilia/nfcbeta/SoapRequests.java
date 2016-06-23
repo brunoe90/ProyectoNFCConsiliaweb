@@ -103,8 +103,8 @@ public class SoapRequests {
             }
           //  data = (resultsString.toString());
 
-            data=  "Tipo: "+          resultsString.getPrimitivePropertyAsString("IdTipo") +'\n'+
-                    "numero: "+   resultsString.getPrimitivePropertyAsString("IdNumero");
+            data=   "Tipo: "+       resultsString.getPrimitivePropertyAsString("IdTipo") +'\n'+
+                    "numero: "+     resultsString.getPrimitivePropertyAsString("IdNumero");
         } catch (Exception q) {
             q.printStackTrace();
         }
@@ -156,17 +156,20 @@ public class SoapRequests {
     public String getsocio(String idStadium,  String numSocio,String documento) {
 
         String data = null  ;
-
+        idStadium="2";
         String methodname = "SearchSocio";
         SoapObject request = new SoapObject("http://controlplus.net/cwpwebservice",methodname);// new SoapObject(NAMESPACE, methodname);
 
         request.addProperty("idStadium", idStadium);
         request.addProperty("numSocio",numSocio);
-        request.addProperty("documento",documento);
+        request.addProperty("documento",null);
         request.addProperty("traerFoto","0");
         SoapSerializationEnvelope envelope;
-        envelope = getSoapSerializationEnvelope(request);
 
+
+        envelope = getSoapSerializationEnvelope(request);
+        envelope.skipNullProperties=true;
+        //envelope.dotNet = false;
         HttpTransportSE ht =  getHttpTransportSE( "http://192.168.0.1/WebService.asmx");
         try {
 

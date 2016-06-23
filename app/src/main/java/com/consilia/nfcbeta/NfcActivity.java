@@ -20,13 +20,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import java.util.Arrays;
-
 public class NfcActivity extends AppCompatActivity {
 
     Button botonvolver, benviarid;
     EditText editText;
-
+    long Resultado=0;
+    int signo=0;
     final Bundle bundle= new Bundle();
 
     private final String[][] techList = new String[][]{
@@ -52,11 +51,9 @@ public class NfcActivity extends AppCompatActivity {
         botonvolver.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-
                 Intent intent = new Intent(NfcActivity.this, ServerActivity.class);
                 intent.putExtras(bundle);
                 startActivity(intent);
-
             }
         });
 
@@ -66,8 +63,8 @@ public class NfcActivity extends AppCompatActivity {
                 bundle.putInt("idSocio",Integer.valueOf(editText.getText().toString()));
                 Intent intent = new Intent(NfcActivity.this, ServerActivity.class);
                 intent.putExtras(bundle);
-                startActivity(intent);
 
+                startActivity(intent);
             }
         });
     }
@@ -102,38 +99,45 @@ public class NfcActivity extends AppCompatActivity {
 
         if (intent.getAction().equals(NfcAdapter.ACTION_TAG_DISCOVERED)) {
             if ((findViewById(R.id.text)) != null) {
-                ((TextView) findViewById(R.id.text)).setText("NFC Tag " + ByteArrayToHexString(intent.getByteArrayExtra(NfcAdapter.EXTRA_ID)));
+                String texto= ByteArrayToHexString(intent.getByteArrayExtra(NfcAdapter.EXTRA_ID));
+
+                if (((TextView) findViewById(R.id.text)) != null) {
+                    ((TextView) findViewById(R.id.text)).setText( "NFC Tag " +texto);
+                    bundle.putString("NFCTAG",texto);
+                }
             }
             Log.d("asd", NfcAdapter.EXTRA_ID);
-            Log.d("asd", ByteArrayToHexString(intent.getByteArrayExtra(NfcAdapter.EXTRA_ID)));
-            bundle.putString("NFCTAG",ByteArrayToHexString(intent.getByteArrayExtra(NfcAdapter.EXTRA_ID)));
+            //Log.d("asd", ByteArrayToHexString(intent.getByteArrayExtra(NfcAdapter.EXTRA_ID)));
 
         }
     }
 
     private String ByteArrayToHexString(byte[] inarray) {
         int i, j, in;
-        long  a;
         String[] hex = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F"};
         String out = "";
+        signo=0;
+        byte buffer[]=inarray;
+        buffer=inarray;
+        if (buffer[buffer.length-1]<0){
+            signo=1;
+            buffer[buffer.length-1]= (byte) (((byte) 128)+buffer[buffer.length-1]);
+        }
+        for (j = buffer.length; j >0 ; j--) {
 
-        for (j = inarray.length; j >0 ; j--) {
-            in = (int) inarray[j-1] & 0xff;
+            in = (int) buffer[j-1] & 0xff;
             i = (in >> 4) & 0x0f;
             out += hex[i];
             i = in & 0x0f;
             out += hex[i];
         }
         //try{
-          a =Long.parseLong(out,16);
+        if(signo==1){
+            Resultado =Long.parseLong(out,16);
+            Resultado=-Resultado;
+        }else Resultado =Long.parseLong(out,16);
 
-        /*}  catch (Exception q) {
-        q.printStackTrace();
-        }*/
-        return String.valueOf(a);
+        buffer=inarray;
+        return String.valueOf(Resultado);
     }
-
-
-
-
 }

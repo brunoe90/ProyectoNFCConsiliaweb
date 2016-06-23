@@ -55,7 +55,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/etstadio"
         android:layout_gravity="center_horizontal"
-        android:text="@string/_1"
+        android:text="2"
         android:inputType="none" />
 
     <Button
