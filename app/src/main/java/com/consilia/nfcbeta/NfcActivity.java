@@ -48,11 +48,13 @@ public class NfcActivity extends AppCompatActivity {
         benviarid = (Button)findViewById(R.id.bidsocio);
         editText = (EditText)findViewById(R.id.edtsocio);
         bundle= new Bundle();
+        bundle = getIntent().getExtras();
 
         botonvolver.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
                 Intent intent = new Intent(NfcActivity.this, ServerActivity.class);
+                bundle.putInt("idStadium",bundle.getInt("idStadium"));
                 intent.putExtras(bundle);
                 startActivity(intent);
             }
@@ -62,6 +64,7 @@ public class NfcActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 bundle.putInt("idSocio",Integer.valueOf(editText.getText().toString()));
+                bundle.putInt("idStadium",bundle.getInt("idStadium"));
                 Intent intent = new Intent(NfcActivity.this, ServerActivity.class);
                 intent.putExtras(bundle);
                 startActivity(intent);

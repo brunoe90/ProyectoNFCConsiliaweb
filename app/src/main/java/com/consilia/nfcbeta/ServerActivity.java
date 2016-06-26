@@ -19,15 +19,19 @@ import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
 
+
+
 public class ServerActivity extends AppCompatActivity {
     TextView dato, tresultado;
     private String stringsoap;
-    int idStadium, idSocio=0;
+    String idStadium, idSocio;
     Button btn;
     Context context;
     Bitmap decodedByte = null;
     ImageView imageView;
     Bundle bundle;
+    String numSocio;
+    String tipodoc ="DNI";
 
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -47,8 +51,8 @@ public class ServerActivity extends AppCompatActivity {
         tresultado = (TextView) findViewById(R.id.tresultado);
         dato = (TextView) findViewById(R.id.dato);
         bundle = getIntent().getExtras();
-        idSocio = (bundle.getInt("idSocio"));
-        idStadium = bundle.getInt("idStadium");
+        idSocio = String.valueOf(bundle.getInt("idSocio"));
+        idStadium = String.valueOf(bundle.getInt("idStadium"));
 
         //idSocio = 23974462;
 
@@ -104,27 +108,31 @@ public class ServerActivity extends AppCompatActivity {
                 case 0: tresultado.setText(stringsoap); break;
 
                 case 1:{
-                     {
-                        try {
-                            imageView.setImageBitmap(decodedByte);
-                        } catch (Exception q) {
-                            q.printStackTrace();
-                        }
+
+                    try {
+                        imageView.setImageBitmap(decodedByte);
+                    } catch (Exception q) {
+                        q.printStackTrace();
                     }
                     break;}
-                case 2: tresultado.setText(stringsoap); break;
+                case 2: tresultado.setText(stringsoap); getSoap("getestado");break;
 
                 case 3: {
-                    int lengh = stringsoap.length();
-                    String buff = null;
 
-                    if (stringsoap.contains("Puerta")){
-                        buff = stringsoap.replaceFirst(".* Puertas=","Puerta:");
-                        if (stringsoap.contains("10,")){
-                            tresultado.setTextColor(Color.parseColor("#00FF00"));
-                        }
+                    String i = stringsoap.substring(stringsoap.indexOf("Puertas="));
+                   // stringsoap = stringsoap.substring(0,stringsoap.indexOf("Pu"));
+                    i = i.substring(0, i.indexOf('C'));
+                   // i = i.replace(";","");
+                    stringsoap = stringsoap.replace(i,"");
+                    i = i.replace(";","");
+                    if (i.contains("Puerta")){
+
+                        if (i.contains("11")){
+                            dato.setTextColor(Color.parseColor("#00FF00"));
+                        } else dato.setTextColor(Color.parseColor("#FF0000"));
                     }
-                    tresultado.setText(stringsoap +buff);
+                    tresultado.setText(stringsoap );
+                    dato.setText(i);
                     break;}
             }
             return false;
@@ -133,45 +141,41 @@ public class ServerActivity extends AppCompatActivity {
 
     private void getSoap( final String method) {
         new Thread(new Runnable() {
-
             @Override
             public void run() {
                 SoapRequests ex = new SoapRequests();
                 context = getApplicationContext();
                 switch (method) {
-                    case "getversion":
 
+                    case "getversion":{
                         stringsoap = ex.getversion();
                         handler.sendEmptyMessage(0);
-                        break;
-                    case "GetFotoSocio": {
-                        idStadium =2;
-                        byte[] foto = ex.getfotosocio(String.valueOf(idStadium),String.valueOf(idSocio ));
+                        break;}
+
+                    case "GetFotoSocio":{
+                        byte[] foto = ex.getfotosocio((idStadium),String.valueOf(idSocio ));
                         decodedByte = BitmapFactory.decodeByteArray(foto, 0, foto.length);
                         handler.sendEmptyMessage(1);
-                        break;
-                    }
-                    case "buscar": {
+                        break;}
 
-                        String numSocio;
-                        String tipodoc = "DNI";
-                        numSocio = ex.getsociobydoc(String.valueOf(idStadium), String.valueOf(idSocio ), tipodoc); //type="s:int" devuelve entero ////////// ENTRA unsigned byte idStadium -- string idTipoDoc -- long documento
-                        stringsoap = String.valueOf(numSocio);
+                    case "buscar":{
+
+                        numSocio =      ex.getsociobydoc((idStadium), String.valueOf(idSocio ), tipodoc); //type="s:int" devuelve entero ////////// ENTRA unsigned byte idStadium -- string idTipoDoc -- long documento
+                        stringsoap =    String.valueOf(numSocio);
+                        idSocio=        numSocio;
                         handler.sendEmptyMessage(2);
-                        break;
-                    }
-                    case "getestado": {
+                        break;}
 
+                    case "getestado":{
                         String numSocio;
-                        numSocio = ex.getsocio(String.valueOf(idStadium),String.valueOf(idSocio ),String.valueOf(idSocio ) ); //type="s:int" devuelve entero ////////// ENTRA unsigned byte idStadium -- string idTipoDoc -- long documento
+                        numSocio = ex.getsocio((idStadium),String.valueOf(idSocio ),String.valueOf(idSocio ) ); //type="s:int" devuelve entero ////////// ENTRA unsigned byte idStadium -- string idTipoDoc -- long documento
                         stringsoap = String.valueOf(numSocio);
                         handler.sendEmptyMessage(3);
+                        break;}
 
-                        break;
-                    }
-                    case "getcarnet": {
-                        stringsoap = ex.getcaret("2",bundle.getString("NFCTAG"));
-                    }
+                    case "getcarnet":{
+                        stringsoap = ex.getcaret(idStadium,bundle.getString("NFCTAG"));
+                        break;}
                 }
             }
         }).start();
@@ -240,6 +244,9 @@ public class ServerActivity extends AppCompatActivity {
             imageView.setImageBitmap(result);
         }
     }*/
+
+
+
 }
 
 

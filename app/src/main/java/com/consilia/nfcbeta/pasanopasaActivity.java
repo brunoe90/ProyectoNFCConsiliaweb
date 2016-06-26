@@ -3,6 +3,7 @@ package com.consilia.nfcbeta;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
@@ -14,15 +15,19 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class pasanopasaActivity extends AppCompatActivity {
-    TextView    tresultado;
+    TextView    dato,tresultado;
     String      stringsoap;
-    String      idStadium, idSocio, Puerta, documento, Tarjeta;
+    String      idStadium;
+    String      idSocio;
+    String Puerta;
+    String documento;
+    String Tarjeta;
     Button      buttonfoto;
     Context     context;
     Bitmap      decodedByte = null;
     ImageView   imageView;
     Bundle      bundle;
-
+    String      numSocio;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +38,7 @@ public class pasanopasaActivity extends AppCompatActivity {
         bundle = getIntent().getExtras();
         imageView = (ImageView) findViewById(R.id.imageView);
         tresultado = (TextView) findViewById(R.id.tresultado);
+        dato = (TextView) findViewById(R.id.dato);
         idSocio =       String.valueOf(bundle.getInt("idSocio"));
         idStadium =     String.valueOf(bundle.getInt("idStadium"));
         Puerta =        String.valueOf(bundle.getInt("Puerta"));
@@ -85,9 +91,25 @@ public class pasanopasaActivity extends AppCompatActivity {
                     }
                     break;}
 
-                case 2: tresultado.setText(stringsoap); break;
+                case 2: tresultado.setText(stringsoap); getSoap("getestado");break;
 
-                case 3: tresultado.setText(stringsoap);  break;
+                case 3: {
+
+                    String i = stringsoap.substring(stringsoap.indexOf("Puertas="));
+                    // stringsoap = stringsoap.substring(0,stringsoap.indexOf("Pu"));
+                    i = i.substring(0, i.indexOf('C'));
+                    // i = i.replace(";","");
+                    stringsoap = stringsoap.replace(i,"");
+                    i = i.replace(";","");
+                    if (i.contains("Puerta")){
+
+                        if (i.contains("11")){
+                            dato.setTextColor(Color.parseColor("#00FF00"));
+                        } else dato.setTextColor(Color.parseColor("#FF0000"));
+                    }
+                    tresultado.setText(stringsoap );
+                    dato.setText(i);
+                    break;}
 
                 case 4: {
                     tresultado.setText(stringsoap); getSoap("getestado");
@@ -119,23 +141,22 @@ public class pasanopasaActivity extends AppCompatActivity {
                     }
                     case "buscar": {
 
-                        String numSocio;
                         String tipodoc = "DNI";
-                        numSocio = ex.getsociobydoc(String.valueOf(idStadium), String.valueOf(idSocio ), tipodoc); //type="s:int" devuelve entero ////////// ENTRA unsigned byte idStadium -- string idTipoDoc -- long documento
-                        stringsoap = String.valueOf(numSocio);
+                        numSocio =      ex.getsociobydoc(String.valueOf(idStadium), String.valueOf(idSocio ), tipodoc); //type="s:int" devuelve entero ////////// ENTRA unsigned byte idStadium -- string idTipoDoc -- long documento
+                        stringsoap =    String.valueOf(numSocio);
+                        idSocio=        numSocio;
                         handler.sendEmptyMessage(2);
                         break;
                     }
                     case "getestado": {
 
-                        String numSocio;
                         numSocio = ex.getsocio(String.valueOf(idStadium),String.valueOf(idSocio ),String.valueOf(idSocio ) ); //type="s:int" devuelve entero ////////// ENTRA unsigned byte idStadium -- string idTipoDoc -- long documento
                         stringsoap = String.valueOf(numSocio);
                         handler.sendEmptyMessage(3);
-
                         break;
                     }
                     case "getcarnet": {
+
                         stringsoap = ex.getcaret("2",bundle.getString("NFCTAG"));
                         handler.sendEmptyMessage(4);
                     }

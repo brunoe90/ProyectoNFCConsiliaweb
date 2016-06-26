@@ -156,7 +156,7 @@ public class SoapRequests {
     public String getsocio(String idStadium,  String numSocio,String documento) {
 
         String data = null  ;
-        idStadium="2";
+       // idStadium="2";
         String methodname = "SearchSocio";
         SoapObject request = new SoapObject("http://controlplus.net/cwpwebservice",methodname);// new SoapObject(NAMESPACE, methodname);
 
@@ -204,6 +204,7 @@ public class SoapRequests {
 
         } catch (Exception q) {
             q.printStackTrace();
+            data = "0";
         }
         return data;
     }

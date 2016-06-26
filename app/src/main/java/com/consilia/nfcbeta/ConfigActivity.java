@@ -25,7 +25,7 @@ public class ConfigActivity extends AppCompatActivity {
        // bundle.putString("puerto",etpuerto.getText().toString())
     }
     public void bentrar(View view) {
-        bundle.putInt("idStadio",Integer.valueOf(etip.getText().toString()));
+        bundle.putInt("idStadium",Integer.valueOf(etip.getText().toString()));
         Intent intent = new Intent(ConfigActivity.this, MainActivity.class);
         intent.putExtras(bundle);
         startActivity(intent);

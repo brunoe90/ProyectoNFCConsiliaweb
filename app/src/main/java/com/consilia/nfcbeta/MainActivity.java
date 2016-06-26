@@ -47,11 +47,13 @@ public class MainActivity extends Activity {
         bt4 = (ImageButton) findViewById(R.id.button4);
         bnfc= (ImageButton) findViewById(R.id.buttonNFC);
         bundle = new Bundle();
+        bundle = getIntent().getExtras();
 
         bnfc.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
                 Intent intent = new Intent(MainActivity.this, NfcActivity.class);
+                bundle.putInt("idStadium",bundle.getInt("idStadium"));
                 intent.putExtras(bundle);
                 startActivity(intent);
             }
@@ -61,6 +63,7 @@ public class MainActivity extends Activity {
             public void onClick(View v) {
 
                 Intent intent = new Intent(MainActivity.this, QRBarcodeActivity.class);
+                bundle.putInt("idStadium",bundle.getInt("idStadium"));
                 intent.putExtras(bundle);
                 startActivity(intent);
             }

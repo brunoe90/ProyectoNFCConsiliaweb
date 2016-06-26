@@ -21,6 +21,7 @@ public class QRBarcodeActivity extends AppCompatActivity {
     TextView formatTxt,contentTxt;
     Bundle bundle;
     EditText editText;
+    String idSocio;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +34,7 @@ public class QRBarcodeActivity extends AppCompatActivity {
         benviarid = (Button)findViewById(R.id.bidsocio);
         editText = (EditText)findViewById(R.id.editText4);
         bundle= new Bundle();
+        bundle = getIntent().getExtras();
 
         bqr.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -46,6 +48,8 @@ public class QRBarcodeActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 Intent intent = new Intent(QRBarcodeActivity.this, ServerActivity.class);
+                bundle.putInt("idStadium",bundle.getInt("idStadium"));
+                bundle.putInt("idSocio",Integer.valueOf(idSocio));
                 intent.putExtras(bundle);
                 startActivity(intent);
             }
@@ -56,6 +60,7 @@ public class QRBarcodeActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 bundle.putInt("idSocio",Integer.valueOf(editText.getText().toString()));
+                bundle.putInt("idStadium",bundle.getInt("idStadium"));
                 Intent intent = new Intent(QRBarcodeActivity.this, ServerActivity.class);
                 intent.putExtras(bundle);
                 startActivity(intent);
@@ -74,6 +79,7 @@ public class QRBarcodeActivity extends AppCompatActivity {
             formatTxt.setText("FORMAT: " + scanFormat);
             contentTxt.setText("CONTENT: " + scanContent);
             bundle.putString("QRCONTENIDO",scanContent);
+            idSocio=scanContent;
         }
         else{
             Toast toast = Toast.makeText(getApplicationContext(),

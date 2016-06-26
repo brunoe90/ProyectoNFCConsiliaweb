@@ -48,6 +48,6 @@
         android:layout_height="wrap_content"
         android:text="@string/contenido"
         android:id="@+id/dato"
-        android:textSize="45sp" />
+        android:textSize="35sp" />
 
 </LinearLayout>
