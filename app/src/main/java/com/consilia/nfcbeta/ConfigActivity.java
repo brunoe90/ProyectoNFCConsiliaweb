@@ -20,19 +20,14 @@ public class ConfigActivity extends AppCompatActivity {
         spinner = (Spinner) findViewById(R.id.Estadio);
         etip        = (EditText)findViewById(R.id.etstadio);
         //etpuerto    = (EditText)findViewById(R.id.etpuerto);
-
-        assert etip != null;
+        //assert etip != null;
         //bundle.putString("ip",etip.getText().toString());
-       // bundle.putString("puerto",etpuerto.getText().toString());
-
-
-
+       // bundle.putString("puerto",etpuerto.getText().toString())
     }
     public void bentrar(View view) {
         bundle.putInt("idStadio",Integer.valueOf(etip.getText().toString()));
         Intent intent = new Intent(ConfigActivity.this, MainActivity.class);
         intent.putExtras(bundle);
         startActivity(intent);
-
     }
 }

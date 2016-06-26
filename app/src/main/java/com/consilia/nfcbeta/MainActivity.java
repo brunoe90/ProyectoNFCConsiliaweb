@@ -30,7 +30,7 @@ public class MainActivity extends Activity {
     //String modifiedSentence;// celcius, fahren;
     Button bt1;
     ImageButton bnfc, bt4;
-    //Bundle bundle;
+    Bundle bundle;
     //String ip;
     //String puerto;
 
@@ -46,12 +46,13 @@ public class MainActivity extends Activity {
         bt1 = (Button) findViewById(R.id.button1);
         bt4 = (ImageButton) findViewById(R.id.button4);
         bnfc= (ImageButton) findViewById(R.id.buttonNFC);
+        bundle = new Bundle();
 
         bnfc.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
                 Intent intent = new Intent(MainActivity.this, NfcActivity.class);
-                //intent.putExtras(bundle);
+                intent.putExtras(bundle);
                 startActivity(intent);
             }
         });
@@ -60,7 +61,7 @@ public class MainActivity extends Activity {
             public void onClick(View v) {
 
                 Intent intent = new Intent(MainActivity.this, QRBarcodeActivity.class);
-                //intent.putExtras(bundle);
+                intent.putExtras(bundle);
                 startActivity(intent);
             }
         });

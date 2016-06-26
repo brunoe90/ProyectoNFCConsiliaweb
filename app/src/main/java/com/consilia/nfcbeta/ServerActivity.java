@@ -3,6 +3,7 @@ package com.consilia.nfcbeta;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -56,20 +57,20 @@ public class ServerActivity extends AppCompatActivity {
             public void onClick(View v) {
                 assert edt != null;
                 if (edt.getText().toString().equals("version")) {
-                    getSoap(edt.getText().toString(), "getversion");
+                    getSoap( "getversion");
 
                 } else if (edt.getText().toString().equals("")) {
                     tresultado.setText("pone un valor para hacer en codigo de barras");
 
                 } else if (edt.getText().toString().equals("socio")) {
-                    getSoap(edt.getText().toString(), "buscar");
+                    getSoap( "buscar");
 
                 } else if (edt.getText().toString().equals("foto")) {
-                    getSoap(edt.getText().toString(), "GetFotoSocio");
+                    getSoap( "GetFotoSocio");
                 }else if (edt.getText().toString().equals("estado")) {
-                    getSoap(edt.getText().toString(), "getestado");
+                    getSoap( "getestado");
                 }else if (edt.getText().toString().equals("tarjeta")) {
-                    getSoap(edt.getText().toString(), "getcarnet");
+                    getSoap( "getcarnet");
                 }
 
             }
@@ -94,7 +95,7 @@ public class ServerActivity extends AppCompatActivity {
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
-    public Handler handler = new Handler(new Handler.Callback() {
+    protected Handler handler = new Handler(new Handler.Callback() {
 
         @Override
         public boolean handleMessage(Message msg) {
@@ -104,7 +105,6 @@ public class ServerActivity extends AppCompatActivity {
 
                 case 1:{
                      {
-
                         try {
                             imageView.setImageBitmap(decodedByte);
                         } catch (Exception q) {
@@ -114,13 +114,24 @@ public class ServerActivity extends AppCompatActivity {
                     break;}
                 case 2: tresultado.setText(stringsoap); break;
 
-                case 3: tresultado.setText(stringsoap);  break;
+                case 3: {
+                    int lengh = stringsoap.length();
+                    String buff = null;
+
+                    if (stringsoap.contains("Puerta")){
+                        buff = stringsoap.replaceFirst(".* Puertas=","Puerta:");
+                        if (stringsoap.contains("10,")){
+                            tresultado.setTextColor(Color.parseColor("#00FF00"));
+                        }
+                    }
+                    tresultado.setText(stringsoap +buff);
+                    break;}
             }
             return false;
         }
     });
 
-    private void getSoap(final String toConvert, final String method) {
+    private void getSoap( final String method) {
         new Thread(new Runnable() {
 
             @Override

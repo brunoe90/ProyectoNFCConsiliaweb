@@ -39,6 +39,8 @@
     <string name="verif_servidor">VERIF SERVIDOR</string>
     <string name="asd">asd</string>
     <string name="asda">asd</string>
+    <string name="pedir_foto">pedir foto</string>
+    <string name="fotosocio">fotosocio</string>
     <string-array name="country_arrays">
         <item>Boca</item>
         <item>River</item>

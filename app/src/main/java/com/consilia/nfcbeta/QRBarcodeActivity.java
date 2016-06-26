@@ -19,7 +19,7 @@ public class QRBarcodeActivity extends AppCompatActivity {
 
     Button bqr,benviar,benviarid;
     TextView formatTxt,contentTxt;
-    Bundle bundle= new Bundle();
+    Bundle bundle;
     EditText editText;
 
     @Override
@@ -32,6 +32,7 @@ public class QRBarcodeActivity extends AppCompatActivity {
         benviar = (Button) findViewById(R.id.benviar);
         benviarid = (Button)findViewById(R.id.bidsocio);
         editText = (EditText)findViewById(R.id.editText4);
+        bundle= new Bundle();
 
         bqr.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

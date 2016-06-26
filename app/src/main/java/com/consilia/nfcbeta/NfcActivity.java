@@ -22,11 +22,11 @@ import android.widget.TextView;
 
 public class NfcActivity extends AppCompatActivity {
 
-    Button botonvolver, benviarid;
-    EditText editText;
-    long Resultado=0;
-    int signo=0;
-    final Bundle bundle= new Bundle();
+    Button      botonvolver, benviarid;
+    EditText    editText;
+    long        Resultado=0;
+    int         signo=0;
+    Bundle      bundle;
 
     private final String[][] techList = new String[][]{
             new String[]{
@@ -47,6 +47,7 @@ public class NfcActivity extends AppCompatActivity {
         botonvolver = (Button) findViewById(R.id.bvolver);
         benviarid = (Button)findViewById(R.id.bidsocio);
         editText = (EditText)findViewById(R.id.edtsocio);
+        bundle= new Bundle();
 
         botonvolver.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -63,7 +64,6 @@ public class NfcActivity extends AppCompatActivity {
                 bundle.putInt("idSocio",Integer.valueOf(editText.getText().toString()));
                 Intent intent = new Intent(NfcActivity.this, ServerActivity.class);
                 intent.putExtras(bundle);
-
                 startActivity(intent);
             }
         });
