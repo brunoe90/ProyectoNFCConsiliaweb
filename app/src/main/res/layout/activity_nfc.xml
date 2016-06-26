@@ -15,17 +15,18 @@
         android:layout_height="wrap_content"
         android:text="@string/nfc_tag"
         android:id="@+id/textView"
-        android:textSize="40sp" />
+        android:textSize="40sp"
+        android:layout_gravity="center_horizontal" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/text"
         android:textSize="30sp"
-        android:text="@string/tag_aqui" />
+        android:layout_gravity="center_horizontal" />
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="@string/enviar_nfc"
         android:id="@+id/bvolver" />
@@ -35,17 +36,19 @@
         android:layout_height="wrap_content"
         android:text="@string/id_socio"
         android:id="@+id/textView5"
-        android:textSize="40sp" />
+        android:textSize="40sp"
+        android:layout_gravity="center_horizontal" />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="number"
+        android:singleLine="true"
         android:ems="10"
         android:id="@+id/edtsocio" />
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/enviar_id_socio"
         android:id="@+id/bidsocio" />

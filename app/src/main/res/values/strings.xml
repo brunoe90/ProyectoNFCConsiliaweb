@@ -41,6 +41,11 @@
     <string name="asda">asd</string>
     <string name="pedir_foto">pedir foto</string>
     <string name="fotosocio">fotosocio</string>
+    <string name="asdaa">asd</string>
+    <string name="_2">2</string>
+    <string name="estado">estado</string>
+    <string name="introducir_pedido_soap">Introducir pedido soap</string>
+    <string name="alo">alo</string>
     <string-array name="country_arrays">
         <item>Boca</item>
         <item>River</item>

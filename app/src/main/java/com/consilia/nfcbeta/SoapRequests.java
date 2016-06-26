@@ -103,8 +103,8 @@ public class SoapRequests {
             }
           //  data = (resultsString.toString());
 
-            data=   "Tipo: "+       resultsString.getPrimitivePropertyAsString("IdTipo") +'\n'+
-                    "numero: "+     resultsString.getPrimitivePropertyAsString("IdNumero");
+            data=  // "Tipo: "+       resultsString.getPrimitivePropertyAsString("IdTipo") +'\n'+
+                   /* "numero: "+*/     resultsString.getPrimitivePropertyAsString("IdNumero");
         } catch (Exception q) {
             q.printStackTrace();
         }
@@ -155,7 +155,7 @@ public class SoapRequests {
 
     public String getsocio(String idStadium,  String numSocio,String documento) {
 
-        String data = null  ;
+        String data;
        // idStadium="2";
         String methodname = "SearchSocio";
         SoapObject request = new SoapObject("http://controlplus.net/cwpwebservice",methodname);// new SoapObject(NAMESPACE, methodname);
@@ -191,16 +191,19 @@ public class SoapRequests {
                 }
 
             }
-            response.getPropertyAsString("EstadoAcceso");
-            data =  "Categoria: "+          response.getPrimitivePropertyAsString("Categoria") +'\n'+
-                    "Precio Categoria: "+   response.getPrimitivePropertyAsString("PrecioCategoria")+'\n'+
-                    "Num. Socio: "+         response.getPrimitivePropertyAsString("NumSocio")+'\n'+
-                    "Tipo Socio: "+         response.getPrimitivePropertyAsString("TipoSocio")+'\n'+
-                    "Nombre: "+             response.getPrimitivePropertyAsString("Nombre")+'\n'+
-                    "Documento: "+          response.getPrimitivePropertyAsString("Documento")+'\n'+
-                    "Estado: "+             response.getPrimitivePropertyAsString("Estado")+'\n'+
-                    "Ultima Cuota Paga: " + response.getPrimitivePropertyAsString("UltimoPago")+'\n'+
-                    "Acceso: "+             response.getPropertyAsString("EstadoAcceso").replace("anyType{","").replace("; }", "");
+            response.getPropertySafelyAsString("EstadoAcceso");
+            if (null== response.getPropertySafelyAsString("EstadoAcceso")){
+                return "0";
+            }
+            data =  "Categoria: "+          response.getPrimitivePropertySafelyAsString("Categoria") +'\n'+
+                    "Precio Categoria: "+   response.getPrimitivePropertySafelyAsString("PrecioCategoria")+'\n'+
+                    "Num. Socio: "+         response.getPrimitivePropertySafelyAsString("NumSocio")+'\n'+
+                    "Tipo Socio: "+         response.getPrimitivePropertySafelyAsString("TipoSocio")+'\n'+
+                    "Nombre: "+             response.getPrimitivePropertySafelyAsString("Nombre")+'\n'+
+                    "Documento: "+          response.getPrimitivePropertySafelyAsString("Documento")+'\n'+
+                    "Estado: "+             response.getPrimitivePropertySafelyAsString("Estado")+'\n'+
+                    "Ultima Cuota Paga: " + response.getPrimitivePropertySafelyAsString("UltimoPago")+'\n'+
+                    "Acceso: "+             response.getPropertySafelyAsString("EstadoAcceso").replace("anyType{","").replace("; }", "");
 
         } catch (Exception q) {
             q.printStackTrace();

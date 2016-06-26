@@ -49,11 +49,12 @@ public class NfcActivity extends AppCompatActivity {
         editText = (EditText)findViewById(R.id.edtsocio);
         bundle= new Bundle();
         bundle = getIntent().getExtras();
+        bundle.putString("lastActivity","nfc");
 
         botonvolver.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-                Intent intent = new Intent(NfcActivity.this, ServerActivity.class);
+                Intent intent = new Intent(NfcActivity.this, pasanopasaActivity.class);
                 bundle.putInt("idStadium",bundle.getInt("idStadium"));
                 intent.putExtras(bundle);
                 startActivity(intent);
@@ -65,7 +66,7 @@ public class NfcActivity extends AppCompatActivity {
 
                 bundle.putInt("idSocio",Integer.valueOf(editText.getText().toString()));
                 bundle.putInt("idStadium",bundle.getInt("idStadium"));
-                Intent intent = new Intent(NfcActivity.this, ServerActivity.class);
+                Intent intent = new Intent(NfcActivity.this, pasanopasaActivity.class);
                 intent.putExtras(bundle);
                 startActivity(intent);
             }
@@ -104,7 +105,7 @@ public class NfcActivity extends AppCompatActivity {
             if ((findViewById(R.id.text)) != null) {
                 String texto= ByteArrayToHexString(intent.getByteArrayExtra(NfcAdapter.EXTRA_ID));
 
-                if (((TextView) findViewById(R.id.text)) != null) {
+                if (findViewById(R.id.text) != null) {
                     ((TextView) findViewById(R.id.text)).setText( "NFC Tag " +texto);
                     bundle.putString("NFCTAG",texto);
                 }
@@ -120,7 +121,7 @@ public class NfcActivity extends AppCompatActivity {
         String[] hex = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F"};
         String out = "";
         signo=0;
-        byte buffer[]=inarray;
+        byte buffer[];
         buffer=inarray;
         if (buffer[buffer.length-1]<0){
             signo=1;
@@ -140,7 +141,7 @@ public class NfcActivity extends AppCompatActivity {
             Resultado=-Resultado;
         }else Resultado =Long.parseLong(out,16);
 
-        buffer=inarray;
+
         return String.valueOf(Resultado);
     }
 }

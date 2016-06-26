@@ -35,6 +35,7 @@ public class QRBarcodeActivity extends AppCompatActivity {
         editText = (EditText)findViewById(R.id.editText4);
         bundle= new Bundle();
         bundle = getIntent().getExtras();
+        bundle.putString("lastActivity","qr");
 
         bqr.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -47,7 +48,7 @@ public class QRBarcodeActivity extends AppCompatActivity {
         benviar.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-                Intent intent = new Intent(QRBarcodeActivity.this, ServerActivity.class);
+                Intent intent = new Intent(QRBarcodeActivity.this, pasanopasaActivity.class);
                 bundle.putInt("idStadium",bundle.getInt("idStadium"));
                 bundle.putInt("idSocio",Integer.valueOf(idSocio));
                 intent.putExtras(bundle);
@@ -61,7 +62,7 @@ public class QRBarcodeActivity extends AppCompatActivity {
 
                 bundle.putInt("idSocio",Integer.valueOf(editText.getText().toString()));
                 bundle.putInt("idStadium",bundle.getInt("idStadium"));
-                Intent intent = new Intent(QRBarcodeActivity.this, ServerActivity.class);
+                Intent intent = new Intent(QRBarcodeActivity.this, pasanopasaActivity.class);
                 intent.putExtras(bundle);
                 startActivity(intent);
 

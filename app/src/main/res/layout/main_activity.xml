@@ -8,7 +8,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/buttonNFC"
         android:src="@drawable/nfcbutton"
-        android:contentDescription="alo"
+        android:contentDescription="@string/alo"
         android:layout_weight="9" />
 
     <ImageButton
