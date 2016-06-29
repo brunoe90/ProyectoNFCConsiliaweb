@@ -61,7 +61,7 @@
             android:id="@+id/buttonsocio"
             android:layout_gravity="center_horizontal"
             android:layout_weight="0"
-            android:checked="true"
+            android:checked="false"
             android:textSize="20sp"
             android:onClick="onRadioButtonClicked" />
 
