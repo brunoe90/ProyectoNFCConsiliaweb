@@ -9,6 +9,9 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -49,7 +52,6 @@ public class pasanopasaActivity extends AppCompatActivity {
         Puerta =        String.valueOf(bundle.getInt("Puerta"));
         documento =     String.valueOf(bundle.getInt("documento"));
         Tarjeta =       bundle.getString("Tarjeta");
-        Puerta = "10";
         UltimaActivity = bundle.getString("lastActivity");
 
         if (null != idStadium){
@@ -103,6 +105,19 @@ public class pasanopasaActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if ((keyCode == KeyEvent.KEYCODE_BACK)) {
+            Log.d(this.getClass().getName(), "back button pressed");
+            Toast.makeText(getBaseContext(), "Volviendo al menu", Toast.LENGTH_LONG).show();
+            bundle.putInt("idStadium",Integer.valueOf(idStadium));
+            bundle.putInt("Puerta", Integer.valueOf(Puerta));
+            Intent intent = new Intent(pasanopasaActivity.this, MainActivity.class);
+            intent.putExtras(bundle);
+            startActivity(intent);
+        }
+        return super.onKeyDown(keyCode, event);
+    }
     private Handler handler = new Handler(new Handler.Callback() {
 
         @Override
@@ -122,23 +137,42 @@ public class pasanopasaActivity extends AppCompatActivity {
                 case 2: tresultado.setText(stringsoap); getSoap("getestado");break;
 
                 case 3: {
-                    String i;
+                    String i = "";
                     int a = stringsoap.indexOf("Puertas=");
-                    if (a<1) {
+                    int b = stringsoap.indexOf("Activo");
+                    int c = stringsoap.indexOf("vencida");
+                    if (c>0){
+                        dato.setTextColor(Color.parseColor("#FF0000")); tresultado.setTextColor(Color.parseColor("#FF0000"));
+                        dato.setText("El ingresante tiene la cuota vencida");
+                    }else if (a<1) {
                         i="TARJETA NO VALIDA";
-                        dato.setTextColor(Color.parseColor("#FF0000"));
+                        dato.setTextColor(Color.parseColor("#FF0000")); tresultado.setTextColor(Color.parseColor("#FF0000"));
                         tresultado.setText("Tarjeta no encontrada en base de datos");
+                    }else if (b<1){
+                        i="SOCIO NO ACTIVO";
+                        dato.setTextColor(Color.parseColor("#FF0000")); tresultado.setTextColor(Color.parseColor("#FF0000"));
+                        tresultado.setText(stringsoap);
                     }
                     else{
                         i= stringsoap.substring(a);
                         i = i.substring(0, i.indexOf('C'));
                         stringsoap = stringsoap.replace(i,"");
-                        i = i.replace(";","");
+                        i = i.replace(";","").replace("=","= ");
                         if (i.contains("Puerta")){
 
-                            if (i.contains("11")){
+                            if (i.contains(Puerta)){
                                 dato.setTextColor(Color.parseColor("#00FF00")); tresultado.setTextColor(Color.parseColor("#00FF00"));
-                            } else dato.setTextColor(Color.parseColor("#FF0000")); tresultado.setTextColor(Color.parseColor("#FF0000"));
+                                Toast toast = Toast.makeText(context, "PASA", Toast.LENGTH_LONG);
+                                toast.setGravity(Gravity.TOP| Gravity.CENTER, 10, 90);
+                                toast.show();
+                            } else {
+                                dato.setTextColor(Color.parseColor("#FF0000"));
+                                tresultado.setTextColor(Color.parseColor("#FF0000"));
+                                Toast toast = Toast.makeText(context, "ACCESO NO PERMITIDO", Toast.LENGTH_LONG);
+                             //   Toast.makeText(getBaseContext(), "ACCESO NO PERMITIDO", Toast.LENGTH_LONG).show();
+                                toast.setGravity(Gravity.TOP| Gravity.CENTER, 10, 90);
+                                toast.show();
+                            }
                         }
                         tresultado.setText(stringsoap );
                     }

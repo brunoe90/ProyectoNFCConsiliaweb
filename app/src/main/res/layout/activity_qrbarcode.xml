@@ -14,7 +14,8 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="@string/escanear_codigo_de_barras"
-        android:id="@+id/bqr" />
+        android:id="@+id/bqr"
+        android:layout_weight="0" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -35,7 +36,8 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="@string/enviar"
-        android:id="@+id/benviar" />
+        android:id="@+id/benviar"
+        android:layout_weight="0" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -45,6 +47,37 @@
         android:text="@string/id_socio"
         android:layout_gravity="bottom|center_horizontal" />
 
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="0">
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/idsocio"
+            android:id="@+id/buttonsocio"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="0"
+            android:checked="true"
+            android:textSize="20sp"
+            android:onClick="onRadioButtonClicked" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/documento_dni"
+            android:id="@+id/buttondni"
+            android:layout_gravity="right"
+            android:layout_weight="0"
+            android:checked="false"
+            android:textSize="20sp"
+            android:onClick="onRadioButtonClicked" />
+
+    </RadioGroup>
+
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -52,12 +85,13 @@
         android:singleLine="true"
         android:ems="10"
         android:id="@+id/editText4"
-        android:layout_gravity="bottom" />
+        android:foregroundGravity="center_horizontal"
+        android:layout_gravity="center_horizontal" />
 
     <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="@string/enviar_id_socio"
         android:id="@+id/bidsocio"
-        android:layout_gravity="bottom" />
+        android:layout_weight="0" />
 </LinearLayout>

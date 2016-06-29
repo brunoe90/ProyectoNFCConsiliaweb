@@ -46,13 +46,16 @@
     <string name="estado">estado</string>
     <string name="introducir_pedido_soap">Introducir pedido soap</string>
     <string name="alo">alo</string>
+    <string name="volver">volver</string>
+    <string name="documento_dni">Documento (DNI)</string>
+    <string name="idsocio">IDSOCIO</string>
     <string-array name="country_arrays">
-        <item>Boca</item>
-        <item>River</item>
-        <item>Racing</item>
-        <item>Velez</item>
-        <item>Geba</item>
-        <item>La Plata</item>
-        <item>Luna Park</item>
+        <item>Seleccionar 0</item>
+        <item>Boca 1</item>
+        <item>Racing 2</item>
+        <item>Velez 3</item>
+        <item>Geba 4</item>
+        <item>La Plata 5</item>
+        <item>Luna Park 6</item>
     </string-array>
 </resources>

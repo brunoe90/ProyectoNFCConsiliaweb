@@ -15,10 +15,13 @@ import android.nfc.tech.NfcV;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class NfcActivity extends AppCompatActivity {
 
@@ -27,6 +30,9 @@ public class NfcActivity extends AppCompatActivity {
     long        Resultado=0;
     int         signo=0;
     Bundle      bundle;
+    String      texto="";
+    RadioButton bsocio,bdni;
+    String      dato="";
 
     private final String[][] techList = new String[][]{
             new String[]{
@@ -47,6 +53,8 @@ public class NfcActivity extends AppCompatActivity {
         botonvolver = (Button) findViewById(R.id.bvolver);
         benviarid = (Button)findViewById(R.id.bidsocio);
         editText = (EditText)findViewById(R.id.edtsocio);
+        bsocio = (RadioButton)findViewById(R.id.buttonsocio);
+        bdni = (RadioButton)findViewById(R.id.buttondni);
         bundle= new Bundle();
         bundle = getIntent().getExtras();
         bundle.putString("lastActivity","nfc");
@@ -54,25 +62,61 @@ public class NfcActivity extends AppCompatActivity {
         botonvolver.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-                Intent intent = new Intent(NfcActivity.this, pasanopasaActivity.class);
-                bundle.putInt("idStadium",bundle.getInt("idStadium"));
-                intent.putExtras(bundle);
-                startActivity(intent);
+                if (!texto.equals("")){
+                    Intent intent = new Intent(NfcActivity.this, pasanopasaActivity.class);
+                    bundle.putInt("idStadium",bundle.getInt("idStadium"));
+                    bundle.remove("idSocio");
+                    //bundle.putInt("idSocio",Integer.valueOf(editText.getText().toString()));
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                }else Toast.makeText(getBaseContext(), "Volver a pasar tarjeta", Toast.LENGTH_LONG).show();
             }
         });
 
         benviarid.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-                bundle.putInt("idSocio",Integer.valueOf(editText.getText().toString()));
-                bundle.putInt("idStadium",bundle.getInt("idStadium"));
-                Intent intent = new Intent(NfcActivity.this, pasanopasaActivity.class);
-                intent.putExtras(bundle);
-                startActivity(intent);
+                if (!editText.getText().toString().equals("")){
+                    Intent intent = new Intent(NfcActivity.this, pasanopasaActivity.class);
+                    bundle.putInt("idStadium",bundle.getInt("idStadium"));
+                    bundle.putInt(dato,Integer.valueOf(editText.getText().toString()));
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                }else Toast.makeText(getBaseContext(), "Indicar Socio", Toast.LENGTH_LONG).show();
+
             }
         });
     }
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if ((keyCode == KeyEvent.KEYCODE_BACK)) {
+            Log.d(this.getClass().getName(), "back button pressed");
+            Toast.makeText(getBaseContext(), "Volviendo al menu", Toast.LENGTH_LONG).show();
+            bundle.putInt("idStadium",bundle.getInt("idStadium"));
+            bundle.putInt("Puerta",bundle.getInt("Puerta"));
+            Intent intent = new Intent(NfcActivity.this, MainActivity.class);
+            intent.putExtras(bundle);
+            startActivity(intent);
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+    public void onRadioButtonClicked(View view) {
+        // Is the button now checked?
+        boolean checked = ((RadioButton) view).isChecked();
+
+        // Check which radio button was clicked
+        switch(view.getId()) {
+            case R.id.buttonsocio:
+                if (checked)
+                    dato="idSocio";
+                break;
+            case R.id.buttondni:
+                if (checked)
+                    dato="documento";
+                break;
+        }
+    }
 
     @Override
     protected void onResume() {
@@ -103,7 +147,7 @@ public class NfcActivity extends AppCompatActivity {
 
         if (intent.getAction().equals(NfcAdapter.ACTION_TAG_DISCOVERED)) {
             if ((findViewById(R.id.text)) != null) {
-                String texto= ByteArrayToHexString(intent.getByteArrayExtra(NfcAdapter.EXTRA_ID));
+                texto= ByteArrayToHexString(intent.getByteArrayExtra(NfcAdapter.EXTRA_ID));
 
                 if (findViewById(R.id.text) != null) {
                     ((TextView) findViewById(R.id.text)).setText( "NFC Tag " +texto);

@@ -7,6 +7,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -96,6 +98,17 @@ public class MainActivity extends Activity {
         });
 
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if ((keyCode == KeyEvent.KEYCODE_BACK)) {
+            Log.d(this.getClass().getName(), "back button pressed");
+            Toast.makeText(getBaseContext(), "Volviendo a Configuracion", Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(MainActivity.this, ConfigActivity.class);
+            startActivity(intent);
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
     public Handler handler = new Handler(new Handler.Callback() {

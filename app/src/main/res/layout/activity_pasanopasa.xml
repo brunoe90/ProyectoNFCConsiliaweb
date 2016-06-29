@@ -36,21 +36,20 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/volver"
+        android:id="@+id/bvolver"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/imageView"
         android:layout_centerVertical="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:contentDescription="@string/asdaa" />
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="volver"
-        android:id="@+id/bvolver"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:contentDescription="" />
 
 </RelativeLayout>

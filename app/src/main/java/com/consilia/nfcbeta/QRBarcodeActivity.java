@@ -4,10 +4,13 @@ import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,7 +24,9 @@ public class QRBarcodeActivity extends AppCompatActivity {
     TextView formatTxt,contentTxt;
     Bundle bundle;
     EditText editText;
-    String idSocio;
+    String idSocio="";
+    RadioButton bsocio,bdni;
+    String dato="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +37,9 @@ public class QRBarcodeActivity extends AppCompatActivity {
         bqr = (Button) findViewById(R.id.bqr);
         benviar = (Button) findViewById(R.id.benviar);
         benviarid = (Button)findViewById(R.id.bidsocio);
+        bsocio = (RadioButton)findViewById(R.id.buttonsocio);
+        bdni = (RadioButton)findViewById(R.id.buttondni);
+
         editText = (EditText)findViewById(R.id.editText4);
         bundle= new Bundle();
         bundle = getIntent().getExtras();
@@ -45,14 +53,31 @@ public class QRBarcodeActivity extends AppCompatActivity {
             }
         });
 
+        editText.setOnKeyListener(new View.OnKeyListener() {
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                    if (!editText.getText().toString().equals("")){
+                        Intent intent = new Intent(QRBarcodeActivity.this, pasanopasaActivity.class);
+                        bundle.putInt("idStadium",bundle.getInt("idStadium"));
+                        bundle.putInt(dato,Integer.valueOf(editText.getText().toString()));
+                        intent.putExtras(bundle);
+                        startActivity(intent);
+                    }else Toast.makeText(getBaseContext(), "Indicar Socio", Toast.LENGTH_LONG).show();
+                    return true;
+                }
+                return false;
+            }
+        });
         benviar.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                if (!idSocio.equals("")){
+                    Intent intent = new Intent(QRBarcodeActivity.this, pasanopasaActivity.class);
+                    bundle.putInt("idStadium",bundle.getInt("idStadium"));
+                    bundle.putInt(dato,Integer.valueOf(idSocio));
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                }else Toast.makeText(getBaseContext(), "Indicar Socio", Toast.LENGTH_LONG).show();
 
-                Intent intent = new Intent(QRBarcodeActivity.this, pasanopasaActivity.class);
-                bundle.putInt("idStadium",bundle.getInt("idStadium"));
-                bundle.putInt("idSocio",Integer.valueOf(idSocio));
-                intent.putExtras(bundle);
-                startActivity(intent);
             }
         });
 
@@ -60,16 +85,49 @@ public class QRBarcodeActivity extends AppCompatActivity {
         benviarid.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-                bundle.putInt("idSocio",Integer.valueOf(editText.getText().toString()));
-                bundle.putInt("idStadium",bundle.getInt("idStadium"));
-                Intent intent = new Intent(QRBarcodeActivity.this, pasanopasaActivity.class);
-                intent.putExtras(bundle);
-                startActivity(intent);
+                if (!editText.getText().toString().equals("")){
+                    Intent intent = new Intent(QRBarcodeActivity.this, pasanopasaActivity.class);
+                    bundle.putInt("idStadium",bundle.getInt("idStadium"));
+                    bundle.putInt(dato,Integer.valueOf(editText.getText().toString()));
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                }else Toast.makeText(getBaseContext(), "Indicar Socio", Toast.LENGTH_LONG).show();
 
             }
         });
     }
 
+    public void onRadioButtonClicked(View view) {
+        // Is the button now checked?
+        boolean checked = ((RadioButton) view).isChecked();
+
+        // Check which radio button was clicked
+        switch(view.getId()) {
+            case R.id.buttonsocio:
+                if (checked)
+                    dato="idSocio";
+                    break;
+            case R.id.buttondni:
+                if (checked)
+                    dato="documento";
+                    break;
+        }
+    }
+
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if ((keyCode == KeyEvent.KEYCODE_BACK)) {
+            Log.d(this.getClass().getName(), "back button pressed");
+            Toast.makeText(getBaseContext(), "Volviendo al menu", Toast.LENGTH_LONG).show();
+            bundle.putInt("idStadium",bundle.getInt("idStadium"));
+            bundle.putInt("Puerta",bundle.getInt("Puerta"));
+            Intent intent = new Intent(QRBarcodeActivity.this, MainActivity.class);
+            intent.putExtras(bundle);
+            startActivity(intent);
+        }
+        return super.onKeyDown(keyCode, event);
+    }
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
         formatTxt = (TextView)findViewById(R.id.formatTxt);
         contentTxt= (TextView)findViewById(R.id.contentTxt);
@@ -84,7 +142,7 @@ public class QRBarcodeActivity extends AppCompatActivity {
         }
         else{
             Toast toast = Toast.makeText(getApplicationContext(),
-                    "No scan data received!", Toast.LENGTH_SHORT);
+                    "No se pudo escanear, intente nuevamente!", Toast.LENGTH_SHORT);
             toast.show();
         }
     }
