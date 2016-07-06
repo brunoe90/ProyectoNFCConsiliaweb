@@ -17,12 +17,13 @@
         android:text="@string/estadio"
         android:id="@+id/textView3"
         android:layout_gravity="center_horizontal"
-        android:textSize="40sp" />
+        android:textSize="40sp"
+        android:typeface="normal" />
 
     <Spinner
         android:id="@+id/Estadio"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:entries="@array/country_arrays"
         android:prompt="@string/country_prompt"
         android:spinnerMode="dropdown"
@@ -54,6 +55,6 @@
         android:id="@+id/bentrar"
         android:layout_gravity="center_horizontal"
         android:onClick="bentrar"
-        android:textSize="30dp" />
+        android:textSize="30sp" />
 
 </LinearLayout>

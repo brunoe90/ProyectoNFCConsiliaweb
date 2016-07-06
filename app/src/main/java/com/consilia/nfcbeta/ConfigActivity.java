@@ -1,7 +1,9 @@
 package com.consilia.nfcbeta;
 
-import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -17,6 +19,9 @@ public class ConfigActivity extends AppCompatActivity {
     EditText etip;
     Spinner spinner;
     int  idStadium;
+    //Typeface face= Typeface.createFromAsset(getAssets(),"fonts/digital.ttf");
+    //txtV.setTypeface(face);
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +30,16 @@ public class ConfigActivity extends AppCompatActivity {
         bundle = new Bundle();
         spinner = (Spinner) findViewById(R.id.Estadio);
         etip        = (EditText)findViewById(R.id.etstadio);
+        //assert etip != null;
+        //etip.setTypeface(face);
+
+        boolean connected;
+        ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+        //we are connected to a network
+        connected = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED;
+
+        if (!connected) Toast.makeText(getBaseContext(), "Falla la coneccion a internet!!!!", Toast.LENGTH_LONG).show();
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,R.array.country_arrays, android.R.layout.simple_spinner_item);
 
@@ -70,5 +85,6 @@ public class ConfigActivity extends AppCompatActivity {
             startActivity(intent);
         } else Toast.makeText(getBaseContext(), "Indicar Puerta de acceso", Toast.LENGTH_LONG).show();
     }
+
 
 }
