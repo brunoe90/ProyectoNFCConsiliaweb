@@ -92,6 +92,8 @@ public class NfcActivity extends AppCompatActivity {
                 if (!editText.getText().toString().equals("")){
                     Intent intent = new Intent(NfcActivity.this, pasanopasaActivity.class);
                     bundle.putInt("idStadium",bundle.getInt("idStadium"));
+                    bundle.remove("NFCTAG");
+
                     bundle.putInt(dato,Integer.valueOf(editText.getText().toString()));
                     intent.putExtras(bundle);
                     startActivity(intent);
@@ -123,11 +125,11 @@ public class NfcActivity extends AppCompatActivity {
             case R.id.buttonsocio:
                 if (checked)
                     dato="idSocio";
-                break;
+                    break;
             case R.id.buttondni:
                 if (checked)
                     dato="documento";
-                break;
+                    break;
         }
     }
 

@@ -151,15 +151,23 @@ public class pasanopasaActivity extends AppCompatActivity {
                     int b = stringsoap.indexOf("Activo");
                     int c = stringsoap.indexOf("vencida");
                     if (c>0){
-                        dato.setTextColor(Color.parseColor("#FF0000")); tresultado.setTextColor(Color.parseColor("#FF0000"));
+                        dato.setTextColor(Color.parseColor("#F44336")); tresultado.setTextColor(Color.parseColor("#F44336"));
                         dato.setText("El ingresante tiene la cuota vencida");
                     }else if (a<1) {
-                        i="TARJETA NO VALIDA";
-                        dato.setTextColor(Color.parseColor("#FF0000")); tresultado.setTextColor(Color.parseColor("#FF0000"));
-                        tresultado.setText("Tarjeta no encontrada en base de datos");
+                        if (idSocio.equals("0")){
+                            i="Usuario no encontrado";
+                            dato.setTextColor(Color.parseColor("#F44336")); tresultado.setTextColor(Color.parseColor("#F44336"));
+                            tresultado.setText("Ingrese los datos devuelta!");
+                        }else {
+                            i="TARJETA NO VALIDA";
+                            dato.setTextColor(Color.parseColor("#F44336")); tresultado.setTextColor(Color.parseColor("#F44336"));
+                            tresultado.setText("Tarjeta no encontrada en base de datos");
+                        }
+
+
                     }else if (b<1){
                         i="SOCIO NO ACTIVO";
-                        dato.setTextColor(Color.parseColor("#FF0000")); tresultado.setTextColor(Color.parseColor("#FF0000"));
+                        dato.setTextColor(Color.parseColor("#F44336")); tresultado.setTextColor(Color.parseColor("#F44336"));
                         tresultado.setText(stringsoap);
                     }
                     else{
@@ -170,13 +178,13 @@ public class pasanopasaActivity extends AppCompatActivity {
                         if (i.contains("Puerta")){
 
                             if (i.contains(Puerta)){
-                                dato.setTextColor(Color.parseColor("#00FF00")); tresultado.setTextColor(Color.parseColor("#00FF00"));
+                                dato.setTextColor(Color.parseColor("#4CAF50")); tresultado.setTextColor(Color.parseColor("#4CAF50"));
                                 Toast toast = Toast.makeText(context, "PASA", Toast.LENGTH_LONG);
                                 toast.setGravity(Gravity.TOP| Gravity.CENTER, 10, 90);
                                 toast.show();
                             } else {
-                                dato.setTextColor(Color.parseColor("#FF0000"));
-                                tresultado.setTextColor(Color.parseColor("#FF0000"));
+                                dato.setTextColor(Color.parseColor("#F44336"));
+                                tresultado.setTextColor(Color.parseColor("#F44336"));
                                 Toast toast = Toast.makeText(context, "ACCESO NO PERMITIDO", Toast.LENGTH_LONG);
                              //   Toast.makeText(getBaseContext(), "ACCESO NO PERMITIDO", Toast.LENGTH_LONG).show();
                                 toast.setGravity(Gravity.TOP| Gravity.CENTER, 10, 90);
