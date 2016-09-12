@@ -1,5 +1,6 @@
 package com.consilia.nfcbeta;
 
+import android.annotation.TargetApi;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -16,6 +17,7 @@ import android.nfc.tech.NfcA;
 import android.nfc.tech.NfcB;
 import android.nfc.tech.NfcF;
 import android.nfc.tech.NfcV;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -26,6 +28,10 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
+import java.util.Objects;
 
 public class NfcActivity extends AppCompatActivity {
 
@@ -164,6 +170,7 @@ public class NfcActivity extends AppCompatActivity {
         nfcAdapter.disableForegroundDispatch(this);
     }
 
+    @TargetApi(Build.VERSION_CODES.KITKAT)
     @Override
     protected void onNewIntent(Intent intent) {
 
@@ -174,6 +181,18 @@ public class NfcActivity extends AppCompatActivity {
                 if (findViewById(R.id.text) != null) {
                     ((TextView) findViewById(R.id.text)).setText( "NFC Tag " +texto);
                     bundle.putString("NFCTAG",texto);
+
+
+                    if (!Objects.equals(texto,"")){
+                        intent = new Intent(NfcActivity.this, pasanopasaActivity.class);
+                        bundle.putInt("idStadium",bundle.getInt("idStadium"));
+                        bundle.remove("idSocio");
+                        //bundle.putInt("idSocio",Integer.valueOf(editText.getText().toString()));
+                        intent.putExtras(bundle);
+                        startActivity(intent);
+
+                    }
+
                 }
             }
             Log.d("asd", NfcAdapter.EXTRA_ID);
@@ -187,12 +206,25 @@ public class NfcActivity extends AppCompatActivity {
         String[] hex = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F"};
         String out = "";
         signo=0;
-        byte buffer[];
-        buffer=inarray;
+        byte buffer[] = new byte[inarray.length];
+       // buffer=inarray;
+
+        for (j = inarray.length; j >0 ; j--){
+
+            buffer[buffer.length-j]=inarray[j-1];
+        }
+
         if (buffer[buffer.length-1]<0){
             signo=1;
-            buffer[buffer.length-1]= (byte) (((byte) 128)+buffer[buffer.length-1]);
+
+            for (j = inarray.length; j >0 ; j--){
+
+                buffer[buffer.length-j]= (byte) ~buffer[buffer.length-j];
+            }
+            buffer[buffer.length-1]= (byte) ((byte) 0x7f &buffer[buffer.length-1]);
+            buffer[0]++;
         }
+
         for (j = buffer.length; j >0 ; j--) {
 
             in = (int) buffer[j-1] & 0xff;
@@ -201,13 +233,17 @@ public class NfcActivity extends AppCompatActivity {
             i = in & 0x0f;
             out += hex[i];
         }
-        //try{
+
+
+
         if(signo==1){
-            Resultado =Long.parseLong(out,16);
-            Resultado=-Resultado;
+
+            Resultado =-Long.parseLong(out,16);
+
         }else Resultado =Long.parseLong(out,16);
 
 
         return String.valueOf(Resultado);
     }
+
 }

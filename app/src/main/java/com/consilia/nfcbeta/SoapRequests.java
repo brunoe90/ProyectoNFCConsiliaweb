@@ -195,15 +195,36 @@ public class SoapRequests {
             if (null== response.getPropertySafelyAsString("EstadoAcceso")){
                 return "0";
             }
+            String acceso =response.getPropertySafelyAsString("EstadoAcceso").replace("anyType{","").replace("; }", "").replace("null","No tiene");
+
+            String parseo[] = acceso.split(";");
+
+            String condiciondeacceso= "";
+
+            for (int i=0;parseo.length>i;i++){
+
+                if (0<parseo[i].indexOf("Estado")){
+                    condiciondeacceso=condiciondeacceso+'\n'+parseo[i];
+                }
+                /*if (0<parseo[i].indexOf("TicketVirtual")){
+                    condiciondeacceso=condiciondeacceso+'\n'+parseo[i];
+                }*/
+                if (0<parseo[i].indexOf("Puertas")){
+                    condiciondeacceso=condiciondeacceso+'\n'+parseo[i];
+                }
+
+
+            }
+
             data =  "Categoria: "+          response.getPrimitivePropertySafelyAsString("Categoria") +'\n'+
-                    "Precio Categoria: "+   response.getPrimitivePropertySafelyAsString("PrecioCategoria")+'\n'+
+                   // "Precio Categoria: "+   response.getPrimitivePropertySafelyAsString("PrecioCategoria")+'\n'+
                     "Num. Socio: "+         response.getPrimitivePropertySafelyAsString("NumSocio")+'\n'+
-                    "Tipo Socio: "+         response.getPrimitivePropertySafelyAsString("TipoSocio")+'\n'+
+                   // "Tipo Socio: "+         response.getPrimitivePropertySafelyAsString("TipoSocio")+'\n'+
                     "Nombre: "+             response.getPrimitivePropertySafelyAsString("Nombre")+'\n'+
                     "Documento: "+          response.getPrimitivePropertySafelyAsString("Documento")+'\n'+
-                    "Estado: "+             response.getPrimitivePropertySafelyAsString("Estado")+'\n'+
-                    "Ultima Cuota Paga: " + response.getPrimitivePropertySafelyAsString("UltimoPago")+'\n'+
-                    "Acceso: "+             response.getPropertySafelyAsString("EstadoAcceso").replace("anyType{","").replace("; }", "");
+                    "Estado del Socio: "+             response.getPrimitivePropertySafelyAsString("Estado")+'\n'+
+                    "Ultima Cuota Paga: " + response.getPrimitivePropertySafelyAsString("UltimoPago").substring(0,  10)+'\n'+
+                    "Acceso: "+          condiciondeacceso;
 
         } catch (Exception q) {
             q.printStackTrace();

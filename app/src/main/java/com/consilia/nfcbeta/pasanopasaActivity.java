@@ -1,5 +1,6 @@
 package com.consilia.nfcbeta;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -7,6 +8,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
@@ -19,6 +21,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.Objects;
 
 public class pasanopasaActivity extends AppCompatActivity {
     TextView    dato,tresultado;
@@ -37,6 +41,7 @@ public class pasanopasaActivity extends AppCompatActivity {
     String      numSocio;
     String      tipodoc ="DNI";
     String      UltimaActivity;
+    @TargetApi(Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,7 +58,7 @@ public class pasanopasaActivity extends AppCompatActivity {
         idStadium =     String.valueOf(bundle.getInt("idStadium"));
         Puerta =        String.valueOf(bundle.getInt("Puerta"));
         documento =     String.valueOf(bundle.getInt("documento"));
-        Tarjeta =       bundle.getString("Tarjeta");
+        Tarjeta =       bundle.getString("NFCTAG");
         UltimaActivity = bundle.getString("lastActivity");
         boolean connected;
         ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -69,16 +74,16 @@ public class pasanopasaActivity extends AppCompatActivity {
 
                 assert UltimaActivity != null;
                 if (UltimaActivity.equals("qr")){
-                    if (null != idSocio){
+                    if (!Objects.equals("0", idSocio)){
                         getSoap("getestado");
-                    }else if (null != documento){
+                    }else if (!Objects.equals("0", documento)){
                         getSoap("buscar");
                     }
                 }
                 if (UltimaActivity.equals("nfc")){
-                    if (null != idSocio){
+                    if (!Objects.equals("0", idSocio)){
                         getSoap("getestado");
-                    }else if (null != Tarjeta){
+                    }else if (!Objects.equals("0", Tarjeta)){
                         getSoap("getcarnet");
                     }
                 }
@@ -152,16 +157,23 @@ public class pasanopasaActivity extends AppCompatActivity {
                     int c = stringsoap.indexOf("vencida");
                     if (c>0){
                         dato.setTextColor(Color.parseColor("#F44336")); tresultado.setTextColor(Color.parseColor("#F44336"));
-                        dato.setText("El ingresante tiene la cuota vencida");
+                        tresultado.setText("Acceso no permitido");
+                        //dato.setText("El ingresante tiene la cuota vencida");
+                        i="El ingresante tiene la cuota vencida";
                     }else if (a<1) {
                         if (idSocio.equals("0")){
                             i="Usuario no encontrado";
                             dato.setTextColor(Color.parseColor("#F44336")); tresultado.setTextColor(Color.parseColor("#F44336"));
                             tresultado.setText("Ingrese los datos devuelta!");
-                        }else {
+                        }else if (stringsoap.equals("0")) {
                             i="TARJETA NO VALIDA";
                             dato.setTextColor(Color.parseColor("#F44336")); tresultado.setTextColor(Color.parseColor("#F44336"));
                             tresultado.setText("Tarjeta no encontrada en base de datos");
+                        }else{
+                            i="NO ESTA DEFINIDA PUERTA";
+                            dato.setTextColor(Color.parseColor("#F44336")); tresultado.setTextColor(Color.parseColor("#F44336"));
+                            tresultado.setText("No se encuentra la puerta indicada");
+                            dato.setText(i);
                         }
 
 
@@ -172,9 +184,9 @@ public class pasanopasaActivity extends AppCompatActivity {
                     }
                     else{
                         i= stringsoap.substring(a);
-                        i = i.substring(0, i.indexOf('C'));
+                       // i = i.substring(0, i.indexOf("Puerta"));
                         stringsoap = stringsoap.replace(i,"");
-                        i = i.replace(";","").replace("=","= ");
+                       // i = i.replace(";","").replace("=","= ");
                         if (i.contains("Puerta")){
 
                             if (i.contains(Puerta)){
@@ -199,7 +211,8 @@ public class pasanopasaActivity extends AppCompatActivity {
                     break;}
 
                 case 4: {
-                    tresultado.setText(stringsoap); getSoap("getestado");
+                    tresultado.setText(stringsoap);
+                    getSoap("getestado");
                     break;}
 
                 default: Toast.makeText(getBaseContext(), "Fallo comando", Toast.LENGTH_LONG).show(); break;
@@ -244,7 +257,7 @@ public class pasanopasaActivity extends AppCompatActivity {
 
                     case "getcarnet":{
                         stringsoap =    ex.getcaret(idStadium,bundle.getString("NFCTAG"));
-                        idSocio=        numSocio;
+                        idSocio=        stringsoap;
                         handler.sendEmptyMessage(4);
                         break;}
                 }
