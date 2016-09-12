@@ -94,7 +94,7 @@ public class pasanopasaActivity extends AppCompatActivity {
                     }   else Toast.makeText(getBaseContext(), "Falla al encontrar Puerta", Toast.LENGTH_LONG).show();
                 } else Toast.makeText(getBaseContext(), "Falla al encontrar idStadio", Toast.LENGTH_LONG).show();
             }
-        });
+        });//
 
         bvolver.setOnClickListener(new View.OnClickListener() {
             @Override
