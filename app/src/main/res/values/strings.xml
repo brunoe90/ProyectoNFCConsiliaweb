@@ -49,6 +49,9 @@
     <string name="volver">volver</string>
     <string name="documento_dni">Documento (DNI)</string>
     <string name="idsocio">IDSOCIO</string>
+    <string name="asdada">asd</string>
+    <string name="asdasd">asdasd</string>
+    <string name="sdfthdsfth">sdfthdsfth</string>
     <string-array name="country_arrays">
         <item>Seleccionar 0</item>
         <item>Boca 1</item>

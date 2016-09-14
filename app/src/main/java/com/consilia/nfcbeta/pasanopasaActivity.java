@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.media.AudioManager;
+import android.media.ToneGenerator;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
@@ -136,6 +138,12 @@ public class pasanopasaActivity extends AppCompatActivity {
 
         @Override
         public boolean handleMessage(Message msg) {
+            ToneGenerator toneG = new ToneGenerator(AudioManager.STREAM_ALARM, 100);
+
+            // Double beeps:     tg.startTone(ToneGenerator.TONE_PROP_ACK);
+            // Double beeps:     tg.startTone(ToneGenerator.TONE_PROP_BEEP2);
+            // Sounds all wrong: tg.startTone(ToneGenerator.TONE_CDMA_KEYPAD_VOLUME_KEY_LITE);
+            // Simple beep:      tg.startTone(ToneGenerator.TONE_CDMA_ALERT_CALL_GUARD, 200);
             switch (msg.what) {
 
                 case 0: tresultado.setText(stringsoap); break;
@@ -152,6 +160,7 @@ public class pasanopasaActivity extends AppCompatActivity {
 
                 case 3: {
                     String i = "";
+                    boolean pasa= false;
                     int a = stringsoap.indexOf("Puertas=");
                     int b = stringsoap.indexOf("Activo");
                     int c = stringsoap.indexOf("vencida");
@@ -160,27 +169,35 @@ public class pasanopasaActivity extends AppCompatActivity {
                         tresultado.setText("Acceso no permitido");
                         //dato.setText("El ingresante tiene la cuota vencida");
                         i="El ingresante tiene la cuota vencida";
+                        toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
                     }else if (a<1) {
                         if (idSocio.equals("0")){
                             i="Usuario no encontrado";
-                            dato.setTextColor(Color.parseColor("#F44336")); tresultado.setTextColor(Color.parseColor("#F44336"));
+//                            dato.setTextColor(Color.parseColor("#F44336"));
+                            tresultado.setTextColor(Color.parseColor("#F44336"));
                             tresultado.setText("Ingrese los datos devuelta!");
+                            toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
                         }else if (stringsoap.equals("0")) {
                             i="TARJETA NO VALIDA";
-                            dato.setTextColor(Color.parseColor("#F44336")); tresultado.setTextColor(Color.parseColor("#F44336"));
+//                            dato.setTextColor(Color.parseColor("#F44336"));
+                            tresultado.setTextColor(Color.parseColor("#F44336"));
                             tresultado.setText("Tarjeta no encontrada en base de datos");
+                            toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
                         }else{
                             i="NO ESTA DEFINIDA PUERTA";
-                            dato.setTextColor(Color.parseColor("#F44336")); tresultado.setTextColor(Color.parseColor("#F44336"));
+//                            dato.setTextColor(Color.parseColor("#F44336")); tresultado.setTextColor(Color.parseColor("#F44336"));
                             tresultado.setText("No se encuentra la puerta indicada");
                             dato.setText(i);
+
+                            toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
                         }
 
 
                     }else if (b<1){
                         i="SOCIO NO ACTIVO";
-                        dato.setTextColor(Color.parseColor("#F44336")); tresultado.setTextColor(Color.parseColor("#F44336"));
-                        tresultado.setText(stringsoap);
+//                        dato.setTextColor(Color.parseColor("#F44336"));
+                        tresultado.setTextColor(Color.parseColor("#F44336"));
+                        tresultado.setText(stringsoap.replace("=",":"));
                     }
                     else{
                         i= stringsoap.substring(a);
@@ -190,24 +207,34 @@ public class pasanopasaActivity extends AppCompatActivity {
                         if (i.contains("Puerta")){
 
                             if (i.contains(Puerta)){
-                                dato.setTextColor(Color.parseColor("#4CAF50")); tresultado.setTextColor(Color.parseColor("#4CAF50"));
+//                                dato.setTextColor(Color.parseColor("#4CAF50"));
+                                tresultado.setTextColor(Color.parseColor("#4CAF50"));
                                 Toast toast = Toast.makeText(context, "PASA", Toast.LENGTH_LONG);
                                 toast.setGravity(Gravity.TOP| Gravity.CENTER, 10, 90);
                                 toast.show();
+                                //ToneGenerator toneG = new ToneGenerator(AudioManager.STREAM_ALARM, 100);
+                                toneG.startTone(ToneGenerator.TONE_CDMA_ALERT_CALL_GUARD, 200);
+                                pasa=true;
+
+
                             } else {
-                                dato.setTextColor(Color.parseColor("#F44336"));
+//                                dato.setTextColor(Color.parseColor("#F44336"));
                                 tresultado.setTextColor(Color.parseColor("#F44336"));
                                 Toast toast = Toast.makeText(context, "ACCESO NO PERMITIDO", Toast.LENGTH_LONG);
                              //   Toast.makeText(getBaseContext(), "ACCESO NO PERMITIDO", Toast.LENGTH_LONG).show();
                                 toast.setGravity(Gravity.TOP| Gravity.CENTER, 10, 90);
                                 toast.show();
+                                //ToneGenerator toneG = new ToneGenerator(AudioManager.STREAM_ALARM, 100);
+                                toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
                             }
                         }
-                        tresultado.setText(stringsoap );
+                        tresultado.setText(stringsoap.replace("=",":") );
                     }
 
+                    i=i.replace("Puerta","").replace("s","").replace("=",": ").replace("  "," ");
+                    if (pasa) i= "Puertas" + i;
 
-                    dato.setText(i);
+                    dato.setText(i+".");
                     break;}
 
                 case 4: {

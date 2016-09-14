@@ -11,19 +11,32 @@
     tools:context="com.consilia.nfcbeta.pasanopasaActivity"
     android:weightSum="1">
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView"
+        android:contentDescription=""
+        android:adjustViewBounds="true"
+        android:layout_alignParentTop="true" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/tresultado" />
+        android:id="@+id/tresultado"
+        android:text="@string/sdfthdsfth"
+        android:layout_below="@+id/dato"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/dato"
         android:textSize="30sp"
-        android:layout_above="@+id/buttonfoto"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:textStyle="bold"
+        android:text="@string/asdasd"
+        android:layout_alignBottom="@+id/imageView"
+        android:layout_centerHorizontal="true" />
 
     <Button
         android:layout_width="fill_parent"
@@ -43,13 +56,5 @@
         android:id="@+id/bvolver"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/imageView"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:contentDescription="" />
 
 </RelativeLayout>
