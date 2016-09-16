@@ -28,9 +28,6 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
 import java.util.Objects;
 
 public class NfcActivity extends AppCompatActivity {
@@ -180,7 +177,7 @@ public class NfcActivity extends AppCompatActivity {
 
                 if (findViewById(R.id.text) != null) {
                     ((TextView) findViewById(R.id.text)).setText( "NFC Tag " +texto);
-                    bundle.putString("NFCTAG",texto);
+                    bundle.putString("NFCINVITADO",texto);
 
 
                     if (!Objects.equals(texto,"")){

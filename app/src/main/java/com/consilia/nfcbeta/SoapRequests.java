@@ -19,7 +19,9 @@ public class SoapRequests {
     private static final String SOAP_ACTION_SearchSocioByDoc =  "http://controlplus.net/cwpwebservice/SearchSocioByDoc";
     private static final String SOAP_ACTION_SearchSocio =       "http://controlplus.net/cwpwebservice/SearchSocio";
     private static final String SOAP_ACTION_getfoto =           "http://controlplus.net/cwpwebservice/GetFotoSocio";
+    private static final String SOAP_ACTION_getfoto_Invitado =           "http://controlplus.net/cwpwebservice/GetFotoInvitado";
     private static final String SOAP_ACTION_searchcarnet =           "http://controlplus.net/cwpwebservice/SearchCarnet";
+    private static final String SOAP_ACTION_SearchInvitado =           "http://controlplus.net/cwpwebservice/SearchInvitado";
 
     private static String SESSION_ID;
 
@@ -117,6 +119,10 @@ public class SoapRequests {
 
         String methodname = "SearchSocioByDoc";
         SoapObject request = new SoapObject("http://controlplus.net/cwpwebservice",methodname);// new SoapObject(NAMESPACE, methodname);
+
+
+
+
 
         request.addProperty("idStadium", idStadium);
         request.addProperty("idTipoDoc",idTipoDoc);
@@ -233,6 +239,52 @@ public class SoapRequests {
         return data;
     }
 
+
+    public String SearchInvitado(String idStadium, String numInvitado) {
+
+        String data = null  ;
+
+        String methodname = "SearchInvitado";
+        SoapObject request = new SoapObject("http://controlplus.net/cwpwebservice",methodname);// new SoapObject(NAMESPACE, methodname);
+
+        request.addProperty("idStadium", idStadium);
+        request.addProperty("numInvitado",numInvitado);
+        request.addProperty("documento",null);
+        request.addProperty("traerFoto","0");
+        SoapSerializationEnvelope envelope;
+        envelope = getSoapSerializationEnvelope(request);
+        envelope.skipNullProperties=true;
+
+        HttpTransportSE ht =  getHttpTransportSE( "http://192.168.0.1/WebService.asmx");
+        try {
+
+            ht.call(SOAP_ACTION_SearchInvitado,  envelope);
+
+            testHttpResponse(ht);
+            SoapObject resultsString = (SoapObject) envelope.getResponse();
+
+            List<HeaderProperty> COOKIE_HEADER = (List<HeaderProperty>) ht.getServiceConnection().getResponseProperties();
+
+            for (int i = 0; i < COOKIE_HEADER.size(); i++) {
+                String key = COOKIE_HEADER.get(i).getKey();
+                String value = COOKIE_HEADER.get(i).getValue();
+
+                if (key != null && key.equalsIgnoreCase("set-cookie")) {
+                    SoapRequests.SESSION_ID = value.trim();
+                    Log.v("SOAP RETURN", "Cookie :" + SoapRequests.SESSION_ID);
+                    break;
+                }
+            }
+            //  data = (resultsString.toString());
+
+            data=  // "Tipo: "+       resultsString.getPrimitivePropertyAsString("IdTipo") +'\n'+
+                   /* "numero: "+*/     resultsString.getPrimitivePropertyAsString("Message");
+        } catch (Exception q) {
+            q.printStackTrace();
+        }
+        return data;
+    }
+
     public byte[] getfotosocio(String idStadium, String numSocio) {
 
         byte data[] = new byte[0];
@@ -247,6 +299,45 @@ public class SoapRequests {
         HttpTransportSE ht =  getHttpTransportSE( "http://192.168.0.1/WebService.asmx");
         try {
             ht.call(SOAP_ACTION_getfoto, envelope);
+
+            testHttpResponse(ht);
+            SoapPrimitive resultsString = (SoapPrimitive) envelope.getResponse();
+
+            List<HeaderProperty> COOKIE_HEADER = (List<HeaderProperty>) ht.getServiceConnection().getResponseProperties();
+
+            for (int i = 0; i < COOKIE_HEADER.size(); i++) {
+                String key = COOKIE_HEADER.get(i).getKey();
+                String value = COOKIE_HEADER.get(i).getValue();
+
+                if (key != null && key.equalsIgnoreCase("set-cookie")) {
+                    SoapRequests.SESSION_ID = value.trim();
+                    Log.v("SOAP RETURN", "Cookie :" + SoapRequests.SESSION_ID);
+                    break;
+                }
+            }
+            String decode =resultsString.toString();
+            data = Base64.decode(decode.getBytes(), Base64.DEFAULT); //resultsString.toString();
+
+        } catch (Exception q) {
+            q.printStackTrace();
+        }
+        return data;
+    }
+
+    public byte[] getfotoinvitado(String idStadium, String numSocio) {
+
+        byte data[] = new byte[0];
+        String methodname = "GetFotoInvitado";
+
+        SoapObject request = new SoapObject("http://controlplus.net/cwpwebservice", methodname);
+        request.addProperty("idStadium", idStadium);
+        request.addProperty("numSocio", numSocio);
+
+        SoapSerializationEnvelope envelope = getSoapSerializationEnvelope(request);
+
+        HttpTransportSE ht =  getHttpTransportSE( "http://192.168.0.1/WebService.asmx");
+        try {
+            ht.call(SOAP_ACTION_getfoto_Invitado, envelope);
 
             testHttpResponse(ht);
             SoapPrimitive resultsString = (SoapPrimitive) envelope.getResponse();

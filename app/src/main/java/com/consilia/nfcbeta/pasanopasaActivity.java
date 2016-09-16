@@ -34,6 +34,7 @@ public class pasanopasaActivity extends AppCompatActivity {
     String      Puerta;
     String      documento;
     String      Tarjeta;
+    String      Invitado;
     Button      buttonfoto;
     Button      bvolver;
     Context     context;
@@ -61,6 +62,7 @@ public class pasanopasaActivity extends AppCompatActivity {
         Puerta =        String.valueOf(bundle.getInt("Puerta"));
         documento =     String.valueOf(bundle.getInt("documento"));
         Tarjeta =       bundle.getString("NFCTAG");
+        Invitado =      bundle.getString("NFCINVITADO");
         UltimaActivity = bundle.getString("lastActivity");
         boolean connected;
         ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -85,8 +87,10 @@ public class pasanopasaActivity extends AppCompatActivity {
                 if (UltimaActivity.equals("nfc")){
                     if (!Objects.equals("0", idSocio)){
                         getSoap("getestado");
-                    }else if (!Objects.equals("0", Tarjeta)){
+                    }else if (null!= Tarjeta){
                         getSoap("getcarnet");
+                    }else if (!Objects.equals("0", Invitado)){
+                        getSoap("getinvitado");
                     }
                 }
             }   else Toast.makeText(getBaseContext(), "Falla al encontrar Puerta", Toast.LENGTH_LONG).show();
@@ -240,7 +244,13 @@ public class pasanopasaActivity extends AppCompatActivity {
                 case 4: {
                     tresultado.setText(stringsoap);
                     getSoap("getestado");
-                    break;}
+                    break;
+                }
+                case 5: {
+                    tresultado.setText(stringsoap);
+                    //getSoap("getestado");
+                    break;
+                }
 
                 default: Toast.makeText(getBaseContext(), "Fallo comando", Toast.LENGTH_LONG).show(); break;
             }
@@ -287,6 +297,14 @@ public class pasanopasaActivity extends AppCompatActivity {
                         idSocio=        stringsoap;
                         handler.sendEmptyMessage(4);
                         break;}
+                    case "getinvitado":{
+                        stringsoap =    ex.SearchInvitado(idStadium,bundle.getString("NFCINVITADO"));
+                        idSocio=        stringsoap;
+                        handler.sendEmptyMessage(5);
+
+
+                        break;
+                    }
                 }
             }
         }).start();
