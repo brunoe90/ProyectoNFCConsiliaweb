@@ -29,10 +29,11 @@
     <string name="resultado">resultado</string>
     <string name="convertir">convertir</string>
     <string name="introducir_pedido">introducir pedido</string>
-    <string name="id_socio">ID SOCIO:</string>
-    <string name="nfc_tag">NFC TAG:</string>
+    <string name="id_socio">ID SOCIO</string>
+    <string name="nfc_tag">NFC TAG</string>
     <string name="tag_aqui">tag aqui</string>
     <string name="enviar_nfc">Enviar NFC</string>
+    <string name="enviar_nfc_invitado">Enviar NFC Invitado</string>
     <string name="enviar_id_socio">Enviar ID SOCIO</string>
     <string name="formato">Formato</string>
     <string name="enviar">enviar</string>
@@ -61,4 +62,9 @@
         <item>La Plata 5</item>
         <item>Luna Park 6</item>
     </string-array>
+    <string name="action_settings">settings</string>
+    <string name="menu_main">menu</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="textview">TextView</string>
 </resources>

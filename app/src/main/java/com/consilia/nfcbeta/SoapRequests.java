@@ -12,7 +12,7 @@ import org.ksoap2.transport.HttpTransportSE;
 import java.net.Proxy;
 import java.util.List;
 
-public class SoapRequests {
+class SoapRequests {
     private static final boolean DEBUG_SOAP_REQUEST_RESPONSE = true;
     private static final String NAMESPACE =                     "http://192.168.0.1/WebService.asmx";
     private static final String SOAP_ACTION_getversion =        "http://controlplus.net/cwpwebservice/GetVersion";
@@ -33,7 +33,7 @@ public class SoapRequests {
         }
     }
 
-    public String getversion() {
+    String getversion() {
 
         String data = null;
 
@@ -70,7 +70,7 @@ public class SoapRequests {
         return data;
     }
 
-    public String getcaret(String idEstadio, String idSerie) {
+    String getcaret(String idEstadio, String idSerie) {
 
         String data = null  ;
 
@@ -113,7 +113,7 @@ public class SoapRequests {
         return data;
     }
 
-    public String getsociobydoc(String idStadium, String documento, String idTipoDoc) {
+     String getsociobydoc(String idStadium, String documento, String idTipoDoc) {
 
         String data = null  ;
 
@@ -159,7 +159,7 @@ public class SoapRequests {
         return data;
     }
 
-    public String getsocio(String idStadium,  String numSocio,String documento) {
+    String getsocio(String idStadium, String numSocio, String documento) {
 
         String data;
        // idStadium="2";
@@ -240,7 +240,7 @@ public class SoapRequests {
     }
 
 
-    public String SearchInvitado(String idStadium, String numInvitado) {
+     String SearchInvitado(String idStadium, String numInvitado) {
 
         String data = null  ;
 
@@ -285,7 +285,7 @@ public class SoapRequests {
         return data;
     }
 
-    public byte[] getfotosocio(String idStadium, String numSocio) {
+     byte[] getfotosocio(String idStadium, String numSocio) {
 
         byte data[] = new byte[0];
         String methodname = "GetFotoSocio";
@@ -324,7 +324,7 @@ public class SoapRequests {
         return data;
     }
 
-    public byte[] getfotoinvitado(String idStadium, String numSocio) {
+     byte[] getfotoinvitado(String idStadium, String numSocio) {
 
         byte data[] = new byte[0];
         String methodname = "GetFotoInvitado";

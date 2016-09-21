@@ -118,6 +118,13 @@ public class pasanopasaActivity extends AppCompatActivity {
                     startActivity(intent);
                 } else if (UltimaActivity.equals("nfc")){
                     Intent intent = new Intent(pasanopasaActivity.this, NfcActivity.class);
+
+                    if (Invitado!=null){
+                        bundle.putInt("TAB", 2);
+                    } else if (Tarjeta!=null){
+                        bundle.putInt("TAB", 0);
+                    } else bundle.putInt("TAB", 1);
+
                     intent.putExtras(bundle);
                     startActivity(intent);
                 }
@@ -176,10 +183,10 @@ public class pasanopasaActivity extends AppCompatActivity {
                         toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
                     }else if (a<1) {
                         if (idSocio.equals("0")){
-                            i="Usuario no encontrado";
+                            i="Usuario no encontrado!";
 //                            dato.setTextColor(Color.parseColor("#F44336"));
                             tresultado.setTextColor(Color.parseColor("#F44336"));
-                            tresultado.setText("Ingrese los datos devuelta!");
+                            tresultado.setText(i);
                             toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
                         }else if (stringsoap.equals("0")) {
                             i="TARJETA NO VALIDA";
@@ -202,9 +209,11 @@ public class pasanopasaActivity extends AppCompatActivity {
 //                        dato.setTextColor(Color.parseColor("#F44336"));
                         tresultado.setTextColor(Color.parseColor("#F44336"));
                         tresultado.setText(stringsoap.replace("=",":"));
+                        buttonfoto.performClick();
                     }
                     else{
                         i= stringsoap.substring(a);
+                        buttonfoto.performClick();
                        // i = i.substring(0, i.indexOf("Puerta"));
                         stringsoap = stringsoap.replace(i,"");
                        // i = i.replace(";","").replace("=","= ");
@@ -295,11 +304,19 @@ public class pasanopasaActivity extends AppCompatActivity {
                     case "getcarnet":{
                         stringsoap =    ex.getcaret(idStadium,bundle.getString("NFCTAG"));
                         idSocio=        stringsoap;
+                        if (stringsoap==null){
+                            idSocio="0";
+                        }
+
                         handler.sendEmptyMessage(4);
                         break;}
                     case "getinvitado":{
                         stringsoap =    ex.SearchInvitado(idStadium,bundle.getString("NFCINVITADO"));
                         idSocio=        stringsoap;
+                        if (stringsoap==null){
+                            idSocio="0";
+                        }
+
                         handler.sendEmptyMessage(5);
 
 
