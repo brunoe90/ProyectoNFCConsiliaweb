@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+
 public class ConfigActivity extends AppCompatActivity {
     Bundle bundle;
     EditText etip;
@@ -21,6 +22,7 @@ public class ConfigActivity extends AppCompatActivity {
     int  idStadium;
     //Typeface face= Typeface.createFromAsset(getAssets(),"fonts/digital.ttf");
     //txtV.setTypeface(face);
+    private static final int PROTEINS = 0;
 
 
     @Override
@@ -30,6 +32,11 @@ public class ConfigActivity extends AppCompatActivity {
         bundle = new Bundle();
         spinner = (Spinner) findViewById(R.id.Estadio);
         etip        = (EditText)findViewById(R.id.etstadio);
+
+
+
+
+
         //assert etip != null;
         //etip.setTypeface(face);
 
@@ -52,7 +59,36 @@ public class ConfigActivity extends AppCompatActivity {
                 new AdapterView.OnItemSelectedListener() {
                     public void onItemSelected(AdapterView<?> parent,
                                                android.view.View v, int position, long id) {
-                        idStadium=position;
+                        switch (position){
+                            case 1:idStadium =11; break;
+                            case 2:idStadium =23; break;
+                            case 3:idStadium =25; break;
+                            case 4:idStadium =21; break;
+                            case 5:idStadium =24; break;
+                            case 6:idStadium =20; break;
+                            case 7:idStadium =26; break;
+                            case 8:idStadium =22; break;
+                            case 9:idStadium =15; break;
+                            case 10:idStadium =28; break;
+                            case 11:idStadium =27; break;
+                            case 12:idStadium =29; break;
+                            case 13:idStadium =9; break;
+                            case 14:idStadium =10; break;
+                            case 15:idStadium =19; break;
+                            case 16:idStadium =8; break;
+                            case 17:idStadium =30; break;
+                            case 18:idStadium =12; break;
+                            case 19:idStadium =2; break;
+                            case 20:idStadium =13; break;
+                            case 21:idStadium =17; break;
+                            case 22:idStadium =18; break;
+                            case 23:idStadium =14; break;
+
+
+
+
+
+                        }
                     }
 
                     public void onNothingSelected(AdapterView<?> parent) {
@@ -64,7 +100,7 @@ public class ConfigActivity extends AppCompatActivity {
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
                     if (!etip.getText().toString().equals("")){
-                        bundle.putInt("idStadium",Integer.valueOf(etip.getText().toString()));
+                        bundle.putInt("idStadium",idStadium);
                         bundle.putInt("Puerta", Integer.valueOf(etip.getText().toString()));
                         Intent intent = new Intent(ConfigActivity.this, MainActivity.class);
                         intent.putExtras(bundle);

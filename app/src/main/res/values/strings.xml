@@ -54,13 +54,30 @@
     <string name="asdasd">asdasd</string>
     <string name="sdfthdsfth">sdfthdsfth</string>
     <string-array name="country_arrays">
-        <item>Seleccionar 0</item>
-        <item>Boca 1</item>
-        <item>Racing 2</item>
-        <item>Velez 3</item>
-        <item>Geba 4</item>
-        <item>La Plata 5</item>
-        <item>Luna Park 6</item>
+        <item>Seleccionar</item>
+        <item>Argentinos Jrs.</item>
+        <item>BVip Estadio Argentinos Jrs.</item>
+        <item>BVip Estadio Gualeguaychu</item>
+        <item>BVip Estadio Newells</item>
+        <item>BVip Estadio Quilmes</item>
+        <item>BVip Estadio Racing</item>
+        <item>BVip Estadio Tigre</item>
+        <item>BVip Estadio Vendimia</item>
+        <item>BVip Monumental - River</item>
+        <item>BVip Pepsi Music</item>
+        <item>BVip Quilmes Rock 2013</item>
+        <item>BVip TC2000</item>
+        <item>Colon</item>
+        <item>Control</item>
+        <item>Estudiantes</item>
+        <item>Newells Old Boys</item>
+        <item>Patronato</item>
+        <item>Quilmes</item>
+        <item>Racing</item>
+        <item>River</item>
+        <item>River, el posta</item>
+        <item>San Lorenzo</item>
+        <item>Tigre</item>
     </string-array>
     <string name="action_settings">settings</string>
     <string name="menu_main">menu</string>

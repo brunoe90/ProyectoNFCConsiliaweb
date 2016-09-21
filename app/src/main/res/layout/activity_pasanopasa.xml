@@ -46,7 +46,6 @@
             android:shadowDx="1"
             android:shadowDy="1"
             android:shadowRadius="3"
-            android:text="@string/asdasd"
         android:layout_below="@+id/imageView"
         android:layout_centerHorizontal="true"
         android:textAlignment="center" />
@@ -55,7 +54,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/tresultado"
-        android:text="@string/sdfthdsfth"
 
         android:layout_below="@+id/dato"
         android:layout_centerHorizontal="true"

@@ -36,8 +36,8 @@ public class pasanopasaActivity extends AppCompatActivity {
     String      idSocio;
     String      Puerta;
     String      documento;
-    String      Tarjeta;
-    String      Invitado;
+    String      Tarjeta="";
+    String      Invitado="";
     Button      buttonfoto;
     Button      bvolver;
     Context     context;
@@ -122,12 +122,13 @@ public class pasanopasaActivity extends AppCompatActivity {
                 } else if (UltimaActivity.equals("nfc")){
                     Intent intent = new Intent(pasanopasaActivity.this, NfcActivity.class);
 
-                    if (Invitado!=null){
+                    if (!(Objects.equals(Invitado, "") ||Invitado==null)){
                         bundle.putInt("TAB", 2);
-                    } else if (Tarjeta!=null){
+                    } else if (!(Objects.equals(Tarjeta, "")||Tarjeta==null)){
                         bundle.putInt("TAB", 0);
                     } else bundle.putInt("TAB", 1);
-
+                    bundle.remove("NFCTAG");
+                    bundle.remove("NFCINVITADO");
                     intent.putExtras(bundle);
                     startActivity(intent);
                 }
@@ -213,6 +214,7 @@ public class pasanopasaActivity extends AppCompatActivity {
                         tresultado.setTextColor(Color.parseColor("#F44336"));
                         tresultado.setText(stringsoap.replace("=",":"));
                         buttonfoto.performClick();
+                        toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
                     }
                     else{
                         i= stringsoap.substring(a);
