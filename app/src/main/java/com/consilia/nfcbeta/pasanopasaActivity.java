@@ -5,7 +5,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Path;
+import android.graphics.Rect;
 import android.media.AudioManager;
 import android.media.ToneGenerator;
 import android.net.ConnectivityManager;
@@ -161,7 +164,7 @@ public class pasanopasaActivity extends AppCompatActivity {
 
                 case 1:{
                     try {
-                        imageView.setImageBitmap(decodedByte);
+                        imageView.setImageBitmap(/*getRoundedShape*/(decodedByte));
                     } catch (Exception q) {
                         q.printStackTrace();
                     }
@@ -266,6 +269,28 @@ public class pasanopasaActivity extends AppCompatActivity {
             return false;
         }
     });
+    public Bitmap getRoundedShape(Bitmap scaleBitmapImage) {
+        int targetWidth = 200;
+        int targetHeight = 200;
+        Bitmap targetBitmap = Bitmap.createBitmap(targetWidth,
+                            targetHeight,Bitmap.Config.ARGB_8888);
+
+        Canvas canvas = new Canvas(targetBitmap);
+        Path path = new Path();
+        path.addCircle(((float) targetWidth - 1) / 2,
+            ((float) targetHeight - 1) / 2,
+            (Math.min(((float) targetWidth),
+            ((float) targetHeight)) / 2),
+            Path.Direction.CCW);
+
+        canvas.clipPath(path);
+        Bitmap sourceBitmap = scaleBitmapImage;
+        canvas.drawBitmap(sourceBitmap,
+            new Rect(0, 0, sourceBitmap.getWidth(),
+            sourceBitmap.getHeight()),
+            new Rect(0, 0, targetWidth, targetHeight), null);
+        return targetBitmap;
+    }
 
     private void getSoap( final String method) {
         new Thread(new Runnable() {

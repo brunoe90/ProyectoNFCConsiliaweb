@@ -222,12 +222,15 @@ class SoapRequests {
 
             }
 
-            data =  "Categoria: "+          response.getPrimitivePropertySafelyAsString("Categoria") +'\n'+
-                   // "Precio Categoria: "+   response.getPrimitivePropertySafelyAsString("PrecioCategoria")+'\n'+
-                    "Num. Socio: "+         response.getPrimitivePropertySafelyAsString("NumSocio")+'\n'+
-                   // "Tipo Socio: "+         response.getPrimitivePropertySafelyAsString("TipoSocio")+'\n'+
-                    "Nombre: "+             response.getPrimitivePropertySafelyAsString("Nombre")+'\n'+
+            data =  response.getPrimitivePropertySafelyAsString("Nombre")+ " #" +       response.getPrimitivePropertySafelyAsString("NumSocio")+'\n'+
                     "Documento: "+          response.getPrimitivePropertySafelyAsString("Documento")+'\n'+
+                    //"Num. Socio: "+         response.getPrimitivePropertySafelyAsString("NumSocio")+'\n'+
+                    "Categoria: "+          response.getPrimitivePropertySafelyAsString("Categoria") +'\n'+
+                   // "Precio Categoria: "+   response.getPrimitivePropertySafelyAsString("PrecioCategoria")+'\n'+
+
+                   // "Tipo Socio: "+         response.getPrimitivePropertySafelyAsString("TipoSocio")+'\n'+
+
+
                     "Estado del Socio: "+             response.getPrimitivePropertySafelyAsString("Estado")+'\n'+
                     "Ultima Cuota Paga: " + response.getPrimitivePropertySafelyAsString("UltimoPago").substring(0,  10)+'\n'+
                     "Acceso: "+          condiciondeacceso;
