@@ -5,8 +5,8 @@
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-
-        android:layout_height="wrap_content"
+        android:id="@+id/pasanopasa"
+        android:layout_height="match_parent"
         android:paddingBottom="@dimen/activity_vertical_margin"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
@@ -14,7 +14,7 @@
         android:background="#000000"
         tools:context="com.consilia.nfcbeta.pasanopasaActivity"
         android:weightSum="1"
-    android:animationCache="false">
+        android:animationCache="false">
 
     <Button
             android:layout_width="fill_parent"
@@ -48,17 +48,8 @@
             android:shadowRadius="3"
         android:layout_below="@+id/imageView"
         android:layout_centerHorizontal="true"
-        android:textAlignment="center" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/tresultado"
-
-        android:layout_below="@+id/dato"
-        android:layout_centerHorizontal="true"
         android:textAlignment="center"
-        android:textSize="20sp" />
+        android:text="asfesefaf" />
 
     <ImageView
         android:layout_width="wrap_content"
@@ -76,6 +67,19 @@
         android:background="@drawable/common_google_signin_btn_icon_dark_normal"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tresultado"
+
+        android:textAlignment="center"
+        android:textSize="20sp"
+        android:text="asdasdasd"
+        android:layout_marginBottom="163dp"
+        android:layout_above="@+id/bvolver"
+        android:layout_toRightOf="@+id/dato"
+        android:layout_toEndOf="@+id/dato" />
 
 </RelativeLayout>
 

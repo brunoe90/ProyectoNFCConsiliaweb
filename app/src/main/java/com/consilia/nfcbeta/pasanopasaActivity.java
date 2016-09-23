@@ -24,6 +24,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -151,6 +152,7 @@ public class pasanopasaActivity extends AppCompatActivity {
     }
     private Handler handler = new Handler(new Handler.Callback() {
 
+        @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
         @Override
         public boolean handleMessage(Message msg) {
             ToneGenerator toneG = new ToneGenerator(AudioManager.STREAM_ALARM, 100);
@@ -234,7 +236,16 @@ public class pasanopasaActivity extends AppCompatActivity {
                                 toneG.startTone(ToneGenerator.TONE_CDMA_ALERT_CALL_GUARD, 200);
                                 pasa=true;
 
-
+//                                    ImageView img = (ImageView) findViewById(R.id.pasanopasa) ;
+//                                    img.setImageResource(R.drawable.backgroundOK);
+                                RelativeLayout layout = (RelativeLayout) findViewById(R.id.pasanopasa);
+                              //  Layout.setBackgroundDrawable(R.drawable.backgroundOK);
+                                final int sdk = android.os.Build.VERSION.SDK_INT;
+                                if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                                    layout.setBackgroundDrawable( getResources().getDrawable(R.drawable.backgroundok) );
+                                } else {
+                                    layout.setBackground( getResources().getDrawable(R.drawable.backgroundok));
+                                }
                             } else {
 //                                dato.setTextColor(Color.parseColor("#F44336"));
                                 tresultado.setTextColor(Color.parseColor("#F44336"));
