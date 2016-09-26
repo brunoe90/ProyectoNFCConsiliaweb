@@ -10,7 +10,10 @@ import org.ksoap2.serialization.SoapPrimitive;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
 import java.net.Proxy;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 class SoapRequests {
     private static final boolean DEBUG_SOAP_REQUEST_RESPONSE = true;
@@ -105,7 +108,7 @@ class SoapRequests {
             }
           //  data = (resultsString.toString());
 
-            data=  // "Tipo: "+       resultsString.getPrimitivePropertyAsString("IdTipo") +'\n'+
+            data=   "Tipo: "+       resultsString.getPrimitivePropertyAsString("IdTipo") +","+'\n'+
                    /* "numero: "+*/     resultsString.getPrimitivePropertyAsString("IdNumero");
         } catch (Exception q) {
             q.printStackTrace();
@@ -119,10 +122,6 @@ class SoapRequests {
 
         String methodname = "SearchSocioByDoc";
         SoapObject request = new SoapObject("http://controlplus.net/cwpwebservice",methodname);// new SoapObject(NAMESPACE, methodname);
-
-
-
-
 
         request.addProperty("idStadium", idStadium);
         request.addProperty("idTipoDoc",idTipoDoc);
@@ -201,28 +200,17 @@ class SoapRequests {
             if (null== response.getPropertySafelyAsString("EstadoAcceso")){
                 return "0";
             }
-            String acceso =response.getPropertySafelyAsString("EstadoAcceso").replace("anyType{","").replace("; }", "").replace("null","No tiene");
+//            String acceso =response.getPropertySafelyAsString("EstadoAcceso").replace("anyType{","").replace("; }", "").replace("null","No tiene");
+//
+//            String parseo[] = acceso.split(";");
 
-            String parseo[] = acceso.split(";");
-
-            String condiciondeacceso= "";
-
-            for (int i=0;parseo.length>i;i++){
-
-                if (0<parseo[i].indexOf("Estado")){
-                    condiciondeacceso=condiciondeacceso+'\n'+parseo[i];
-                }
-                /*if (0<parseo[i].indexOf("TicketVirtual")){
-                    condiciondeacceso=condiciondeacceso+'\n'+parseo[i];
-                }*/
-                if (0<parseo[i].indexOf("Puertas")){
-                    condiciondeacceso=condiciondeacceso+'\n'+parseo[i];
-                }
+//            String condiciondeacceso= "";
+     //       String algo = response.getProperty("EstadoAcceso").toString();
+            SoapObject responsee = (SoapObject) response.getProperty("EstadoAcceso");
 
 
-            }
-
-            data =  response.getPrimitivePropertySafelyAsString("Nombre")+ " #" +       response.getPrimitivePropertySafelyAsString("NumSocio")+'\n'+
+            data =  response.getPrimitivePropertySafelyAsString("Nombre")+ '\n'+
+                    "Numdesocio"+response.getPrimitivePropertySafelyAsString("NumSocio")+'\n'+
                     "Documento: "+          response.getPrimitivePropertySafelyAsString("Documento")+'\n'+
                     //"Num. Socio: "+         response.getPrimitivePropertySafelyAsString("NumSocio")+'\n'+
                     "Categoria: "+          response.getPrimitivePropertySafelyAsString("Categoria") +'\n'+
@@ -232,8 +220,10 @@ class SoapRequests {
 
 
                     "Estado del Socio: "+             response.getPrimitivePropertySafelyAsString("Estado")+'\n'+
-                    "Ultima Cuota Paga: " + response.getPrimitivePropertySafelyAsString("UltimoPago").substring(0,  10)+'\n'+
-                    "Acceso: "+          condiciondeacceso;
+                    "Ultima Cuota Paga: " + GetStringCuotaPaga(response.getPrimitivePropertySafelyAsString("UltimoPago").substring(0,  7))+"#"+'\n'+" "+
+                    "IdEstado: "+ responsee.getProperty("IdEstado")+'\n'+
+                    "Puertas:" +responsee.getProperty("Puertas").toString();
+
 
         } catch (Exception q) {
             q.printStackTrace();
@@ -242,6 +232,29 @@ class SoapRequests {
         return data;
     }
 
+    private String GetStringCuotaPaga(String fechaCuotaPaga){
+
+        SimpleDateFormat formatoOriginal    = new SimpleDateFormat("yyyy-MM", new Locale("us","US"));
+        SimpleDateFormat formatoDestino     = new SimpleDateFormat("MMMM yyyy", new Locale("es", "ES") );
+        String nuevaFecha = null;           // Almacena el string de salida
+        Date dat;                           // Almacena la fecha en formato puro
+
+        try{
+
+            // Recuperamos la fecha
+            dat = formatoOriginal.parse( fechaCuotaPaga );
+
+            // Parseamos la fecha y devolvemos el string
+            nuevaFecha = formatoDestino.format( dat );
+        }
+         catch (java.text.ParseException e) {
+            e.printStackTrace();
+        }
+
+        assert nuevaFecha != null;
+        nuevaFecha = nuevaFecha.substring(0, 1).toUpperCase() + nuevaFecha.substring(1);
+        return nuevaFecha;
+    }
 
      String SearchInvitado(String idStadium, String numInvitado) {
 

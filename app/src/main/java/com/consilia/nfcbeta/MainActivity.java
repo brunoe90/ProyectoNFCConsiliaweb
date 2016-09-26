@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -128,15 +129,17 @@ public class MainActivity extends Activity {
             Context context = getApplicationContext();
             switch (msg.what) {
 
-                case 1:{ Toast toast = Toast.makeText(context, "Se conecto al servidor!", Toast.LENGTH_SHORT);
-                toast.show(); break;
-                }
-                case 0:{
-                Toast toast = Toast.makeText(context, "No se logro conectar!", Toast.LENGTH_LONG);
-                toast.show();break;
-                }
+                case 1: // Conexion exitosa con el server
+                    bt1.setBackgroundColor( ContextCompat.getColor(context, R.color.colorServerOk) );
+                    break;
 
+                case 0: // Error de conexion con el server!break;
+                    bt1.setBackgroundColor( ContextCompat.getColor(context, R.color.colorServerBad) );
+                    break;
+
+                default:
             }
+
             return false;
         }
     });

@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Path;
 import android.graphics.Rect;
 import android.media.AudioManager;
@@ -19,7 +18,6 @@ import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
@@ -28,17 +26,18 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.ksoap2.serialization.SoapObject;
+
 import java.util.Objects;
 
 public class pasanopasaActivity extends AppCompatActivity {
-    TextView    dato,tresultado;
+    TextView    dato,tresultado,Accesos,informacion;
     String      stringsoap;
     String      idStadium;
     String      idSocio;
     String      Puerta;
     String      documento;
     String      Tarjeta="";
-    String      Invitado="";
     Button      buttonfoto;
     Button      bvolver;
     Context     context;
@@ -48,6 +47,7 @@ public class pasanopasaActivity extends AppCompatActivity {
     String      numSocio;
     String      tipodoc ="DNI";
     String      UltimaActivity;
+    String      idTipo;
     @TargetApi(Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,13 +60,15 @@ public class pasanopasaActivity extends AppCompatActivity {
         bundle =        getIntent().getExtras();
         imageView =     (ImageView) findViewById(R.id.imageView);
         tresultado =    (TextView) findViewById(R.id.tresultado);
+        Accesos =       (TextView) findViewById(R.id.Puertas);
+        informacion =   (TextView) findViewById(R.id.informacion);
         dato =          (TextView) findViewById(R.id.dato);
         idSocio =       String.valueOf(bundle.getInt("idSocio"));
         idStadium =     String.valueOf(bundle.getInt("idStadium"));
         Puerta =        String.valueOf(bundle.getInt("Puerta"));
         documento =     String.valueOf(bundle.getInt("documento"));
         Tarjeta =       bundle.getString("NFCTAG");
-        Invitado =      bundle.getString("NFCINVITADO");
+
         UltimaActivity = bundle.getString("lastActivity");
         boolean connected;
         ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -93,8 +95,6 @@ public class pasanopasaActivity extends AppCompatActivity {
                         getSoap("getestado");
                     }else if (null!= Tarjeta){
                         getSoap("getcarnet");
-                    }else if (!Objects.equals("0", Invitado)){
-                        getSoap("getinvitado");
                     }
                 }
             }   else Toast.makeText(getBaseContext(), "Falla al encontrar Puerta", Toast.LENGTH_LONG).show();
@@ -123,9 +123,7 @@ public class pasanopasaActivity extends AppCompatActivity {
                 } else if (UltimaActivity.equals("nfc")){
                     Intent intent = new Intent(pasanopasaActivity.this, NfcActivity.class);
 
-                    if (!(Objects.equals(Invitado, "") ||Invitado==null)){
-                        bundle.putInt("TAB", 2);
-                    } else if (!(Objects.equals(Tarjeta, "")||Tarjeta==null)){
+                    if (!(Objects.equals(Tarjeta, "")||Tarjeta==null)){
                         bundle.putInt("TAB", 0);
                     } else bundle.putInt("TAB", 1);
                     bundle.remove("NFCTAG");
@@ -157,10 +155,10 @@ public class pasanopasaActivity extends AppCompatActivity {
         public boolean handleMessage(Message msg) {
             ToneGenerator toneG = new ToneGenerator(AudioManager.STREAM_ALARM, 100);
 
-            // Double beeps:     tg.startTone(ToneGenerator.TONE_PROP_ACK);
-            // Double beeps:     tg.startTone(ToneGenerator.TONE_PROP_BEEP2);
-            // Sounds all wrong: tg.startTone(ToneGenerator.TONE_CDMA_KEYPAD_VOLUME_KEY_LITE);
-            // Simple beep:      tg.startTone(ToneGenerator.TONE_CDMA_ALERT_CALL_GUARD, 200);
+            // Double beeps:     toneG.startTone(ToneGenerator.TONE_PROP_ACK);
+            // Double beeps:     toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
+            // Sounds all wrong: toneG.startTone(ToneGenerator.TONE_CDMA_KEYPAD_VOLUME_KEY_LITE);
+            // Simple beep:      toneG.startTone(ToneGenerator.TONE_CDMA_ALERT_CALL_GUARD, 200);
             switch (msg.what) {
 
                 case 0: tresultado.setText(stringsoap); break;
@@ -176,6 +174,193 @@ public class pasanopasaActivity extends AppCompatActivity {
                 case 2: tresultado.setText(stringsoap); getSoap("getestado");break;
 
                 case 3: {
+                    buttonfoto.performClick();
+                    String puertas =stringsoap.substring(stringsoap.indexOf("Puertas:")+8).replace("Puerta","");
+                    if (puertas!=null){
+                        Accesos.setText("Accesos:"+puertas);
+                    }
+                    String Nombre = stringsoap.substring(0,stringsoap.indexOf('\n'));
+                    dato.setText(Nombre);
+                    String info = stringsoap.substring(stringsoap.indexOf('\n')+1, stringsoap.indexOf("Estado del Socio: ")-1);
+                    informacion.setText(info);
+                    String UCP = stringsoap.substring(stringsoap.indexOf("Ultima Cuota Paga: ")+19);
+                    UCP = UCP.substring(0,UCP.indexOf("#"));
+                    tresultado.setText(UCP);
+
+
+                    int callback =stringsoap.indexOf("IdEstado");
+                    if (stringsoap.indexOf("IdEstado")>0){
+                        idTipo=stringsoap.substring(callback+9,callback+8+3).replace("\n","").replace(" ","");
+                    }
+                    switch (Integer.valueOf(idTipo)) {
+                        case 0: {
+                            //no puede pasar
+//                            dato.setText("Fue deshabilitado");
+                            toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
+
+                            break;
+                        }
+                        case 1: {
+                            // puede pasar
+
+//                            dato.setText("Puede pasar");
+                            toneG.startTone(ToneGenerator.TONE_CDMA_ALERT_CALL_GUARD, 200);
+
+                            break;
+                        }
+                        case 2: {
+                            // puede pasar
+
+
+//                            dato.setText("Habilitado manualmente");
+                            toneG.startTone(ToneGenerator.TONE_CDMA_ALERT_CALL_GUARD, 200);
+
+
+                            break;
+                        }
+                        case 3: {
+                            // no puede pasar
+
+//                            dato.setText("Ya ingreso al estadio");
+                            toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
+
+                            break;
+                        }
+                        case 4: {
+
+                            //no puede pasar
+
+
+//                            dato.setText("No esta e estado activo");
+                            toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
+
+
+                            break;
+                        }
+                        case 5: {
+
+
+                            // no pasa
+
+//                            dato.setText("Cuota Vencida");
+                            toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
+
+
+                            break;
+                        }
+                        case 6: {
+                            // no pasa
+
+//                            dato.setText("Paso por perimetral");
+
+                            toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
+
+                            break;
+                        } case 7: {
+                            // no pasa
+
+//                            dato.setText("Pago de abono vencido");
+                            toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
+
+
+                            break;
+                        } case 8: {
+                            // no pasa
+                            toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
+//                            dato.setText("Canjeo por ticket");
+
+                            break;
+                        } case 9: {
+                            //// no pasa
+
+//                            dato.setText("Credencial Vencida");
+                            toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
+
+                            break;
+                        } case 10: {
+                            // No pasa
+
+//                            dato.setText("Copia no habilitada");
+
+                            toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
+                            break;
+                        } case 11: {
+                            // no pasa
+
+
+//                            dato.setText("No tiene carnet");
+                            toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
+
+                            break;
+                        } case 14: {
+                            // no pasa
+
+//                            dato.setText("Sector incorrecto");
+
+                            toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
+                            break;
+                        } case 15: {
+                            // no pasa
+
+//                            dato.setText("Sector Completo");
+                            toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
+
+                            break;
+                        } case 16: {
+                            // no pasa
+
+
+//                            dato.setText("Tarjeta Defectuosa");
+                            toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
+
+                            break;
+                        }case 17: {
+                            // no pasa
+
+
+//                            dato.setText("Difiere numero de serie");
+                            toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
+
+                            break;
+                        }case 18: {
+                            // no pasa
+
+
+//                            dato.setText("Pasadas excedidas");
+                            toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
+
+                            break;
+                        }case 19: {
+                            // no pasa
+
+
+//                            dato.setText("Actividad vencida");
+
+                            toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
+                            break;
+                        }case 20: {
+                            // no pasa
+
+
+//                            dato.setText("Fuera de horario");
+
+                            toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
+                            break;
+                        }
+                    }
+
+
+
+
+
+
+
+
+
+
+
+
+                    /*
                     String i = "";
                     boolean pasa= false;
                     int a = stringsoap.indexOf("Puertas=");
@@ -263,9 +448,8 @@ public class pasanopasaActivity extends AppCompatActivity {
                     i=i.replace("Puerta","").replace("s","").replace("=",": ").replace("  "," ");
                     if (pasa) i= "Puertas" + i;
 
-                    dato.setText(i+".");
+                    dato.setText(i+".");*/
                     break;}
-
                 case 4: {
                     tresultado.setText(stringsoap);
                     getSoap("getestado");
@@ -341,12 +525,30 @@ public class pasanopasaActivity extends AppCompatActivity {
 
                     case "getcarnet":{
                         stringsoap =    ex.getcaret(idStadium,bundle.getString("NFCTAG"));
-                        idSocio=        stringsoap;
+
+                        idSocio=        stringsoap.substring(stringsoap.indexOf(",")+2);
+                        idTipo=    stringsoap.substring(stringsoap.indexOf(":")+2,stringsoap.indexOf(","));
                         if (stringsoap==null){
                             idSocio="0";
                         }
 
-                        handler.sendEmptyMessage(4);
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                            if (Objects.equals(idTipo, "8")){
+                                handler.sendEmptyMessage(4);
+                            } else if (Objects.equals("3", idTipo)){
+                                stringsoap =    ex.SearchInvitado(idStadium,bundle.getString("NFCTAG"));
+                                handler.sendEmptyMessage(5);
+                            }
+                        }else{
+                            if (idTipo=="8"){
+                                handler.sendEmptyMessage(4);
+                            } else if ("3"== idTipo){
+                                stringsoap =    ex.SearchInvitado(idStadium,bundle.getString("NFCTAG"));
+                                handler.sendEmptyMessage(5);
+                            }
+                        }
+
+
                         break;}
                     case "getinvitado":{
                         stringsoap =    ex.SearchInvitado(idStadium,bundle.getString("NFCINVITADO"));

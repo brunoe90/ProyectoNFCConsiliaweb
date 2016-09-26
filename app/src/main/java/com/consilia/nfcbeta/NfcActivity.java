@@ -99,10 +99,11 @@ public class NfcActivity extends AppCompatActivity implements View.OnClickListen
         host.addTab(spec);
 
         //Tab 3
+        /*
         spec = host.newTabSpec("Tab Three");
         spec.setContent(R.id.tab3);
         spec.setIndicator("INVITADO");
-        host.addTab(spec);
+        host.addTab(spec);*/
 
 
         int a = bundle.getInt("TAB");
@@ -111,7 +112,7 @@ public class NfcActivity extends AppCompatActivity implements View.OnClickListen
 
         botonvolver = (Button) findViewById(R.id.bvolver);
         benviarid = (Button) findViewById(R.id.bidsocio);
-        benviaridinvitado = (Button) findViewById(R.id.binvitado);
+       // benviaridinvitado = (Button) findViewById(R.id.binvitado);
         editText = (EditText) findViewById(R.id.edtsocio);
         bsocio = (RadioButton) findViewById(R.id.buttonsocio);
         bdni = (RadioButton) findViewById(R.id.buttondni);
@@ -126,9 +127,9 @@ public class NfcActivity extends AppCompatActivity implements View.OnClickListen
             Toast.makeText(getBaseContext(), "Falla la coneccion a internet!!!!", Toast.LENGTH_LONG).show();
 
 
-        botonvolver.setOnClickListener((View.OnClickListener) this);
+        botonvolver.setOnClickListener(this);
 
-        benviarid.setOnClickListener((View.OnClickListener) this);
+        benviarid.setOnClickListener(this);
 
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -161,7 +162,7 @@ public class NfcActivity extends AppCompatActivity implements View.OnClickListen
     public void onClick(View v) {
         botonvolver = (Button) findViewById(R.id.bvolver);
         benviarid = (Button) findViewById(R.id.bidsocio);
-        benviaridinvitado = (Button) findViewById(R.id.binvitado);
+       // benviaridinvitado = (Button) findViewById(R.id.binvitado);
 
         if (v.getId() == R.id.bvolver) {
             if (!texto.equals("")) {
@@ -190,7 +191,7 @@ public class NfcActivity extends AppCompatActivity implements View.OnClickListen
             } else Toast.makeText(getBaseContext(), "Indicar Socio", Toast.LENGTH_LONG).show();
         }
 
-        if (v.getId() == R.id.binvitado) {
+     /*   if (v.getId() == R.id.binvitado) {
 
             if (!texto.equals("")) {
                 Intent intent = new Intent(NfcActivity.this, pasanopasaActivity.class);
@@ -202,7 +203,7 @@ public class NfcActivity extends AppCompatActivity implements View.OnClickListen
                 startActivity(intent);
             } else
                 Toast.makeText(getBaseContext(), "Volver a pasar tarjeta", Toast.LENGTH_LONG).show();
-        }
+        }*/
 
     }
 
