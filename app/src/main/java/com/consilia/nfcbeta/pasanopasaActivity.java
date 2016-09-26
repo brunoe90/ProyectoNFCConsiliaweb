@@ -25,6 +25,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.ksoap2.serialization.SoapObject;
+
 import java.util.Objects;
 
 public class pasanopasaActivity extends AppCompatActivity {
@@ -170,29 +172,46 @@ public class pasanopasaActivity extends AppCompatActivity {
                 case 2: tresultado.setText(stringsoap); getSoap("getestado");break;
 
                 case 3: {
-                    int a =stringsoap.indexOf("IdEstado");
+                    buttonfoto.performClick();
+                    String puertas =stringsoap.substring(stringsoap.indexOf("Puertas:")+8).replace("Puerta","");
+                    if (puertas!=null){
+                        Accesos.setText("Accesos:"+puertas);
+                    }
+                    String Nombre = stringsoap.substring(0,stringsoap.indexOf('\n'));
+                    dato.setText(Nombre);
+                    String info = stringsoap.substring(stringsoap.indexOf('\n')+1, stringsoap.indexOf("Estado del Socio: ")-1);
+                    informacion.setText(info);
+                    String UCP = stringsoap.substring(stringsoap.indexOf("Ultima Cuota Paga: ")+19);
+                    UCP = UCP.substring(0,UCP.indexOf("#"));
+                    tresultado.setText(UCP);
+
+
+                    int callback =stringsoap.indexOf("IdEstado");
                     if (stringsoap.indexOf("IdEstado")>0){
-                        idTipo=stringsoap.substring(a+9,a+8+3).replace("\n","");
+                        idTipo=stringsoap.substring(callback+9,callback+8+3).replace("\n","").replace(" ","");
                     }
                     switch (Integer.valueOf(idTipo)) {
                         case 0: {
                             //no puede pasar
-                            dato.setText("Fue deshabilitado");
+//                            dato.setText("Fue deshabilitado");
+                            toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
+
                             break;
                         }
                         case 1: {
                             // puede pasar
 
+//                            dato.setText("Puede pasar");
                             toneG.startTone(ToneGenerator.TONE_CDMA_ALERT_CALL_GUARD, 200);
-                            dato.setText("Puede pasar");
+
                             break;
                         }
                         case 2: {
                             // puede pasar
 
 
+//                            dato.setText("Habilitado manualmente");
                             toneG.startTone(ToneGenerator.TONE_CDMA_ALERT_CALL_GUARD, 200);
-                            dato.setText("Habilitado manualmente");
 
 
                             break;
@@ -200,8 +219,8 @@ public class pasanopasaActivity extends AppCompatActivity {
                         case 3: {
                             // no puede pasar
 
+//                            dato.setText("Ya ingreso al estadio");
                             toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
-                            dato.setText("Ya ingreso al estadio");
 
                             break;
                         }
@@ -209,9 +228,9 @@ public class pasanopasaActivity extends AppCompatActivity {
 
                             //no puede pasar
 
-                            toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
 
-                            dato.setText("No esta e estado activo");
+//                            dato.setText("No esta e estado activo");
+                            toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
 
 
                             break;
@@ -220,46 +239,46 @@ public class pasanopasaActivity extends AppCompatActivity {
 
 
                             // no pasa
-                            toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
 
-                            dato.setText("Cuota Vencida");
+//                            dato.setText("Cuota Vencida");
+                            toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
 
 
                             break;
                         }
                         case 6: {
                             // no pasa
+
+//                            dato.setText("Paso por perimetral");
+
                             toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
-
-                            dato.setText("Paso por perimetral");
-
 
                             break;
                         } case 7: {
                             // no pasa
 
+//                            dato.setText("Pago de abono vencido");
                             toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
-                            dato.setText("Pago de abono vencido");
 
 
                             break;
                         } case 8: {
                             // no pasa
                             toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
-                            dato.setText("Canjeo por ticket");
+//                            dato.setText("Canjeo por ticket");
 
                             break;
                         } case 9: {
                             //// no pasa
 
-                            dato.setText("Credencial Vencida");
+//                            dato.setText("Credencial Vencida");
                             toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
 
                             break;
                         } case 10: {
                             // No pasa
 
-                            dato.setText("Copia no habilitada");
+//                            dato.setText("Copia no habilitada");
 
                             toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
                             break;
@@ -267,21 +286,21 @@ public class pasanopasaActivity extends AppCompatActivity {
                             // no pasa
 
 
-                            dato.setText("No tiene carnet");
+//                            dato.setText("No tiene carnet");
                             toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
 
                             break;
                         } case 14: {
                             // no pasa
 
-                            dato.setText("Sector incorrecto");
+//                            dato.setText("Sector incorrecto");
 
                             toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
                             break;
                         } case 15: {
                             // no pasa
 
-                            dato.setText("Sector Completo");
+//                            dato.setText("Sector Completo");
                             toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
 
                             break;
@@ -289,7 +308,7 @@ public class pasanopasaActivity extends AppCompatActivity {
                             // no pasa
 
 
-                            dato.setText("Tarjeta Defectuosa");
+//                            dato.setText("Tarjeta Defectuosa");
                             toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
 
                             break;
@@ -297,7 +316,7 @@ public class pasanopasaActivity extends AppCompatActivity {
                             // no pasa
 
 
-                            dato.setText("Difiere numero de serie");
+//                            dato.setText("Difiere numero de serie");
                             toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
 
                             break;
@@ -305,7 +324,7 @@ public class pasanopasaActivity extends AppCompatActivity {
                             // no pasa
 
 
-                            dato.setText("Pasadas excedidas");
+//                            dato.setText("Pasadas excedidas");
                             toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
 
                             break;
@@ -313,7 +332,7 @@ public class pasanopasaActivity extends AppCompatActivity {
                             // no pasa
 
 
-                            dato.setText("Actividad vencida");
+//                            dato.setText("Actividad vencida");
 
                             toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
                             break;
@@ -321,7 +340,7 @@ public class pasanopasaActivity extends AppCompatActivity {
                             // no pasa
 
 
-                            dato.setText("Fuera de horario");
+//                            dato.setText("Fuera de horario");
 
                             toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
                             break;

@@ -81,20 +81,20 @@
         android:textAlignment="center"
         android:textSize="20sp"
         android:text="@string/asas"
-        android:layout_marginBottom="36dp"
         android:layout_above="@+id/bvolver"
         android:layout_alignRight="@+id/dato"
-        android:layout_alignEnd="@+id/dato" />
+        android:layout_alignEnd="@+id/dato"
+        android:layout_marginBottom="26dp" />
 
     <TextView
         android:text="@string/puertas"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/Puertas"
-        android:layout_marginBottom="76dp"
         android:layout_above="@+id/tresultado"
-        android:layout_alignLeft="@+id/tresultado"
-        android:layout_alignStart="@+id/tresultado" />
+        android:layout_alignRight="@+id/tresultado"
+        android:layout_alignEnd="@+id/tresultado"
+        android:layout_marginBottom="68dp" />
 
 </RelativeLayout>
 

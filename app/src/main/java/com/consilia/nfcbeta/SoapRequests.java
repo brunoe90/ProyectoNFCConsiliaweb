@@ -1,6 +1,5 @@
 package com.consilia.nfcbeta;
 
-import android.net.ParseException;
 import android.util.Base64;
 import android.util.Log;
 
@@ -201,28 +200,17 @@ class SoapRequests {
             if (null== response.getPropertySafelyAsString("EstadoAcceso")){
                 return "0";
             }
-            String acceso =response.getPropertySafelyAsString("EstadoAcceso").replace("anyType{","").replace("; }", "").replace("null","No tiene");
+//            String acceso =response.getPropertySafelyAsString("EstadoAcceso").replace("anyType{","").replace("; }", "").replace("null","No tiene");
+//
+//            String parseo[] = acceso.split(";");
 
-            String parseo[] = acceso.split(";");
-
-            String condiciondeacceso= "";
-
-            for (int i=0;parseo.length>i;i++){
-
-                if (0<parseo[i].indexOf("Estado")){
-                    condiciondeacceso=condiciondeacceso+'\n'+parseo[i];
-                }
-                /*if (0<parseo[i].indexOf("TicketVirtual")){
-                    condiciondeacceso=condiciondeacceso+'\n'+parseo[i];
-                }*/
-                if (0<parseo[i].indexOf("Puertas")){
-                    condiciondeacceso=condiciondeacceso+'\n'+parseo[i];
-                }
+//            String condiciondeacceso= "";
+     //       String algo = response.getProperty("EstadoAcceso").toString();
+            SoapObject responsee = (SoapObject) response.getProperty("EstadoAcceso");
 
 
-            }
-
-            data =  response.getPrimitivePropertySafelyAsString("Nombre")+ " #" +       response.getPrimitivePropertySafelyAsString("NumSocio")+'\n'+
+            data =  response.getPrimitivePropertySafelyAsString("Nombre")+ '\n'+
+                    "Numdesocio"+response.getPrimitivePropertySafelyAsString("NumSocio")+'\n'+
                     "Documento: "+          response.getPrimitivePropertySafelyAsString("Documento")+'\n'+
                     //"Num. Socio: "+         response.getPrimitivePropertySafelyAsString("NumSocio")+'\n'+
                     "Categoria: "+          response.getPrimitivePropertySafelyAsString("Categoria") +'\n'+
@@ -232,8 +220,10 @@ class SoapRequests {
 
 
                     "Estado del Socio: "+             response.getPrimitivePropertySafelyAsString("Estado")+'\n'+
-                    "Ultima Cuota Paga: " + GetStringCuotaPaga(response.getPrimitivePropertySafelyAsString("UltimoPago").substring(0,  7))+'\n'+
-                    "Acceso: "+          condiciondeacceso;
+                    "Ultima Cuota Paga: " + GetStringCuotaPaga(response.getPrimitivePropertySafelyAsString("UltimoPago").substring(0,  7))+"#"+'\n'+" "+
+                    "IdEstado: "+ responsee.getProperty("IdEstado")+'\n'+
+                    "Puertas:" +responsee.getProperty("Puertas").toString();
+
 
         } catch (Exception q) {
             q.printStackTrace();
@@ -242,9 +232,9 @@ class SoapRequests {
         return data;
     }
 
-    String GetStringCuotaPaga(String fechaCuotaPaga ){
+    private String GetStringCuotaPaga(String fechaCuotaPaga){
 
-        SimpleDateFormat formatoOriginal    = new SimpleDateFormat("yyyy-MM");
+        SimpleDateFormat formatoOriginal    = new SimpleDateFormat("yyyy-MM", new Locale("us","US"));
         SimpleDateFormat formatoDestino     = new SimpleDateFormat("MMMM yyyy", new Locale("es", "ES") );
         String nuevaFecha = null;           // Almacena el string de salida
         Date dat;                           // Almacena la fecha en formato puro
@@ -261,6 +251,7 @@ class SoapRequests {
             e.printStackTrace();
         }
 
+        assert nuevaFecha != null;
         nuevaFecha = nuevaFecha.substring(0, 1).toUpperCase() + nuevaFecha.substring(1);
         return nuevaFecha;
     }
