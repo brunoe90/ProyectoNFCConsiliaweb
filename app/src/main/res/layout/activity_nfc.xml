@@ -8,6 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@drawable/main_background"
     tools:context="com.consilia.nfcbeta.NfcActivity">
 
 
@@ -38,26 +39,39 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:layout_marginTop="10dp"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="50dp"
                         android:text="@string/nfc_tag"
+                        android:fontFamily="sans-serif-medium"
+                        android:textStyle="normal|bold|italic"
+                        android:gravity="center_horizontal"
                         android:id="@+id/textView"
                         android:textSize="40sp"
                         android:layout_gravity="center_horizontal" />
 
                     <TextView
+                        android:layout_marginTop="10dp"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="50dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:textStyle="normal"
                         android:id="@+id/text"
                         android:textSize="30sp"
+                        android:background="@drawable/custom_tview_background"
                         android:layout_gravity="center_horizontal" />
 
                     <Button
+                        android:layout_marginTop="10dp"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-medium"
+                        android:textStyle="normal|bold"
+                        android:layout_height="50dp"
                         android:text="@string/enviar_nfc"
+                        android:background="@drawable/custom_button_background"
                         android:id="@+id/bvolver"
-                        style="@style/Widget.AppCompat.Button.Colored" />
+                        android:textSize="30sp"
+                         />
 
                 </LinearLayout>
 
