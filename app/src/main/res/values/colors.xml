@@ -4,5 +4,7 @@
     <color name="colorPrimaryDark"> #ff000000</color>
     <color name="colorAccent">#ff80cbc4</color>
     <color name="black">#000000</color>
+    <color name="colorServerOk">#328402</color>
+    <color name="colorServerBad">#ed0707</color>
 
 </resources>
