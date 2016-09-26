@@ -93,6 +93,7 @@
                         android:layout_gravity="center_horizontal" />
 
                     <RadioGroup
+                        android:layout_marginTop="10dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
@@ -100,6 +101,8 @@
                         android:layout_weight="0" >
 
                         <RadioButton
+                            android:fontFamily="sans-serif-medium"
+                            android:textStyle="normal|bold"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/idsocio"
@@ -111,6 +114,8 @@
                             android:onClick="onRadioButtonClicked" />
 
                         <RadioButton
+                            android:fontFamily="sans-serif-medium"
+                            android:textStyle="normal|bold"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/documento_dni"
@@ -131,7 +136,7 @@
                         android:inputType="number"
                         android:ems="10"
                         android:id="@+id/edtsocio"
-                        android:gravity="center_horizontal"
+                        android:gravity="center_vertical"
                         android:layout_gravity="center_horizontal"
                         android:maxLines="1"
                         android:background="@drawable/custom_tview_background"
@@ -143,6 +148,7 @@
                         android:textStyle="normal|bold"
                         android:layout_height="50dp"
                         android:layout_width="match_parent"
+                        android:background="@drawable/custom_button_background"
                         android:text="@string/enviar_id_socio"
                         android:id="@+id/bidsocio" />
 
