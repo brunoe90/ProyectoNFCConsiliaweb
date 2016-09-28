@@ -88,4 +88,10 @@
     <string name="asas">ASas</string>
     <string name="puertas">Puertas</string>
     <string name="leer">LEER</string>
+    <string name="login">Login</string>
+    <string name="ip">IP:</string>
+    <string name="_192_168_0_1">192.168.0.1</string>
+    <string name="puertogf">Puerto:</string>
+    <string name="_80">80</string>
+    <string name="entrarcf">Entrar</string>
 </resources>

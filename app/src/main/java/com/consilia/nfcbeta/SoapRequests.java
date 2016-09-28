@@ -15,6 +15,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+
+
 class SoapRequests {
     private static final boolean DEBUG_SOAP_REQUEST_RESPONSE = true;
     private static final String NAMESPACE =                     "http://192.168.0.1/WebService.asmx";
@@ -36,7 +38,7 @@ class SoapRequests {
         }
     }
 
-    String getversion() {
+    String getversion(String IP, String port) {
 
         String data = null;
 
@@ -46,7 +48,7 @@ class SoapRequests {
 
         SoapSerializationEnvelope envelope = getSoapSerializationEnvelope(request);
 
-        HttpTransportSE ht =  getHttpTransportSE( "http://192.168.0.1/WebService.asmx");
+        HttpTransportSE ht =  getHttpTransportSE( "http://"+IP+"/WebService.asmx");
         try {
             ht.call(SOAP_ACTION_getversion, envelope);
 
@@ -73,7 +75,7 @@ class SoapRequests {
         return data;
     }
 
-    String getcaret(String idEstadio, String idSerie) {
+    String getcaret(String idEstadio, String idSerie, String IP, String port) {
 
         String data = null  ;
 
@@ -86,7 +88,7 @@ class SoapRequests {
         SoapSerializationEnvelope envelope;
         envelope = getSoapSerializationEnvelope(request);
 
-        HttpTransportSE ht =  getHttpTransportSE( "http://192.168.0.1/WebService.asmx");
+        HttpTransportSE ht =  getHttpTransportSE( "http://"+IP+"/WebService.asmx");
         try {
 
             ht.call(SOAP_ACTION_searchcarnet,  envelope);
@@ -117,7 +119,7 @@ class SoapRequests {
         return data;
     }
 
-     String getsociobydoc(String idStadium, String documento, String idTipoDoc) {
+     String getsociobydoc(String idStadium, String documento, String idTipoDoc, String IP, String port) {
 
         String data = null  ;
 
@@ -131,7 +133,7 @@ class SoapRequests {
         SoapSerializationEnvelope envelope;
         envelope = getSoapSerializationEnvelope(request);
 
-        HttpTransportSE ht =  getHttpTransportSE( "http://192.168.0.1/WebService.asmx");
+         HttpTransportSE ht =  getHttpTransportSE( "http://"+IP+"/WebService.asmx");
         try {
 
             ht.call(SOAP_ACTION_SearchSocioByDoc,  envelope);
@@ -159,7 +161,7 @@ class SoapRequests {
         return data;
     }
 
-    String getsocio(String idStadium, String numSocio, String documento) {
+    String getsocio(String idStadium, String numSocio, String documento, String IP, String port) {
 
         String data;
        // idStadium="2";
@@ -176,7 +178,7 @@ class SoapRequests {
         envelope = getSoapSerializationEnvelope(request);
         envelope.skipNullProperties=true;
         //envelope.dotNet = false;
-        HttpTransportSE ht =  getHttpTransportSE( "http://192.168.0.1/WebService.asmx");
+        HttpTransportSE ht =  getHttpTransportSE( "http://"+IP+"/WebService.asmx");
         try {
 
             ht.call(SOAP_ACTION_SearchSocio,  envelope);
@@ -267,7 +269,7 @@ class SoapRequests {
         return nuevaFecha;
     }
 
-     String SearchInvitado(String idStadium, String numInvitado) {
+     String SearchInvitado(String idStadium, String numInvitado, String IP, String port) {
 
         String data = null  ;
 
@@ -282,7 +284,7 @@ class SoapRequests {
         envelope = getSoapSerializationEnvelope(request);
         envelope.skipNullProperties=true;
 
-        HttpTransportSE ht =  getHttpTransportSE( "http://192.168.0.1/WebService.asmx");
+         HttpTransportSE ht =  getHttpTransportSE( "http://"+IP+"/WebService.asmx");
         try {
 
             ht.call(SOAP_ACTION_SearchInvitado,  envelope);
@@ -312,7 +314,7 @@ class SoapRequests {
         return data;
     }
 
-     byte[] getfotosocio(String idStadium, String numSocio) {
+     byte[] getfotosocio(String idStadium, String numSocio, String IP, String port) {
 
         byte data[] = new byte[0];
         String methodname = "GetFotoSocio";
@@ -323,7 +325,7 @@ class SoapRequests {
 
         SoapSerializationEnvelope envelope = getSoapSerializationEnvelope(request);
 
-        HttpTransportSE ht =  getHttpTransportSE( "http://192.168.0.1/WebService.asmx");
+         HttpTransportSE ht =  getHttpTransportSE( "http://"+IP+"/WebService.asmx");
         try {
             ht.call(SOAP_ACTION_getfoto, envelope);
 
@@ -351,7 +353,7 @@ class SoapRequests {
         return data;
     }
 
-     byte[] getfotoinvitado(String idStadium, String numSocio) {
+     byte[] getfotoinvitado(String idStadium, String numSocio, String IP, String port) {
 
         byte data[] = new byte[0];
         String methodname = "GetFotoInvitado";
@@ -362,7 +364,7 @@ class SoapRequests {
 
         SoapSerializationEnvelope envelope = getSoapSerializationEnvelope(request);
 
-        HttpTransportSE ht =  getHttpTransportSE( "http://192.168.0.1/WebService.asmx");
+         HttpTransportSE ht =  getHttpTransportSE( "http://"+IP+"/WebService.asmx");
         try {
             ht.call(SOAP_ACTION_getfoto_Invitado, envelope);
 

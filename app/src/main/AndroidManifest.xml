@@ -15,16 +15,14 @@
         android:name="android.hardware.nfc"
         android:required="true" />
 
-
     <application
-
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
         <activity
-            android:name=".ConfigActivity"
+            android:name=".loginActivity"
             android:label="AccesoNFC">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -44,7 +42,8 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <activity android:name=".pasanopasaActivity"/>
+        <activity android:name=".pasanopasaActivity" />
+        <activity android:name=".ConfigActivity" />
     </application>
 
 </manifest>

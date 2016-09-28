@@ -37,6 +37,7 @@ public class ConfigActivity extends AppCompatActivity {
         bundle = new Bundle();
         spinner = (Spinner) findViewById(R.id.Estadio);
         etip        = (EditText)findViewById(R.id.etstadio);
+        bundle = getIntent().getExtras();
 
 
 
@@ -107,6 +108,8 @@ public class ConfigActivity extends AppCompatActivity {
                     if (!etip.getText().toString().equals("")){
                         bundle.putInt("idStadium",idStadium);
                         bundle.putInt("Puerta", Integer.valueOf(etip.getText().toString()));
+                        bundle.putString("IP",bundle.getString("IP"));
+                        bundle.putString("port",bundle.getString("port"));
                         Intent intent = new Intent(ConfigActivity.this, MainActivity.class);
                         intent.putExtras(bundle);
                         startActivity(intent);

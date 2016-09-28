@@ -53,6 +53,8 @@ public class MainActivity extends Activity {
         bnfc= (ImageButton) findViewById(R.id.buttonNFC);
         bundle = new Bundle();
         bundle = getIntent().getExtras();
+        bundle.putString("IP",bundle.getString("IP"));
+        bundle.putString("port",bundle.getString("port"));
 
         boolean connected;
         ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -91,7 +93,7 @@ public class MainActivity extends Activity {
                     public void run() {
 
                         SoapRequests ex = new SoapRequests();
-                        String stringsoap = ex.getversion();
+                        String stringsoap = ex.getversion(bundle.getString("IP"),bundle.getString("port"));
                         if (stringsoap!=null ) {
                             if (!stringsoap.equals("0")) {
                                 handler.sendEmptyMessage(1);

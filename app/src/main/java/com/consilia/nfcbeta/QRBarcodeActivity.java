@@ -47,7 +47,8 @@ public class QRBarcodeActivity extends AppCompatActivity {
         bundle= new Bundle();
         bundle = getIntent().getExtras();
         bundle.putString("lastActivity","qr");
-
+        bundle.putString("IP",bundle.getString("IP"));
+        bundle.putString("port",bundle.getString("port"));
         boolean connected;
         ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
         //we are connected to a network

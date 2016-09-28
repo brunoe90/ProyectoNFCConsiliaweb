@@ -58,6 +58,8 @@ public class pasanopasaActivity extends AppCompatActivity {
         buttonfoto =    (Button) findViewById(R.id.buttonfoto);
         bundle =        new Bundle();
         bundle =        getIntent().getExtras();
+        bundle.putString("IP",bundle.getString("IP"));
+        bundle.putString("port",bundle.getString("port"));
         imageView =     (ImageView) findViewById(R.id.imageView);
         tresultado =    (TextView) findViewById(R.id.tresultado);
         Accesos =       (TextView) findViewById(R.id.Puertas);
@@ -636,19 +638,19 @@ public class pasanopasaActivity extends AppCompatActivity {
                 context = getApplicationContext();
                 switch (method) {
                     case "getversion":{
-                        stringsoap =    ex.getversion();
+                        stringsoap =    ex.getversion(bundle.getString("IP"),bundle.getString("port"));
                         handler.sendEmptyMessage(0);
                         break;}
 
                     case "GetFotoSocio":{
-                        byte[] foto =   ex.getfotosocio((idStadium),String.valueOf(idSocio ));
+                        byte[] foto =   ex.getfotosocio((idStadium),String.valueOf(idSocio ),bundle.getString("IP"),bundle.getString("port"));
                         decodedByte =   BitmapFactory.decodeByteArray(foto, 0, foto.length);
                         handler.sendEmptyMessage(1);
                         break;}
 
                     case "buscar":{
 
-                        numSocio =      ex.getsociobydoc((idStadium), String.valueOf(idSocio ), tipodoc); //type="s:int" devuelve entero ////////// ENTRA unsigned byte idStadium -- string idTipoDoc -- long documento
+                        numSocio =      ex.getsociobydoc((idStadium), String.valueOf(idSocio ), tipodoc,bundle.getString("IP"),bundle.getString("port")); //type="s:int" devuelve entero ////////// ENTRA unsigned byte idStadium -- string idTipoDoc -- long documento
                         stringsoap =    numSocio;
                         idSocio=        numSocio;
                         handler.sendEmptyMessage(2);
@@ -656,13 +658,13 @@ public class pasanopasaActivity extends AppCompatActivity {
 
                     case "getestado":{
 
-                        numSocio =      ex.getsocio((idStadium),String.valueOf(idSocio ),String.valueOf(idSocio ) ); //type="s:int" devuelve entero ////////// ENTRA unsigned byte idStadium -- string idTipoDoc -- long documento
+                        numSocio =      ex.getsocio((idStadium),String.valueOf(idSocio ),String.valueOf(idSocio ) ,bundle.getString("IP"),bundle.getString("port")); //type="s:int" devuelve entero ////////// ENTRA unsigned byte idStadium -- string idTipoDoc -- long documento
                         stringsoap =    numSocio;
                         handler.sendEmptyMessage(3);
                         break;}
 
                     case "getcarnet":{
-                        stringsoap =    ex.getcaret(idStadium,bundle.getString("NFCTAG"));
+                        stringsoap =    ex.getcaret(idStadium,bundle.getString("NFCTAG"),bundle.getString("IP"),bundle.getString("port"));
 
                         if (stringsoap=="0"){
                             idTipo="0";
@@ -681,14 +683,14 @@ public class pasanopasaActivity extends AppCompatActivity {
                             if (Objects.equals(idTipo, "8")){
                                 handler.sendEmptyMessage(4);
                             } else if (Objects.equals("3", idTipo)){
-                                stringsoap =    ex.SearchInvitado(idStadium,bundle.getString("NFCTAG"));
+                                stringsoap =    ex.SearchInvitado(idStadium,bundle.getString("NFCTAG"),bundle.getString("IP"),bundle.getString("port"));
                                 handler.sendEmptyMessage(5);
                             }
                         }else{
                             if (idTipo=="8"){
                                 handler.sendEmptyMessage(4);
                             } else if ("3"== idTipo){
-                                stringsoap =    ex.SearchInvitado(idStadium,bundle.getString("NFCTAG"));
+                                stringsoap =    ex.SearchInvitado(idStadium,bundle.getString("NFCTAG"),bundle.getString("IP"),bundle.getString("port"));
                                 handler.sendEmptyMessage(5);
                             }
                         }
@@ -696,7 +698,7 @@ public class pasanopasaActivity extends AppCompatActivity {
 
                         break;}
                     case "getinvitado":{
-                        stringsoap =    ex.SearchInvitado(idStadium,bundle.getString("NFCTAG"));
+                        stringsoap =    ex.SearchInvitado(idStadium,bundle.getString("NFCTAG"),bundle.getString("IP"),bundle.getString("port"));
                         idSocio=        stringsoap;
                         if (stringsoap==null){
                             idSocio="0";

@@ -76,11 +76,10 @@ public class NfcActivity extends AppCompatActivity implements View.OnClickListen
         bundle = new Bundle();
         bundle = getIntent().getExtras();
         bundle.putString("lastActivity", "nfc");
-
+        bundle.putString("IP",bundle.getString("IP"));
+        bundle.putString("port",bundle.getString("port"));
         boolean connected;
         bundle.remove("NFCTAG");
-
-
         host = (TabHost) findViewById(R.id.tabHost);
 
         assert host != null;
