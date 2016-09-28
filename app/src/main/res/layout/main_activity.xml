@@ -26,7 +26,8 @@
         android:layout_gravity="center_horizontal"
         android:contentDescription="@string/asd"
         style="@android:style/Widget.Holo.ImageButton"
-        android:scaleType="fitXY" />
+        android:scaleType="fitXY"
+        android:background="@android:drawable/button_onoff_indicator_off" />
 
     <Button
         android:layout_width="fill_parent"

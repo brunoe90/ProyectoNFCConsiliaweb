@@ -90,6 +90,7 @@
                         android:fontFamily="sans-serif-medium"
                         android:textStyle="normal|bold|italic"
                         android:text="@string/id_socio"
+                        android:gravity="center_horizontal"
                         android:id="@+id/textView5"
                         android:textSize="40sp"
                         android:layout_gravity="center_horizontal" />
@@ -131,18 +132,16 @@
                     </RadioGroup>
 
                     <EditText
-                        android:layout_marginTop="10dp"
+
                         android:layout_width="match_parent"
-                        android:layout_height="50dp"
+                        android:layout_height="25sp"
                         android:fontFamily="sans-serif-medium"
                         android:inputType="number"
                         android:id="@+id/edtsocio"
                         android:gravity="center_horizontal"
                         android:layout_gravity="center_horizontal"
                         android:maxLines="1"
-                        android:background="@drawable/custom_tview_background"
-                        android:textSize="40sp"
-                        android:layout_weight="0" />
+                        android:textSize="20sp" />
 
                     <Button
                         android:layout_marginTop="10dp"

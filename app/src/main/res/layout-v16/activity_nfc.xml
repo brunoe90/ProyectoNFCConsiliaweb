@@ -88,6 +88,7 @@
                         android:layout_height="50dp"
                         android:fontFamily="sans-serif-medium"
                         android:textStyle="normal|bold|italic"
+                        android:gravity="center_horizontal"
                         android:text="@string/id_socio"
                         android:id="@+id/textView5"
                         android:textSize="40sp"
@@ -106,6 +107,7 @@
                             android:textStyle="normal|bold"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textColor="@color/grisboleteria"
                             android:text="@string/idsocio"
                             android:id="@+id/buttonsocio"
                             android:layout_gravity="center_horizontal"
@@ -119,6 +121,7 @@
                             android:textStyle="normal|bold"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textColor="@color/grisboleteria"
                             android:text="@string/documento_dni"
                             android:id="@+id/buttondni"
                             android:layout_gravity="right"
@@ -136,11 +139,11 @@
                         android:fontFamily="sans-serif-medium"
                         android:inputType="number"
                         android:id="@+id/edtsocio"
+                        android:textColor="@color/gris"
                         android:gravity="center_horizontal"
                         android:layout_gravity="center_horizontal"
                         android:maxLines="1"
-                        android:textSize="40sp"
-                        android:layout_weight="0" />
+                        android:textSize="24sp" />
 
                     <Button
                         android:layout_marginTop="10dp"

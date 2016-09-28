@@ -60,7 +60,7 @@
         android:id="@+id/etstadio"
         android:layout_gravity="center_horizontal"
 
-        android:textSize="30sp"
+        android:textSize="24sp"
         android:gravity="center_horizontal" />
 
     <Button

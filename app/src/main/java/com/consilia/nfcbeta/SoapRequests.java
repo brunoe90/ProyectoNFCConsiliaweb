@@ -22,9 +22,9 @@ class SoapRequests {
     private static final String SOAP_ACTION_SearchSocioByDoc =  "http://controlplus.net/cwpwebservice/SearchSocioByDoc";
     private static final String SOAP_ACTION_SearchSocio =       "http://controlplus.net/cwpwebservice/SearchSocio";
     private static final String SOAP_ACTION_getfoto =           "http://controlplus.net/cwpwebservice/GetFotoSocio";
-    private static final String SOAP_ACTION_getfoto_Invitado =           "http://controlplus.net/cwpwebservice/GetFotoInvitado";
-    private static final String SOAP_ACTION_searchcarnet =           "http://controlplus.net/cwpwebservice/SearchCarnet";
-    private static final String SOAP_ACTION_SearchInvitado =           "http://controlplus.net/cwpwebservice/SearchInvitado";
+    private static final String SOAP_ACTION_getfoto_Invitado =  "http://controlplus.net/cwpwebservice/GetFotoInvitado";
+    private static final String SOAP_ACTION_searchcarnet =      "http://controlplus.net/cwpwebservice/SearchCarnet";
+    private static final String SOAP_ACTION_SearchInvitado =    "http://controlplus.net/cwpwebservice/SearchInvitado";
 
     private static String SESSION_ID;
 
