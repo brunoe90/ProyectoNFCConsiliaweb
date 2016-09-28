@@ -6,5 +6,8 @@
     <color name="black">#000000</color>
     <color name="colorServerOk">#328402</color>
     <color name="colorServerBad">#ed0707</color>
+    <color name="gris">#9E9E9E</color>
+    <color name="grisboleteria">#dcdcdc</color>
+    <color name="verdeboleteria">#96B22c</color>
 
 </resources>

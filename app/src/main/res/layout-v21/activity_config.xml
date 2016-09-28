@@ -8,9 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:scaleType="fitXY"
     android:background="@drawable/backgroundapp"
-
     tools:context="com.consilia.nfcbeta.ConfigActivity"
     android:weightSum="1">
 
@@ -20,7 +18,7 @@
         android:text="@string/estadio"
         android:id="@+id/textView3"
         android:layout_gravity="center_horizontal"
-        android:textColor="@color/gris"
+        android:textColor="@color/verdeboleteria"
         android:textSize="50sp"
         android:fontFamily="sans-serif-medium"
         android:textStyle="normal|bold|italic"
@@ -32,6 +30,7 @@
         android:layout_width="match_parent"
         android:layout_height="20dp"
         android:entries="@array/country_arrays"
+        android:textColor="@color/verdeboleteria"
         android:prompt="@string/country_prompt"
         android:spinnerMode="dropdown"
 
@@ -42,7 +41,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/puerta"
-        android:textColor="@color/gris"
+        android:textColor="@color/verdeboleteria"
         android:fontFamily="sans-serif-medium"
         android:textStyle="normal|bold|italic"
 
@@ -53,24 +52,23 @@
     <EditText
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:inputType="number"
+        android:ems="10"
 
-        android:textColor="@color/gris"
+        android:textColor="@color/grisboleteria"
         android:id="@+id/etstadio"
-        android:layout_gravity="center_vertical|center_horizontal|center"
+        android:layout_gravity="center_horizontal"
 
-        android:textSize="20sp"
-
-        android:gravity="center_vertical"
-        android:scrollbarSize="20sp" />
+        android:textSize="30sp"
+        android:gravity="center_horizontal" />
 
     <Button
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:text="@string/entrar"
-        android:textColor="@color/gris"
+        android:textColor="@color/verdeboleteria"
         android:fontFamily="sans-serif-medium"
         android:textStyle="normal|bold"
         android:id="@+id/bentrar"

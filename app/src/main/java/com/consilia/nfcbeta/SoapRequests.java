@@ -108,10 +108,11 @@ class SoapRequests {
             }
           //  data = (resultsString.toString());
 
-            data=   "Tipo: "+       resultsString.getPrimitivePropertyAsString("IdTipo") +","+'\n'+
-                   /* "numero: "+*/     resultsString.getPrimitivePropertyAsString("IdNumero");
+            data=   "Tipo: "+       resultsString.getPrimitivePropertySafelyAsString("IdTipo") +","+'\n'+
+                   /* "numero: "+*/     resultsString.getPrimitivePropertySafelyAsString("IdNumero");
         } catch (Exception q) {
             q.printStackTrace();
+            data ="0";
         }
         return data;
     }
@@ -207,10 +208,20 @@ class SoapRequests {
 //            String condiciondeacceso= "";
      //       String algo = response.getProperty("EstadoAcceso").toString();
             SoapObject responsee = (SoapObject) response.getProperty("EstadoAcceso");
-
+            String puertas = responsee.getPropertySafelyAsString("Puertas");
+            String IdEstado = responsee.getPropertySafelyAsString("IdEstado");
+            String UCP =(response.getPrimitivePropertySafelyAsString("UltimoPago"));
+            if (puertas==null ||puertas=="" ){
+                puertas="Sin Accesos asignados";
+            }
+            if (UCP==null ||UCP=="" ){
+                UCP="No Asigna";
+            }else {
+                UCP=GetStringCuotaPaga(response.getPrimitivePropertySafelyAsString("UltimoPago").substring(0,  7));
+            }
 
             data =  response.getPrimitivePropertySafelyAsString("Nombre")+ '\n'+
-                    "Numdesocio"+response.getPrimitivePropertySafelyAsString("NumSocio")+'\n'+
+                    "Socio Número: "+response.getPrimitivePropertySafelyAsString("NumSocio")+'\n'+
                     "Documento: "+          response.getPrimitivePropertySafelyAsString("Documento")+'\n'+
                     //"Num. Socio: "+         response.getPrimitivePropertySafelyAsString("NumSocio")+'\n'+
                     "Categoria: "+          response.getPrimitivePropertySafelyAsString("Categoria") +'\n'+
@@ -220,9 +231,9 @@ class SoapRequests {
 
 
                     "Estado del Socio: "+             response.getPrimitivePropertySafelyAsString("Estado")+'\n'+
-                    "Ultima Cuota Paga: " + GetStringCuotaPaga(response.getPrimitivePropertySafelyAsString("UltimoPago").substring(0,  7))+"#"+'\n'+" "+
-                    "IdEstado: "+ responsee.getProperty("IdEstado")+'\n'+
-                    "Puertas:" +responsee.getProperty("Puertas").toString();
+                    "Ultima Cuota Paga: " + UCP +"#"+'\n'+" "+
+                    "IdEstado: "+ IdEstado+'\n'+
+                    "Puertas:" +puertas;
 
 
         } catch (Exception q) {

@@ -11,10 +11,12 @@
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/activity_vertical_margin"
-        android:background="#000000"
+
         tools:context="com.consilia.nfcbeta.pasanopasaActivity"
+        android:background="@drawable/backgroundnope"
         android:weightSum="1"
-    android:animationCache="false">
+    android:animationCache="false"
+    android:id="@+id/pasanopasa">
 
     <Button
             android:layout_width="fill_parent"
@@ -28,28 +30,17 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true" />
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/leer"
-            android:id="@+id/bvolver"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true" />
-
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/dato"
             android:textSize="30sp"
             android:textStyle="bold"
-            android:shadowColor="#000000"
-            android:shadowDx="1"
-            android:shadowDy="1"
-            android:shadowRadius="3"
-        android:layout_below="@+id/imageView"
-        android:layout_centerHorizontal="true"
-        android:textAlignment="center"
-        android:text="@string/asdasd" />
+            android:layout_below="@+id/imageView"
+            android:layout_centerHorizontal="true"
+            android:textAlignment="center"
+            android:text="Tarjeta no reconocida"
+        android:textColor="@color/grisboleteria" />
 
     <ImageView
         android:layout_width="wrap_content"
@@ -59,42 +50,72 @@
         android:shadowColor="#000000"
         android:contentDescription=""
         android:adjustViewBounds="true"
-
+        android:background="@android:drawable/editbox_dropdown_dark_frame"
         android:fadingEdge="horizontal|vertical"
-        android:background="@drawable/common_google_signin_btn_icon_dark_normal"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
     <TextView
-        android:text="@string/informacion"
+        android:text="Tarjeta no ingresada en el sistema"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/dato"
         android:layout_centerHorizontal="true"
-        android:id="@+id/informacion" />
+        android:id="@+id/informacion"
+        android:textColor="@color/grisboleteria"
+        android:textSize="24sp"
+        android:textAlignment="center" />
+
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/leer"
+
+        android:textColor="@color/gris"
+        android:id="@+id/bvolver"
+        android:background="@android:drawable/dialog_holo_light_frame"
+
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:text="Estado Acceso"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/datop"
+        android:textColor="@color/gris"
+        android:textSize="26sp"
+        android:textAlignment="viewStart"
+        android:layout_above="@+id/Puertas"
+        android:layout_alignLeft="@+id/Puertas"
+        android:layout_alignStart="@+id/Puertas" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/tresultado"
 
-        android:textAlignment="center"
-        android:textSize="20sp"
-        android:text="@string/asas"
+        android:textAlignment="viewStart"
+        android:textSize="24sp"
+        android:text="Ultima Cuota Paga: --"
+        android:layout_marginBottom="21dp"
+        android:textColor="@color/grisboleteria"
         android:layout_above="@+id/bvolver"
-        android:layout_alignRight="@+id/dato"
-        android:layout_alignEnd="@+id/dato"
-        android:layout_marginBottom="26dp" />
+        android:layout_alignLeft="@+id/Puertas"
+        android:layout_alignStart="@+id/Puertas" />
 
     <TextView
         android:text="@string/puertas"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/Puertas"
+        android:textSize="26sp"
+        android:textColor="@color/gris"
+        android:layout_marginBottom="34dp"
         android:layout_above="@+id/tresultado"
-        android:layout_alignRight="@+id/tresultado"
-        android:layout_alignEnd="@+id/tresultado"
-        android:layout_marginBottom="68dp" />
+        android:layout_alignLeft="@+id/imageView"
+        android:layout_alignStart="@+id/imageView" />
 
 </RelativeLayout>
 

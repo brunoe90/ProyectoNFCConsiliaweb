@@ -1,10 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <style name="AppTheme" parent="boleteria">
+        <!-- Customize your theme here. -->
+        <!-- <item name="colorPrimary">@color/colorPrimary</item>-->
+        <!--<item name="colorPrimaryDark">@color/colorPrimaryDark</item>-->
+        <!--<item name="colorAccent">@color/colorAccent</item>-->
+        <!--   <item name="android:typeface">monospace</item>-->
+    </style>
     <style name="background" parent="Theme.AppCompat.NoActionBar">
-        <item name="android:colorBackground">@color/background_material_dark</item>
-        <item name="android:colorForeground">@color/foreground_material_dark</item>
+        <item name="android:colorBackground">@color/verdeboleteria</item>
+        <item name="android:colorForeground">@color/verdeboleteria</item>
         <item name="android:navigationBarColor">@color/black</item>
         <item name="android:statusBarColor">@color/black</item>
+    </style>
+
+
+    <style name="Estadio" parent="android:Widget.TextView.SpinnerItem">
+        <item name="android:textColor">@color/verdeboleteria</item>
     </style>
 </resources>

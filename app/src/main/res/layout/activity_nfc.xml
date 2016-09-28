@@ -8,7 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:background="@drawable/main_background"
+    android:background="@drawable/backgroundapp"
     tools:context="com.consilia.nfcbeta.NfcActivity">
 
 
@@ -48,7 +48,8 @@
                         android:gravity="center_horizontal"
                         android:id="@+id/textView"
                         android:textSize="40sp"
-                        android:layout_gravity="center_horizontal" />
+                        android:layout_gravity="center_horizontal"
+                        android:textColor="@color/gris" />
 
                     <TextView
                         android:layout_marginTop="10dp"
@@ -58,7 +59,7 @@
                         android:textStyle="normal"
                         android:id="@+id/text"
                         android:textSize="30sp"
-                        android:background="@drawable/custom_tview_background"
+
                         android:layout_gravity="center_horizontal" />
 
                     <Button
@@ -66,9 +67,10 @@
                         android:layout_width="match_parent"
                         android:fontFamily="sans-serif-medium"
                         android:textStyle="normal|bold"
+                        android:textColor="@color/verdeboleteria"
                         android:layout_height="50dp"
                         android:text="@string/enviar_nfc"
-                        android:background="@drawable/custom_button_background"
+                        android:background="@android:drawable/dialog_holo_light_frame"
                         android:id="@+id/bvolver"
                         android:textSize="30sp"
                          />

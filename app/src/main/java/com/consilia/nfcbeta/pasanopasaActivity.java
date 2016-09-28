@@ -31,7 +31,7 @@ import org.ksoap2.serialization.SoapObject;
 import java.util.Objects;
 
 public class pasanopasaActivity extends AppCompatActivity {
-    TextView    dato,tresultado,Accesos,informacion;
+    TextView    dato,datop,tresultado,Accesos,informacion;
     String      stringsoap;
     String      idStadium;
     String      idSocio;
@@ -63,6 +63,7 @@ public class pasanopasaActivity extends AppCompatActivity {
         Accesos =       (TextView) findViewById(R.id.Puertas);
         informacion =   (TextView) findViewById(R.id.informacion);
         dato =          (TextView) findViewById(R.id.dato);
+        datop=  (TextView) findViewById(R.id.datop);
         idSocio =       String.valueOf(bundle.getInt("idSocio"));
         idStadium =     String.valueOf(bundle.getInt("idStadium"));
         Puerta =        String.valueOf(bundle.getInt("Puerta"));
@@ -174,180 +175,317 @@ public class pasanopasaActivity extends AppCompatActivity {
                 case 2: tresultado.setText(stringsoap); getSoap("getestado");break;
 
                 case 3: {
+                    RelativeLayout layout = (RelativeLayout) findViewById(R.id.pasanopasa);
+                    //  Layout.setBackgroundDrawable(R.drawable.backgroundOK);
+                    final int sdk = android.os.Build.VERSION.SDK_INT;
+                    String puertas = null;
                     buttonfoto.performClick();
-                    String puertas =stringsoap.substring(stringsoap.indexOf("Puertas:")+8).replace("Puerta","");
-                    if (puertas!=null){
-                        Accesos.setText("Accesos:"+puertas);
+                    if (stringsoap!="0")
+                    {
+                        puertas=stringsoap.substring(stringsoap.indexOf("Puertas:")+8).replace("Puerta","");
+
+                        if (puertas!=null){
+                            if (puertas.length()>10){
+                                Accesos.setTextSize(20);
+                            }
+                            Accesos.setText("Accesos:"+puertas);
+                        }
+                        String Nombre = stringsoap.substring(0,stringsoap.indexOf('\n'));
+                        if (dato.length()>15){
+                            dato.setTextSize(24);
+                        }
+                        dato.setText(Nombre);
+
+
+                        String info = stringsoap.substring(stringsoap.indexOf('\n')+1, stringsoap.indexOf("Estado del Socio: ")-1);
+                        if (informacion.length()>20){
+                            informacion.setTextSize(20);
+                        }
+                        informacion.setText(info);
+
+
+                        String UCP = stringsoap.substring(stringsoap.indexOf("Ultima Cuota Paga: ")+19);
+                        UCP = UCP.substring(0,UCP.indexOf("#"));
+
+                        tresultado.setText("Última Cuota Paga: "+'\n'+UCP);
+
+
+                        int callback =stringsoap.indexOf("IdEstado");
+                        if (stringsoap.indexOf("IdEstado")>0){
+                            idTipo=stringsoap.substring(callback+8,callback+8+4).replace("\n","").replace(" ","").replace(":","");
+                        }
+
+                        switch (Integer.valueOf(idTipo)) {
+                            case 0: {
+                                //no puede pasar
+                                datop.setText("Fue Deshabilitado");
+                                toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
+                                if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                                    layout.setBackgroundDrawable( getResources().getDrawable(R.drawable.backgroundnope) );
+                                } else {
+                                    layout.setBackground( getResources().getDrawable(R.drawable.backgroundnope));
+                                }
+
+
+                                break;
+                            }
+                            case 1: {
+                                // puede pasar
+                                if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                                    layout.setBackgroundDrawable( getResources().getDrawable(R.drawable.backgroundok) );
+                                } else {
+                                    layout.setBackground( getResources().getDrawable(R.drawable.backgroundok));
+                                }
+
+                                datop.setText("Puede pasar");
+                                toneG.startTone(ToneGenerator.TONE_CDMA_ALERT_CALL_GUARD, 200);
+
+                                break;
+                            }
+                            case 2: {
+                                // puede pasar
+
+                                if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                                    layout.setBackgroundDrawable( getResources().getDrawable(R.drawable.backgroundok) );
+                                } else {
+                                    layout.setBackground( getResources().getDrawable(R.drawable.backgroundok));
+                                }
+
+                                datop.setText("Habilitación manual");
+                                toneG.startTone(ToneGenerator.TONE_CDMA_ALERT_CALL_GUARD, 200);
+
+
+                                break;
+                            }
+                            case 3: {
+                                // no puede pasar
+                                if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                                    layout.setBackgroundDrawable( getResources().getDrawable(R.drawable.backgroundnope) );
+                                } else {
+                                    layout.setBackground( getResources().getDrawable(R.drawable.backgroundnope));
+                                }
+
+
+                                datop.setText("Ya ingreso al estadio");
+                                toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
+
+                                break;
+                            }
+                            case 4: {
+
+                                //no puede pasar
+
+                                if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                                    layout.setBackgroundDrawable( getResources().getDrawable(R.drawable.backgroundnope) );
+                                } else {
+                                    layout.setBackground( getResources().getDrawable(R.drawable.backgroundnope));
+                                }
+
+
+                                datop.setText("No esta activo");
+                                toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
+
+
+                                break;
+                            }
+                            case 5: {
+
+
+                                // no pasa
+                                if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                                    layout.setBackgroundDrawable( getResources().getDrawable(R.drawable.backgroundnope) );
+                                } else {
+                                    layout.setBackground( getResources().getDrawable(R.drawable.backgroundnope));
+                                }
+
+
+                                datop.setText("Cuota Vencida");
+                                toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
+
+
+                                break;
+                            }
+                            case 6: {
+                                // no pasa
+
+                                datop.setText("Paso por Perimetral");
+                                if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                                    layout.setBackgroundDrawable( getResources().getDrawable(R.drawable.backgroundnope) );
+                                } else {
+                                    layout.setBackground( getResources().getDrawable(R.drawable.backgroundnope));
+                                }
+
+
+                                toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
+
+                                break;
+                            } case 7: {
+                                // no pasa
+                                if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                                    layout.setBackgroundDrawable( getResources().getDrawable(R.drawable.backgroundnope) );
+                                } else {
+                                    layout.setBackground( getResources().getDrawable(R.drawable.backgroundnope));
+                                }
+
+
+                                datop.setText("Abono vencido");
+                                toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
+
+
+                                break;
+                            } case 8: {
+                                // no pasa
+                                toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
+                                datop.setText("Canjeo por ticket");
+                                if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                                    layout.setBackgroundDrawable( getResources().getDrawable(R.drawable.backgroundnope) );
+                                } else {
+                                    layout.setBackground( getResources().getDrawable(R.drawable.backgroundnope));
+                                }
+
+
+                                break;
+                            } case 9: {
+                                //// no pasa
+                                if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                                    layout.setBackgroundDrawable( getResources().getDrawable(R.drawable.backgroundnope) );
+                                } else {
+                                    layout.setBackground( getResources().getDrawable(R.drawable.backgroundnope));
+                                }
+
+
+                                datop.setText("Credencial Vencida");
+                                toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
+
+                                break;
+                            } case 10: {
+                                // No pasa
+                                if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                                    layout.setBackgroundDrawable( getResources().getDrawable(R.drawable.backgroundnope) );
+                                } else {
+                                    layout.setBackground( getResources().getDrawable(R.drawable.backgroundnope));
+                                }
+
+
+                                datop.setText("Copia no Habilitada");
+
+                                toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
+                                break;
+                            } case 11: {
+                                // no pasa
+
+                                if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                                    layout.setBackgroundDrawable( getResources().getDrawable(R.drawable.backgroundnope) );
+                                } else {
+                                    layout.setBackground( getResources().getDrawable(R.drawable.backgroundnope));
+                                }
+
+
+                                datop.setText("No tiene carnet");
+                                toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
+
+                                break;
+                            } case 14: {
+                                // no pasa
+                                if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                                    layout.setBackgroundDrawable( getResources().getDrawable(R.drawable.backgroundnope) );
+                                } else {
+                                    layout.setBackground( getResources().getDrawable(R.drawable.backgroundnope));
+                                }
+
+
+                                datop.setText("Sector incorrecto");
+
+                                toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
+                                break;
+                            } case 15: {
+                                // no pasa
+                                if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                                    layout.setBackgroundDrawable( getResources().getDrawable(R.drawable.backgroundnope) );
+                                } else {
+                                    layout.setBackground( getResources().getDrawable(R.drawable.backgroundnope));
+                                }
+
+
+                                datop.setText("Sector Completo");
+                                toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
+
+                                break;
+                            } case 16: {
+                                // no pasa
+
+                                if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                                    layout.setBackgroundDrawable( getResources().getDrawable(R.drawable.backgroundnope) );
+                                } else {
+                                    layout.setBackground( getResources().getDrawable(R.drawable.backgroundnope));
+                                }
+
+
+                                datop.setText("Tarjeta Defectuosa");
+                                toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
+
+                                break;
+                            }case 17: {
+                                // no pasa
+                                if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                                    layout.setBackgroundDrawable( getResources().getDrawable(R.drawable.backgroundnope) );
+                                } else {
+                                    layout.setBackground( getResources().getDrawable(R.drawable.backgroundnope));
+                                }
+
+
+
+                                datop.setText("Difiere N. de Serie");
+                                toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
+
+                                break;
+                            }case 18: {
+                                // no pasa
+                                if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                                    layout.setBackgroundDrawable( getResources().getDrawable(R.drawable.backgroundnope) );
+                                } else {
+                                    layout.setBackground( getResources().getDrawable(R.drawable.backgroundnope));
+                                }
+
+
+
+                                datop.setText("Pasadas Excedidas");
+                                toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
+
+                                break;
+                            }case 19: {
+                                // no pasa
+
+                                if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                                    layout.setBackgroundDrawable( getResources().getDrawable(R.drawable.backgroundnope) );
+                                } else {
+                                    layout.setBackground( getResources().getDrawable(R.drawable.backgroundnope));
+                                }
+
+
+                                datop.setText("Actividad Vencida");
+
+                                toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
+                                break;
+                            }case 20: {
+                                // no pasa
+
+                                if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                                    layout.setBackgroundDrawable( getResources().getDrawable(R.drawable.backgroundnope) );
+                                } else {
+                                    layout.setBackground( getResources().getDrawable(R.drawable.backgroundnope));
+                                }
+
+
+                                datop.setText("Fuera de Horario");
+
+                                toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
+                                break;
+                            }
+                        }
                     }
-                    String Nombre = stringsoap.substring(0,stringsoap.indexOf('\n'));
-                    dato.setText(Nombre);
-                    String info = stringsoap.substring(stringsoap.indexOf('\n')+1, stringsoap.indexOf("Estado del Socio: ")-1);
-                    informacion.setText(info);
-                    String UCP = stringsoap.substring(stringsoap.indexOf("Ultima Cuota Paga: ")+19);
-                    UCP = UCP.substring(0,UCP.indexOf("#"));
-                    tresultado.setText(UCP);
 
 
-                    int callback =stringsoap.indexOf("IdEstado");
-                    if (stringsoap.indexOf("IdEstado")>0){
-                        idTipo=stringsoap.substring(callback+9,callback+8+3).replace("\n","").replace(" ","");
-                    }
-                    switch (Integer.valueOf(idTipo)) {
-                        case 0: {
-                            //no puede pasar
-//                            dato.setText("Fue deshabilitado");
-                            toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
-
-                            break;
-                        }
-                        case 1: {
-                            // puede pasar
-
-//                            dato.setText("Puede pasar");
-                            toneG.startTone(ToneGenerator.TONE_CDMA_ALERT_CALL_GUARD, 200);
-
-                            break;
-                        }
-                        case 2: {
-                            // puede pasar
-
-
-//                            dato.setText("Habilitado manualmente");
-                            toneG.startTone(ToneGenerator.TONE_CDMA_ALERT_CALL_GUARD, 200);
-
-
-                            break;
-                        }
-                        case 3: {
-                            // no puede pasar
-
-//                            dato.setText("Ya ingreso al estadio");
-                            toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
-
-                            break;
-                        }
-                        case 4: {
-
-                            //no puede pasar
-
-
-//                            dato.setText("No esta e estado activo");
-                            toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
-
-
-                            break;
-                        }
-                        case 5: {
-
-
-                            // no pasa
-
-//                            dato.setText("Cuota Vencida");
-                            toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
-
-
-                            break;
-                        }
-                        case 6: {
-                            // no pasa
-
-//                            dato.setText("Paso por perimetral");
-
-                            toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
-
-                            break;
-                        } case 7: {
-                            // no pasa
-
-//                            dato.setText("Pago de abono vencido");
-                            toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
-
-
-                            break;
-                        } case 8: {
-                            // no pasa
-                            toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
-//                            dato.setText("Canjeo por ticket");
-
-                            break;
-                        } case 9: {
-                            //// no pasa
-
-//                            dato.setText("Credencial Vencida");
-                            toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
-
-                            break;
-                        } case 10: {
-                            // No pasa
-
-//                            dato.setText("Copia no habilitada");
-
-                            toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
-                            break;
-                        } case 11: {
-                            // no pasa
-
-
-//                            dato.setText("No tiene carnet");
-                            toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
-
-                            break;
-                        } case 14: {
-                            // no pasa
-
-//                            dato.setText("Sector incorrecto");
-
-                            toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
-                            break;
-                        } case 15: {
-                            // no pasa
-
-//                            dato.setText("Sector Completo");
-                            toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
-
-                            break;
-                        } case 16: {
-                            // no pasa
-
-
-//                            dato.setText("Tarjeta Defectuosa");
-                            toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
-
-                            break;
-                        }case 17: {
-                            // no pasa
-
-
-//                            dato.setText("Difiere numero de serie");
-                            toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
-
-                            break;
-                        }case 18: {
-                            // no pasa
-
-
-//                            dato.setText("Pasadas excedidas");
-                            toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
-
-                            break;
-                        }case 19: {
-                            // no pasa
-
-
-//                            dato.setText("Actividad vencida");
-
-                            toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
-                            break;
-                        }case 20: {
-                            // no pasa
-
-
-//                            dato.setText("Fuera de horario");
-
-                            toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
-                            break;
-                        }
-                    }
 
 
 
@@ -457,7 +595,7 @@ public class pasanopasaActivity extends AppCompatActivity {
                 }
                 case 5: {
                     tresultado.setText(stringsoap);
-                    //getSoap("getestado");
+                    getSoap("getinvitado");
                     break;
                 }
 
@@ -526,8 +664,15 @@ public class pasanopasaActivity extends AppCompatActivity {
                     case "getcarnet":{
                         stringsoap =    ex.getcaret(idStadium,bundle.getString("NFCTAG"));
 
-                        idSocio=        stringsoap.substring(stringsoap.indexOf(",")+2);
-                        idTipo=    stringsoap.substring(stringsoap.indexOf(":")+2,stringsoap.indexOf(","));
+                        if (stringsoap=="0"){
+                            idTipo="0";
+                            idSocio="0";
+                            handler.sendEmptyMessage(3);
+                        }else{
+                            idSocio=        stringsoap.substring(stringsoap.indexOf(",")+2);
+                            idTipo=    stringsoap.substring(stringsoap.indexOf(":")+2,stringsoap.indexOf(","));
+                        }
+
                         if (stringsoap==null){
                             idSocio="0";
                         }
@@ -551,13 +696,13 @@ public class pasanopasaActivity extends AppCompatActivity {
 
                         break;}
                     case "getinvitado":{
-                        stringsoap =    ex.SearchInvitado(idStadium,bundle.getString("NFCINVITADO"));
+                        stringsoap =    ex.SearchInvitado(idStadium,bundle.getString("NFCTAG"));
                         idSocio=        stringsoap;
                         if (stringsoap==null){
                             idSocio="0";
                         }
 
-                        handler.sendEmptyMessage(5);
+                        handler.sendEmptyMessage(3);
 
 
                         break;

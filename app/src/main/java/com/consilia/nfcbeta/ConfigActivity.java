@@ -2,16 +2,21 @@ package com.consilia.nfcbeta;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.support.annotation.ColorInt;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -54,7 +59,7 @@ public class ConfigActivity extends AppCompatActivity {
 
         spinner.setAdapter(adapter);
        // spinner.setOnItemSelectedListener((AdapterView.OnItemSelectedListener) this);
-
+        adapter.setDropDownViewResource(R.layout.spinner_item);
         spinner.setOnItemSelectedListener(
                 new AdapterView.OnItemSelectedListener() {
                     public void onItemSelected(AdapterView<?> parent,
@@ -124,3 +129,6 @@ public class ConfigActivity extends AppCompatActivity {
 
 
 }
+
+
+
