@@ -9,6 +9,7 @@
         android:paddingBottom="@dimen/activity_vertical_margin"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
+        android:background="@drawable/escritorio"
         android:paddingTop="@dimen/activity_vertical_margin"
         tools:context="com.consilia.nfcbeta.pasanopasaActivity"
         android:weightSum="1"
@@ -36,7 +37,7 @@
             android:textStyle="bold"
             android:layout_below="@+id/imageView"
             android:layout_centerHorizontal="true"
-            android:text="@string/tarjeta_no_reconocida"
+            android:text="CARGANDO"
             android:textColor="@color/grisboleteria"
             android:textAlignment="center" />
 
@@ -55,7 +56,6 @@
         android:layout_centerHorizontal="true" />
 
     <TextView
-        android:text="@string/tarjeta_no_ingresada_en_el_sistema"
         android:layout_width="wrap_content"
         android:gravity="center_horizontal"
         android:layout_height="wrap_content"
@@ -81,7 +81,6 @@
         android:textSize="20sp" />
 
     <TextView
-        android:text="@string/estado_acceso"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/datop"
@@ -99,14 +98,12 @@
 
         android:textAlignment="viewStart"
         android:textSize="24sp"
-        android:text="@string/ultima_cuota_paga"
         android:textColor="@color/grisboleteria"
         android:layout_above="@+id/bvolver"
         android:layout_alignLeft="@+id/Puertas"
         android:layout_alignStart="@+id/Puertas" />
 
     <TextView
-        android:text="@string/puertas"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/Puertas"
