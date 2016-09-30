@@ -89,7 +89,7 @@ public class NfcActivity extends AppCompatActivity implements View.OnClickListen
         //Tab 1
         TabHost.TabSpec spec = host.newTabSpec("Tab One");
         spec.setContent(R.id.tab1);
-        spec.setIndicator("SOCIO");
+        spec.setIndicator("CON CARNET");
         host.addTab(spec);
 
         //Tab 2

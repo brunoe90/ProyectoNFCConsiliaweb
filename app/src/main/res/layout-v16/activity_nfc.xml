@@ -151,7 +151,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="@color/verdeboleteria"
-                            android:text="@string/idsocio"
+                            android:text="ID"
                             android:id="@+id/bid"
                             android:layout_gravity="center_horizontal"
                             android:layout_weight="0"

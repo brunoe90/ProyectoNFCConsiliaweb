@@ -245,7 +245,7 @@ public class pasanopasaActivity extends AppCompatActivity {
                     }
 
 
-                    datop.setText("Tarjeta erronea");
+                    dato.setText("Tarjeta erronea");
                     toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
 
                 }break;

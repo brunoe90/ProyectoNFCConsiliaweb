@@ -129,7 +129,7 @@
                         android:layout_height="50dp"
                         android:fontFamily="sans-serif-medium"
                         android:textStyle="normal|bold|italic"
-                        android:text="@string/id_socio"
+                        android:text="ID"
                         android:gravity="center_horizontal"
                         android:id="@+id/textView5"
                         android:textSize="40sp"
