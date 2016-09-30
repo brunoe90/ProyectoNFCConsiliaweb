@@ -94,4 +94,8 @@
     <string name="puertogf">Puerto:</string>
     <string name="_80">80</string>
     <string name="entrarcf">Entrar</string>
+    <string name="tarjeta_no_reconocida">Tarjeta no reconocida</string>
+    <string name="tarjeta_no_ingresada_en_el_sistema">Tarjeta no ingresada en el sistema</string>
+    <string name="estado_acceso">Estado Acceso</string>
+    <string name="ultima_cuota_paga">Ultima Cuota Paga: --</string>
 </resources>

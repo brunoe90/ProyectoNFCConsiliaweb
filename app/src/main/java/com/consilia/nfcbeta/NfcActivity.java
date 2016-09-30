@@ -47,8 +47,9 @@ public class NfcActivity extends AppCompatActivity implements View.OnClickListen
     int signo = 0;
     Bundle bundle;
     String texto = "";
+    String InitadoSocio="";
     String NFC = "";
-    RadioButton bsocio, bdni;
+    RadioButton bid, bdni,binvitado,bselectsocio;
     String dato = "";
     TabHost host;
 
@@ -113,9 +114,10 @@ public class NfcActivity extends AppCompatActivity implements View.OnClickListen
         benviarid = (Button) findViewById(R.id.bidsocio);
        // benviaridinvitado = (Button) findViewById(R.id.binvitado);
         editText = (EditText) findViewById(R.id.edtsocio);
-        bsocio = (RadioButton) findViewById(R.id.buttonsocio);
+        bid = (RadioButton) findViewById(R.id.buttonsocio);
         bdni = (RadioButton) findViewById(R.id.buttondni);
-
+        binvitado = (RadioButton) findViewById(R.id.SelectInvitado);
+        bselectsocio = (RadioButton) findViewById(R.id.SelectSocio);
 
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         //we are connected to a network
@@ -164,7 +166,7 @@ public class NfcActivity extends AppCompatActivity implements View.OnClickListen
        // benviaridinvitado = (Button) findViewById(R.id.binvitado);
 
         if (v.getId() == R.id.bvolver) {
-            if (!texto.equals("")) {
+            if (!(texto.equals(""))) {
                 Intent intent = new Intent(NfcActivity.this, pasanopasaActivity.class);
                 bundle.putInt("idStadium", bundle.getInt("idStadium"));
                 bundle.remove("idSocio");
@@ -179,31 +181,17 @@ public class NfcActivity extends AppCompatActivity implements View.OnClickListen
 
         if (v.getId() == R.id.bidsocio) {
 
-            if (!editText.getText().toString().equals("")) {
+            if (!(editText.getText().toString().equals(""))) {
                 Intent intent = new Intent(NfcActivity.this, pasanopasaActivity.class);
                 bundle.putInt("idStadium", bundle.getInt("idStadium"));
                 bundle.remove("NFCTAG");
-
-                bundle.putInt(dato, Integer.valueOf(editText.getText().toString()));
+                //bundle.putInt(dato, Integer.valueOf(editText.getText().toString()));
+                bundle.putString("manual",dato);
+                bundle.putInt("NumeroAconvertir",Integer.valueOf(editText.getText().toString()));
                 intent.putExtras(bundle);
                 startActivity(intent);
             } else Toast.makeText(getBaseContext(), "Indicar Socio", Toast.LENGTH_LONG).show();
         }
-
-     /*   if (v.getId() == R.id.binvitado) {
-
-            if (!texto.equals("")) {
-                Intent intent = new Intent(NfcActivity.this, pasanopasaActivity.class);
-                bundle.putInt("idStadium", bundle.getInt("idStadium"));
-                bundle.remove("idSocio");
-
-                //bundle.putInt("idSocio",Integer.valueOf(editText.getText().toString()));
-                intent.putExtras(bundle);
-                startActivity(intent);
-            } else
-                Toast.makeText(getBaseContext(), "Volver a pasar tarjeta", Toast.LENGTH_LONG).show();
-        }*/
-
     }
 
     @Override
@@ -223,17 +211,50 @@ public class NfcActivity extends AppCompatActivity implements View.OnClickListen
     public void onRadioButtonClicked(View view) {
         // Is the button now checked?
         boolean checked = ((RadioButton) view).isChecked();
+        bid = (RadioButton) findViewById(R.id.bid);
+        bdni = (RadioButton) findViewById(R.id.buttondni);
+        binvitado = (RadioButton) findViewById(R.id.SelectInvitado);
+        bselectsocio = (RadioButton) findViewById(R.id.SelectSocio);
 
         // Check which radio button was clicked
         switch (view.getId()) {
-            case R.id.buttonsocio:
-                if (checked)
-                    dato = "idSocio";
+            case R.id.bid:
+                if (checked){
+                    if (bselectsocio.isChecked()){
+                        dato = "idSocio";
+                    } else  dato = "idInvitado";
+                }
+
                 break;
             case R.id.buttondni:
-                if (checked)
-                    dato = "documento";
+                if (checked) {
+                    if (bselectsocio.isChecked()){
+                        dato = "DocSocio";
+                    } else  dato = "DocInvitado";
+                }
+
+
                 break;
+        }
+
+        switch (view.getId()) {
+            case R.id.SelectSocio:
+                if (checked){
+                        if (bdni.isChecked()){
+                            dato = "DocSocio";
+                        } else  dato = "idSocio";
+                    break;
+                }
+
+
+            case R.id.SelectInvitado:
+                if (checked){
+                    if (bdni.isChecked()){
+                        dato = "DocInv";
+                    } else  dato = "idInvitado";
+                    break;
+                }
+
         }
     }
 

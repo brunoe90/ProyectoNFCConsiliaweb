@@ -132,7 +132,7 @@ public class MainActivity extends Activity {
             switch (msg.what) {
 
                 case 1: // Conexion exitosa con el server
-                    bt1.setBackgroundColor( ContextCompat.getColor(context, R.color.colorServerOk) );
+                    bt1.setBackgroundColor( ContextCompat.getColor(context, R.color.verdeboleteria) );
                     break;
 
                 case 0: // Error de conexion con el server!break;

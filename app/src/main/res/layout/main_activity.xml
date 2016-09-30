@@ -30,13 +30,15 @@
         android:background="@android:drawable/button_onoff_indicator_off" />
 
     <Button
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:drawable/dialog_holo_light_frame"
+        android:background="@android:drawable/editbox_background"
         android:text="@string/verif_servidor"
         android:id="@+id/button1"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        android:textColor="@color/gris"
+        android:textSize="24sp" />
 
 </LinearLayout>

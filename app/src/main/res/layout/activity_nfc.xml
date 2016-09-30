@@ -70,7 +70,7 @@
                         android:textColor="@color/verdeboleteria"
                         android:layout_height="50dp"
                         android:text="@string/enviar_nfc"
-                        android:background="@android:drawable/dialog_holo_light_frame"
+                        android:background="@android:drawable/editbox_background"
                         android:id="@+id/bvolver"
                         android:textSize="30sp"
                          />
@@ -83,6 +83,46 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
+                    <RadioGroup
+                        android:layout_marginTop="10dp"
+                        android:layout_width="wrap_content"
+                        android:textColor="@color/verdeboleteria"
+
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_weight="0" >
+
+                        <RadioButton
+                            android:fontFamily="sans-serif-medium"
+                            android:textStyle="normal|bold"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Socio"
+                            android:id="@+id/SelectSocio"
+                            android:textColor="@color/verdeboleteria"
+
+                            android:layout_gravity="center_horizontal"
+                            android:layout_weight="0"
+                            android:checked="false"
+                            android:textSize="20sp"
+                            android:onClick="onRadioButtonClicked" />
+
+                        <RadioButton
+                            android:fontFamily="sans-serif-medium"
+                            android:textStyle="normal|bold"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Invitado"
+                            android:textColor="@color/verdeboleteria"
+
+                            android:id="@+id/SelectInvitado"
+                            android:layout_gravity="right"
+                            android:layout_weight="0"
+                            android:checked="false"
+                            android:textSize="20sp"
+                            android:onClick="onRadioButtonClicked" />
+                    </RadioGroup>
                     <TextView
                         android:layout_marginTop="10dp"
                         android:layout_width="match_parent"
@@ -98,6 +138,8 @@
                     <RadioGroup
                         android:layout_marginTop="10dp"
                         android:layout_width="wrap_content"
+                        android:textColor="@color/verdeboleteria"
+
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:layout_gravity="center_horizontal"
@@ -109,7 +151,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/idsocio"
-                            android:id="@+id/buttonsocio"
+                            android:id="@+id/bid"
+                            android:textColor="@color/verdeboleteria"
+
                             android:layout_gravity="center_horizontal"
                             android:layout_weight="0"
                             android:checked="false"
@@ -122,6 +166,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/documento_dni"
+                            android:textColor="@color/verdeboleteria"
+
                             android:id="@+id/buttondni"
                             android:layout_gravity="right"
                             android:layout_weight="0"
@@ -137,6 +183,7 @@
                         android:layout_height="25sp"
                         android:fontFamily="sans-serif-medium"
                         android:inputType="number"
+                        android:textColor="@color/gris"
                         android:id="@+id/edtsocio"
                         android:gravity="center_horizontal"
                         android:layout_gravity="center_horizontal"
@@ -148,6 +195,8 @@
                         android:fontFamily="sans-serif-medium"
                         android:textStyle="normal|bold"
                         android:layout_height="50dp"
+                        android:textSize="20sp"
+                        android:textColor="@color/verdeboleteria"
                         android:layout_width="match_parent"
                         android:background="@drawable/custom_button_background"
                         android:text="@string/enviar_id_socio"

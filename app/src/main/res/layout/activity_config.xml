@@ -20,7 +20,7 @@
         android:text="@string/estadio"
         android:id="@+id/textView3"
         android:layout_gravity="center_horizontal"
-        android:textColor="@color/gris"
+        android:textColor="@color/verdeboleteria"
         android:textSize="50sp"
         android:fontFamily="sans-serif-medium"
         android:textStyle="normal|bold|italic"
@@ -42,7 +42,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/puerta"
-        android:textColor="@color/gris"
+        android:textColor="@color/verdeboleteria"
         android:fontFamily="sans-serif-medium"
         android:textStyle="normal|bold|italic"
 
@@ -63,14 +63,16 @@
         android:textSize="20sp"
 
         android:gravity="center_vertical"
-        android:scrollbarSize="20sp" />
+        android:scrollbarSize="20sp"
+        android:text="10"
+        android:textAlignment="center" />
 
     <Button
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:text="@string/entrar"
-        android:textColor="@color/gris"
+        android:text="ENTRAR"
+        android:textColor="@color/verdeboleteria"
         android:fontFamily="sans-serif-medium"
         android:textStyle="normal|bold"
         android:id="@+id/bentrar"

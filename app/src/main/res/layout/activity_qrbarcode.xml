@@ -18,11 +18,12 @@
         android:fontFamily="sans-serif-medium"
         android:textStyle="normal|bold"
         android:layout_gravity="center_horizontal"
-        android:background="@drawable/custom_button_background"
-        android:textSize="20sp"
+        android:background="@android:drawable/editbox_background"
+        android:textSize="18sp"
         android:text="@string/escanear_codigo_de_barras"
         android:id="@+id/bqr"
-        android:layout_weight="0" />
+        android:layout_weight="0"
+        android:textColor="@color/verdeboleteria" />
 
     <TextView
         android:layout_marginTop="10dp"
@@ -33,7 +34,8 @@
         android:fontFamily="sans-serif-medium"
         android:textStyle="normal|bold|italic"
         android:text="@string/formato"
-        android:id="@+id/formatTxt" />
+        android:id="@+id/formatTxt"
+        android:visibility="gone" />
 
     <TextView
         android:layout_marginTop="10dp"
@@ -42,7 +44,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/contentTxt"
         android:textSize="30sp"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"
+        android:visibility="gone" />
 
     <Button
         android:layout_marginTop="10dp"
@@ -51,11 +54,12 @@
         android:fontFamily="sans-serif-medium"
         android:textStyle="normal|bold"
         android:layout_gravity="center_horizontal"
-        android:background="@drawable/custom_button_background"
+        android:background="@android:drawable/editbox_background"
         android:textSize="30sp"
         android:text="@string/enviar"
         android:id="@+id/benviar"
-        android:layout_weight="0" />
+        android:layout_weight="0"
+        android:textColor="@color/verdeboleteria" />
 
     <TextView
         android:layout_marginTop="10dp"
@@ -67,7 +71,7 @@
         android:textStyle="normal|bold|italic"
         android:id="@+id/textView6"
         android:text="@string/id_socio"
-        />
+        android:textColor="@color/gris" />
 
     <RadioGroup
         android:layout_width="wrap_content"
@@ -87,20 +91,22 @@
             android:layout_weight="0"
             android:checked="false"
             android:textSize="20sp"
-            android:onClick="onRadioButtonClicked" />
+            android:onClick="onRadioButtonClicked"
+            android:textColor="@color/verdeboleteria" />
 
         <RadioButton
             android:fontFamily="sans-serif-medium"
             android:textStyle="normal|bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/documento_dni"
+            android:text="Documento"
             android:id="@+id/buttondni"
             android:layout_gravity="right"
             android:layout_weight="0"
             android:checked="false"
             android:textSize="20sp"
-            android:onClick="onRadioButtonClicked" />
+            android:onClick="onRadioButtonClicked"
+            android:textColor="@color/verdeboleteria" />
 
     </RadioGroup>
 
@@ -111,9 +117,9 @@
         android:inputType="number"
         android:ems="10"
         android:id="@+id/editText4"
-        android:background="@drawable/custom_tview_background"
         android:foregroundGravity="center_horizontal"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"
+        android:textColor="@color/gris" />
 
     <Button
         android:layout_marginTop="10dp"
@@ -122,9 +128,10 @@
         android:fontFamily="sans-serif-medium"
         android:textStyle="normal|bold"
         android:layout_gravity="center_horizontal"
-        android:background="@drawable/custom_button_background"
+        android:background="@android:drawable/editbox_background"
         android:textSize="30sp"
         android:text="@string/enviar_id_socio"
         android:id="@+id/bidsocio"
-        android:layout_weight="0" />
+        android:layout_weight="0"
+        android:textColor="@color/verdeboleteria" />
 </LinearLayout>

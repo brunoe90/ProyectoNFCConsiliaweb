@@ -34,36 +34,39 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/dato"
-            android:textSize="30sp"
+            android:textSize="24sp"
+            android:gravity="center_horizontal"
             android:textStyle="bold"
             android:layout_below="@+id/imageView"
             android:layout_centerHorizontal="true"
-            android:textAlignment="center"
-            android:text="Tarjeta no reconocida"
-        android:textColor="@color/grisboleteria" />
+        android:text="@string/tarjeta_no_reconocida"
+        android:textColor="@color/grisboleteria"
+        android:textAlignment="center" />
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="70sp"
+        android:layout_height="70sp"
         android:innerRadius="0dp"
         android:id="@+id/imageView"
         android:shadowColor="#000000"
         android:contentDescription=""
-        android:adjustViewBounds="true"
+        android:adjustViewBounds="false"
+
         android:background="@android:drawable/editbox_dropdown_dark_frame"
         android:fadingEdge="horizontal|vertical"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
     <TextView
-        android:text="Tarjeta no ingresada en el sistema"
+        android:text="@string/tarjeta_no_ingresada_en_el_sistema"
         android:layout_width="wrap_content"
+        android:gravity="center_horizontal"
         android:layout_height="wrap_content"
         android:layout_below="@+id/dato"
         android:layout_centerHorizontal="true"
         android:id="@+id/informacion"
         android:textColor="@color/grisboleteria"
-        android:textSize="24sp"
+        android:textSize="20sp"
         android:textAlignment="center" />
 
 
@@ -74,13 +77,14 @@
 
         android:textColor="@color/gris"
         android:id="@+id/bvolver"
-        android:background="@android:drawable/dialog_holo_light_frame"
+        android:background="@android:drawable/editbox_background"
 
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:textSize="20sp" />
 
     <TextView
-        android:text="Estado Acceso"
+        android:text="@string/estado_acceso"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/datop"
@@ -98,8 +102,7 @@
 
         android:textAlignment="viewStart"
         android:textSize="24sp"
-        android:text="Ultima Cuota Paga: --"
-        android:layout_marginBottom="21dp"
+        android:text="@string/ultima_cuota_paga"
         android:textColor="@color/grisboleteria"
         android:layout_above="@+id/bvolver"
         android:layout_alignLeft="@+id/Puertas"
@@ -112,7 +115,6 @@
         android:id="@+id/Puertas"
         android:textSize="26sp"
         android:textColor="@color/gris"
-        android:layout_marginBottom="34dp"
         android:layout_above="@+id/tresultado"
         android:layout_alignLeft="@+id/imageView"
         android:layout_alignStart="@+id/imageView" />
