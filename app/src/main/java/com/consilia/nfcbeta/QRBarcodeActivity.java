@@ -131,7 +131,7 @@ public class QRBarcodeActivity extends AppCompatActivity {
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if ((keyCode == KeyEvent.KEYCODE_BACK)) {
             Log.d(this.getClass().getName(), "back button pressed");
-            Toast.makeText(getBaseContext(), "Volviendo al menu", Toast.LENGTH_LONG).show();
+           // Toast.makeText(getBaseContext(), "Volviendo al menu", Toast.LENGTH_LONG).show();
             bundle.putInt("idStadium",bundle.getInt("idStadium"));
             bundle.putInt("Puerta",bundle.getInt("Puerta"));
             Intent intent = new Intent(QRBarcodeActivity.this, MainActivity.class);

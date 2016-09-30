@@ -118,7 +118,11 @@ public class MainActivity extends Activity {
         if ((keyCode == KeyEvent.KEYCODE_BACK)) {
             Log.d(this.getClass().getName(), "back button pressed");
             Toast.makeText(getBaseContext(), "Volviendo a Configuracion", Toast.LENGTH_LONG).show();
+            bundle.putInt("idStadium", bundle.getInt("idStadium"));
+            bundle.putInt("Puerta", bundle.getInt("Puerta"));
+
             Intent intent = new Intent(MainActivity.this, ConfigActivity.class);
+            intent.putExtras(bundle);
             startActivity(intent);
         }
         return super.onKeyDown(keyCode, event);

@@ -198,7 +198,7 @@ public class NfcActivity extends AppCompatActivity implements View.OnClickListen
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if ((keyCode == KeyEvent.KEYCODE_BACK)) {
             Log.d(this.getClass().getName(), "back button pressed");
-            Toast.makeText(getBaseContext(), "Volviendo al menu", Toast.LENGTH_LONG).show();
+         //   Toast.makeText(getBaseContext(), "Volviendo al menu", Toast.LENGTH_LONG).show();
             bundle.putInt("idStadium", bundle.getInt("idStadium"));
             bundle.putInt("Puerta", bundle.getInt("Puerta"));
             Intent intent = new Intent(NfcActivity.this, MainActivity.class);
@@ -276,8 +276,14 @@ public class NfcActivity extends AppCompatActivity implements View.OnClickListen
             NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(this);
             nfcAdapter.enableForegroundDispatch(this, pendingIntent, new IntentFilter[]{filter}, this.techList);
 
-        } else
-            Toast.makeText(getBaseContext(), "Prender el NFC desde el menu!!!!", Toast.LENGTH_LONG).show();
+        } else{
+            for (int i=0; i < 30; i++)
+            {
+                Toast.makeText(getBaseContext(), "Prender el NFC desde el menu!!!!", Toast.LENGTH_LONG).show();
+            }
+        }
+
+
 
     }
 

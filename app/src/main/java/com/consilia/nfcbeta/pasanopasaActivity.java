@@ -104,16 +104,25 @@ public class pasanopasaActivity extends AppCompatActivity {
                 //getSoap("buscarinvitado");
                 if (this.getUltimaActivity().equals("qr")){
                      {
-                         /*
-                        if (!(dato.equals("0"))){
-                            getSoap("getestado");
-                        } else if (!(.equals("0"))){
-                            getSoap("buscar");
-                        } else if (!.equals("0")){
-                            getSoap("getestadoinvitado");
-                        } else if (!.equals("0")){
-                            getSoap("buscarinvitado");
-                        }*/
+                         if (datomanual!=null){
+                             switch (datomanual){
+                                 case "idSocio":     {
+                                     idSocio=String.valueOf(NumeroAconvertir);
+                                     getSoap("getestado");
+                                 } break;
+                                 case "idInvitado":{
+                                     idSocio=String.valueOf(NumeroAconvertir);
+                                     getSoap("getestadoinvitado");
+                                 } break;
+                                 case "DocInvitado":{
+
+                                     getSoap("buscarinvitado");
+                                 } break;
+                                 case "DocSocio":    {
+                                     getSoap("buscar");
+                                 }break;
+                             }
+                         }
                     }
                 }
                 if (this.getUltimaActivity().equals("nfc")){
@@ -146,15 +155,7 @@ public class pasanopasaActivity extends AppCompatActivity {
         buttonfoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (null != idStadium){
-                    if (null!=Puerta){
 
-                        switch (datomanual){
-
-                        }
-
-                    }   else Toast.makeText(getBaseContext(), "Falla al encontrar Puerta", Toast.LENGTH_LONG).show();
-                } else Toast.makeText(getBaseContext(), "Falla al encontrar idStadio", Toast.LENGTH_LONG).show();
             }
         });//
 
@@ -167,6 +168,10 @@ public class pasanopasaActivity extends AppCompatActivity {
                     Intent intent = new Intent(pasanopasaActivity.this, QRBarcodeActivity.class);
                     bundle.putString("IP",bundle.getString("IP"));
                     bundle.putString("port",bundle.getString("port"));
+                    bundle.remove("NFCTAG");
+                    bundle.remove("idSocio");
+                    bundle.remove("manual");
+                    bundle.remove("NumeroAconvertir");
                     intent.putExtras(bundle);
                     startActivity(intent);
                 } else if (UltimaActivity.equals("nfc")){
@@ -179,6 +184,9 @@ public class pasanopasaActivity extends AppCompatActivity {
                     }
                     bundle.remove("NFCTAG");
                     bundle.remove("NFCINVITADO");
+                    bundle.remove("idSocio");
+                    bundle.remove("manual");
+                    bundle.remove("NumeroAconvertir");
                     bundle.putString("IP",bundle.getString("IP"));
                     bundle.putString("port",bundle.getString("port"));
                     intent.putExtras(bundle);
@@ -192,7 +200,7 @@ public class pasanopasaActivity extends AppCompatActivity {
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if ((keyCode == KeyEvent.KEYCODE_BACK)) {
             Log.d(this.getClass().getName(), "back button pressed");
-            Toast.makeText(getBaseContext(), "Volviendo al menu", Toast.LENGTH_LONG).show();
+           // Toast.makeText(getBaseContext(), "Volviendo al menu", Toast.LENGTH_LONG).show();
             bundle.putInt("idStadium",Integer.valueOf(idStadium));
             bundle.putInt("Puerta", Integer.valueOf(Puerta));
             Intent intent = new Intent(pasanopasaActivity.this, MainActivity.class);
@@ -224,59 +232,64 @@ public class pasanopasaActivity extends AppCompatActivity {
                     }
                     break;}
 
-                case 2: tresultado.setText(stringsoap); {
+                case 2:{
+                    RelativeLayout layout = (RelativeLayout) findViewById(R.id.pasanopasa);
 
-                    /*
-                                            if (!(idSocio.equals("0"))){
-                            getSoap("getestado");
-                        } else if (!(documento.equals("0"))){
-                            getSoap("buscar");
-                        } else if (!idInvitado.equals("0")){
-                            getSoap("getestadoinvitado");
-                        } else if (!DocInvitado.equals("0")){
-                            getSoap("buscarinvitado");
-                        }
-                     */
-                  //  if (!idSocio.equals("0")){
-                  //      getSoap("getestado");
-                  //  } else if (!idInvitado.equals("0")){
-                        //getSoap("getestadoinvitado");
-                  //  }
+                    final int sdk = android.os.Build.VERSION.SDK_INT;
+                    if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                        assert layout != null;
+                        layout.setBackgroundDrawable( getResources().getDrawable(R.drawable.backgroundnope) );
+                    } else {
+                        assert layout != null;
+                        layout.setBackground( getResources().getDrawable(R.drawable.backgroundnope));
+                    }
+
+
+                    datop.setText("Tarjeta erronea");
+                    toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
 
                 }break;
 
                 case 3: {
                     RelativeLayout layout = (RelativeLayout) findViewById(R.id.pasanopasa);
-                    //  Layout.setBackgroundDrawable(R.drawable.backgroundOK);
+
                     final int sdk = android.os.Build.VERSION.SDK_INT;
-                    String puertas = null;
-                   // buttonfoto.performClick();
+                    String puertas;
+
                     if (!stringsoap.equals("0"))
                     {
                         int numpuertas = stringsoap.indexOf("Puertas:");
                         if (numpuertas>0){
                             puertas=stringsoap.substring(numpuertas+8);
 
-                            if (null != puertas){
-                                if (puertas.length()>10){
-                                    Accesos.setTextSize(15);
-                                }
-                                Accesos.setText("Accesos:"+puertas.replace("Puerta",""));
+                            if (puertas.length()>10){
+                                Accesos.setTextSize(15);
                             }
+                            Accesos.setText("Accesos:"+puertas.replace("Puerta",""));
                         }
 
-                        /*if (TipoSocio.equals("socio")){
-                            getSoap("GetFotoSocio");
-                        } else if (TipoSocio.equals("invitado")){
-                            getSoap("GetFotoInvitado");
-                        }*/
-
+                        //compartido
                         String Nombre = stringsoap.substring(0,stringsoap.indexOf('\n'));
                         if (dato.length()>15){
                             dato.setTextSize(24);
                         }
                         dato.setText(Nombre);
 
+
+
+
+                        //invitado
+                        int mensaje = stringsoap.indexOf("Mensaje: ");
+                        if (mensaje>0){
+                            String info = stringsoap.substring(mensaje+"Mensaje: ".length()+1);
+                            info = info.substring(0,info.indexOf('\n'));
+                            if (informacion.length()>20){
+                                informacion.setTextSize(18);
+                            }
+                            informacion.setText("Mensaje: "+info);
+                        }
+
+                        //socio
                         int socio = stringsoap.indexOf("Estado del Socio: ");
                         if (socio>0){
                             String info = stringsoap.substring(stringsoap.indexOf('\n')+1, socio-1);
@@ -287,6 +300,17 @@ public class pasanopasaActivity extends AppCompatActivity {
                         }
 
 
+                        //INVITADO
+                        int CC = stringsoap.indexOf("Cuota Control: ");
+                        if (CC>0){
+                            String UCP = stringsoap.substring(stringsoap.indexOf("Cuota Control: ")+15);
+                            UCP = UCP.substring(0,UCP.indexOf('\n'));
+
+                            tresultado.setText("Cuota Control: "+'\n'+'\n'+UCP);
+                        }
+
+
+                        //SOCIO
                         int ucpfinder = stringsoap.indexOf("Ultima Cuota Paga: ");
                         if (ucpfinder>0){
                             String UCP = stringsoap.substring(stringsoap.indexOf("Ultima Cuota Paga: ")+19);
@@ -304,14 +328,17 @@ public class pasanopasaActivity extends AppCompatActivity {
 
 
                         switch (Integer.valueOf(idTipo)) {
+
                             case 0: {
                                 //no puede pasar
 
                                 datop.setText("Fue Deshabilitado");
                                 toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
                                 if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                                    assert layout != null;
                                     layout.setBackgroundDrawable( getResources().getDrawable(R.drawable.backgroundnope) );
                                 } else {
+                                    assert layout != null;
                                     layout.setBackground( getResources().getDrawable(R.drawable.backgroundnope));
                                 }
 
@@ -319,29 +346,103 @@ public class pasanopasaActivity extends AppCompatActivity {
                                 break;
                             }
                             case 1: {
-                                // puede pasar
-                                if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
-                                    layout.setBackgroundDrawable( getResources().getDrawable(R.drawable.backgroundok) );
-                                } else {
-                                    layout.setBackground( getResources().getDrawable(R.drawable.backgroundok));
+
+                                if (TipoSocio.equals("socio")){
+                                    int puerta = stringsoap.indexOf("Puertas:");
+                                    if (puerta>0){
+                                        String info = stringsoap.substring(puerta+"Puertas:".length());
+
+
+                                        if (info.indexOf(Puerta)>0){
+                                            if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                                                assert layout != null;
+                                                layout.setBackgroundDrawable( getResources().getDrawable(R.drawable.backgroundok) );
+                                            } else {
+                                                assert layout != null;
+                                                layout.setBackground( getResources().getDrawable(R.drawable.backgroundok));
+                                            }
+
+                                            datop.setText("Puede pasar");
+                                            toneG.startTone(ToneGenerator.TONE_CDMA_ALERT_CALL_GUARD, 200);
+                                        }else {
+
+                                            datop.setText("Puerta equivocada");
+                                            toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
+                                            if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                                                assert layout != null;
+                                                layout.setBackgroundDrawable( getResources().getDrawable(R.drawable.backgroundnope) );
+                                            } else {
+                                                assert layout != null;
+                                                layout.setBackground( getResources().getDrawable(R.drawable.backgroundnope));
+                                            }
+                                        }
+                                    }
+                                }else {
+                                    if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                                        assert layout != null;
+                                        layout.setBackgroundDrawable( getResources().getDrawable(R.drawable.backgroundok) );
+                                    } else {
+                                        assert layout != null;
+                                        layout.setBackground( getResources().getDrawable(R.drawable.backgroundok));
+                                    }
+
+                                    datop.setText("Puede pasar");
+                                    toneG.startTone(ToneGenerator.TONE_CDMA_ALERT_CALL_GUARD, 200);
                                 }
 
-                                datop.setText("Puede pasar");
-                                toneG.startTone(ToneGenerator.TONE_CDMA_ALERT_CALL_GUARD, 200);
+
+
+                                // puede pasar
+
+
 
                                 break;
                             }
                             case 2: {
                                 // puede pasar
 
-                                if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
-                                    layout.setBackgroundDrawable( getResources().getDrawable(R.drawable.backgroundok) );
-                                } else {
-                                    layout.setBackground( getResources().getDrawable(R.drawable.backgroundok));
-                                }
+                                if (TipoSocio.equals("socio")){
+                                    int puerta = stringsoap.indexOf("Puertas:");
+                                    if (puerta>0){
+                                        String info = stringsoap.substring(puerta+"Puertas:".length()+1);
 
-                                datop.setText("Habilitación manual");
-                                toneG.startTone(ToneGenerator.TONE_CDMA_ALERT_CALL_GUARD, 200);
+
+                                        if (info.indexOf(Puerta)>0){
+                                            if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                                                assert layout != null;
+                                                layout.setBackgroundDrawable( getResources().getDrawable(R.drawable.backgroundok) );
+                                            } else {
+                                                assert layout != null;
+                                                layout.setBackground( getResources().getDrawable(R.drawable.backgroundok));
+                                            }
+
+                                            datop.setText("Habilit. manual");
+                                            toneG.startTone(ToneGenerator.TONE_CDMA_ALERT_CALL_GUARD, 200);
+                                        }else {
+
+                                            datop.setText("Puerta equivocada");
+                                            toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
+                                            if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                                                assert layout != null;
+                                                layout.setBackgroundDrawable( getResources().getDrawable(R.drawable.backgroundnope) );
+                                            } else {
+                                                assert layout != null;
+                                                layout.setBackground( getResources().getDrawable(R.drawable.backgroundnope));
+                                            }
+                                        }
+                                    }
+                                }else {
+                                    if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                                        assert layout != null;
+                                        layout.setBackgroundDrawable( getResources().getDrawable(R.drawable.backgroundok) );
+                                    } else {
+                                        assert layout != null;
+                                        layout.setBackground( getResources().getDrawable(R.drawable.backgroundok));
+                                    }
+
+                                    datop.setText("Habilit. manual");
+                                    toneG.startTone(ToneGenerator.TONE_CDMA_ALERT_CALL_GUARD, 200);
+                                }
 
 
                                 break;
@@ -349,8 +450,10 @@ public class pasanopasaActivity extends AppCompatActivity {
                             case 3: {
                                 // no puede pasar
                                 if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                                    assert layout != null;
                                     layout.setBackgroundDrawable( getResources().getDrawable(R.drawable.backgroundnope) );
                                 } else {
+                                    assert layout != null;
                                     layout.setBackground( getResources().getDrawable(R.drawable.backgroundnope));
                                 }
 
@@ -365,8 +468,10 @@ public class pasanopasaActivity extends AppCompatActivity {
                                 //no puede pasar
 
                                 if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                                    assert layout != null;
                                     layout.setBackgroundDrawable( getResources().getDrawable(R.drawable.backgroundnope) );
                                 } else {
+                                    assert layout != null;
                                     layout.setBackground( getResources().getDrawable(R.drawable.backgroundnope));
                                 }
 
@@ -382,8 +487,10 @@ public class pasanopasaActivity extends AppCompatActivity {
 
                                 // no pasa
                                 if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                                    assert layout != null;
                                     layout.setBackgroundDrawable( getResources().getDrawable(R.drawable.backgroundnope) );
                                 } else {
+                                    assert layout != null;
                                     layout.setBackground( getResources().getDrawable(R.drawable.backgroundnope));
                                 }
 
@@ -399,8 +506,10 @@ public class pasanopasaActivity extends AppCompatActivity {
 
                                 datop.setText("Paso por Perimetral");
                                 if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                                    assert layout != null;
                                     layout.setBackgroundDrawable( getResources().getDrawable(R.drawable.backgroundnope) );
                                 } else {
+                                    assert layout != null;
                                     layout.setBackground( getResources().getDrawable(R.drawable.backgroundnope));
                                 }
 
@@ -411,8 +520,10 @@ public class pasanopasaActivity extends AppCompatActivity {
                             } case 7: {
                                 // no pasa
                                 if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                                    assert layout != null;
                                     layout.setBackgroundDrawable( getResources().getDrawable(R.drawable.backgroundnope) );
                                 } else {
+                                    assert layout != null;
                                     layout.setBackground( getResources().getDrawable(R.drawable.backgroundnope));
                                 }
 
@@ -427,8 +538,10 @@ public class pasanopasaActivity extends AppCompatActivity {
                                 toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
                                 datop.setText("Canjeo por ticket");
                                 if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                                    assert layout != null;
                                     layout.setBackgroundDrawable( getResources().getDrawable(R.drawable.backgroundnope) );
                                 } else {
+                                    assert layout != null;
                                     layout.setBackground( getResources().getDrawable(R.drawable.backgroundnope));
                                 }
 
@@ -437,8 +550,10 @@ public class pasanopasaActivity extends AppCompatActivity {
                             } case 9: {
                                 //// no pasa
                                 if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                                    assert layout != null;
                                     layout.setBackgroundDrawable( getResources().getDrawable(R.drawable.backgroundnope) );
                                 } else {
+                                    assert layout != null;
                                     layout.setBackground( getResources().getDrawable(R.drawable.backgroundnope));
                                 }
 
@@ -450,8 +565,10 @@ public class pasanopasaActivity extends AppCompatActivity {
                             } case 10: {
                                 // No pasa
                                 if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                                    assert layout != null;
                                     layout.setBackgroundDrawable( getResources().getDrawable(R.drawable.backgroundnope) );
                                 } else {
+                                    assert layout != null;
                                     layout.setBackground( getResources().getDrawable(R.drawable.backgroundnope));
                                 }
 
@@ -464,8 +581,10 @@ public class pasanopasaActivity extends AppCompatActivity {
                                 // no pasa
 
                                 if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                                    assert layout != null;
                                     layout.setBackgroundDrawable( getResources().getDrawable(R.drawable.backgroundnope) );
                                 } else {
+                                    assert layout != null;
                                     layout.setBackground( getResources().getDrawable(R.drawable.backgroundnope));
                                 }
 
@@ -477,8 +596,10 @@ public class pasanopasaActivity extends AppCompatActivity {
                             } case 14: {
                                 // no pasa
                                 if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                                    assert layout != null;
                                     layout.setBackgroundDrawable( getResources().getDrawable(R.drawable.backgroundnope) );
                                 } else {
+                                    assert layout != null;
                                     layout.setBackground( getResources().getDrawable(R.drawable.backgroundnope));
                                 }
 
@@ -490,8 +611,9 @@ public class pasanopasaActivity extends AppCompatActivity {
                             } case 15: {
                                 // no pasa
                                 if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                                    assert layout != null;
                                     layout.setBackgroundDrawable( getResources().getDrawable(R.drawable.backgroundnope) );
-                                } else {
+                                } else {assert layout != null;
                                     layout.setBackground( getResources().getDrawable(R.drawable.backgroundnope));
                                 }
 
@@ -504,8 +626,10 @@ public class pasanopasaActivity extends AppCompatActivity {
                                 // no pasa
 
                                 if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                                    assert layout != null;
                                     layout.setBackgroundDrawable( getResources().getDrawable(R.drawable.backgroundnope) );
                                 } else {
+                                    assert layout != null;
                                     layout.setBackground( getResources().getDrawable(R.drawable.backgroundnope));
                                 }
 
@@ -516,9 +640,9 @@ public class pasanopasaActivity extends AppCompatActivity {
                                 break;
                             }case 17: {
                                 // no pasa
-                                if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                                if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {assert layout != null;
                                     layout.setBackgroundDrawable( getResources().getDrawable(R.drawable.backgroundnope) );
-                                } else {
+                                } else {assert layout != null;
                                     layout.setBackground( getResources().getDrawable(R.drawable.backgroundnope));
                                 }
 
@@ -530,9 +654,9 @@ public class pasanopasaActivity extends AppCompatActivity {
                                 break;
                             }case 18: {
                                 // no pasa
-                                if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                                if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {assert layout != null;
                                     layout.setBackgroundDrawable( getResources().getDrawable(R.drawable.backgroundnope) );
-                                } else {
+                                } else {assert layout != null;
                                     layout.setBackground( getResources().getDrawable(R.drawable.backgroundnope));
                                 }
 
@@ -545,9 +669,9 @@ public class pasanopasaActivity extends AppCompatActivity {
                             }case 19: {
                                 // no pasa
 
-                                if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                                if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {assert layout != null;
                                     layout.setBackgroundDrawable( getResources().getDrawable(R.drawable.backgroundnope) );
-                                } else {
+                                } else {assert layout != null;
                                     layout.setBackground( getResources().getDrawable(R.drawable.backgroundnope));
                                 }
 
@@ -559,9 +683,9 @@ public class pasanopasaActivity extends AppCompatActivity {
                             }case 20: {
                                 // no pasa
 
-                                if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                                if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {assert layout != null;
                                     layout.setBackgroundDrawable( getResources().getDrawable(R.drawable.backgroundnope) );
-                                } else {
+                                } else {assert layout != null;
                                     layout.setBackground( getResources().getDrawable(R.drawable.backgroundnope));
                                 }
 
@@ -606,10 +730,9 @@ public class pasanopasaActivity extends AppCompatActivity {
             Path.Direction.CCW);
 
         canvas.clipPath(path);
-        Bitmap sourceBitmap = scaleBitmapImage;
-        canvas.drawBitmap(sourceBitmap,
-            new Rect(0, 0, sourceBitmap.getWidth(),
-            sourceBitmap.getHeight()),
+        canvas.drawBitmap(scaleBitmapImage,
+            new Rect(0, 0, scaleBitmapImage.getWidth(),
+            scaleBitmapImage.getHeight()),
             new Rect(0, 0, targetWidth, targetHeight), null);
         return targetBitmap;
     }
@@ -617,6 +740,7 @@ public class pasanopasaActivity extends AppCompatActivity {
     private void getSoap( final String method) {
         new Thread(new Runnable() {
 
+            @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
             @Override
             public void run() {
                 SoapRequests ex = new SoapRequests();
@@ -716,6 +840,11 @@ public class pasanopasaActivity extends AppCompatActivity {
 
                                 //stringsoap =    ex.SearchInvitado(idStadium,idSocio,bundle.getString("IP"),bundle.getString("port"));
                                 //handler.sendEmptyMessage(3);
+                            }else{
+
+                                idTipo="50";
+                                handler.sendEmptyMessage(2);
+
                             }
 
 

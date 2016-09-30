@@ -352,14 +352,33 @@ class SoapRequests {
                     break;
                 }
             }
+            SoapObject responsee = (SoapObject) resultsString.getProperty("EstadoAcceso");
+            String Estado = responsee.getPrimitivePropertyAsString("Estado");
+            String CuotaCtrl = responsee.getPrimitivePropertyAsString("CuotaCtrl");
             String nombre = resultsString.getPrimitivePropertyAsString("Nombre");
+            String Nacimiento = resultsString.getPrimitivePropertyAsString("Nacimiento");
             String IdEstado = resultsString.getPrimitivePropertyAsString("IdEstado");
             String Message = resultsString.getPrimitivePropertyAsString("Message");
             if (nombre==null ||nombre.equals("") ){
                 nombre="0";
             }
+            if (Nacimiento==null ||Nacimiento.equals("") ){
+                Nacimiento="0";
+
+            }else if (Nacimiento.length()>7){
+                Nacimiento=GetStringCuotaPaga(Nacimiento);
+            }
+            if (CuotaCtrl==null ||CuotaCtrl.equals("") ){
+                CuotaCtrl="0";
+
+            }else if (CuotaCtrl.length()>7){
+                CuotaCtrl=GetStringCuotaPaga(CuotaCtrl);
+            }
             if (IdEstado==null ||IdEstado.equals("") ){
                 IdEstado="0";
+            }
+            if (Estado==null ||Estado.equals("") ){
+                Estado="0";
             }
             if (Message==null ||Message.equals("") ){
                 Message="0";
@@ -368,6 +387,10 @@ class SoapRequests {
 
             data=   nombre+'\n'+
                     "IdEstado: "+ IdEstado+'\n'+
+                    "Fecha de Nac.:"+Nacimiento+'\n'+
+                    "Estado: "+ Estado + '\n'+
+                    "Cuota Control: " +CuotaCtrl +'\n'+
+                    "Mensaje: "+'\n'+
                     resultsString.getPrimitivePropertyAsString("Message")+ '\n';
         } catch (Exception q) {
             q.printStackTrace();
