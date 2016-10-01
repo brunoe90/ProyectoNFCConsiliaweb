@@ -49,7 +49,8 @@
                         android:id="@+id/textView"
                         android:textSize="40sp"
                         android:layout_gravity="center_horizontal"
-                        android:textColor="@color/gris" />
+                        android:textColor="@color/gris"
+                        tools:targetApi="jelly_bean" />
 
                     <TextView
                         android:layout_marginTop="10dp"
@@ -60,7 +61,8 @@
                         android:id="@+id/text"
                         android:textSize="30sp"
 
-                        android:layout_gravity="center_horizontal" />
+                        android:layout_gravity="center_horizontal"
+                        tools:targetApi="jelly_bean" />
 
                     <Button
                         android:layout_marginTop="10dp"
@@ -73,7 +75,8 @@
                         android:background="@android:drawable/editbox_background"
                         android:id="@+id/bvolver"
                         android:textSize="30sp"
-                        android:visibility="invisible" />
+                        android:visibility="invisible"
+                        tools:targetApi="jelly_bean" />
 
                 </LinearLayout>
 
@@ -98,7 +101,7 @@
                             android:textStyle="normal|bold"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Socio"
+                            android:text="@string/socio"
                             android:id="@+id/SelectSocio"
                             android:textColor="@color/verdeboleteria"
 
@@ -106,14 +109,15 @@
                             android:layout_weight="0"
                             android:checked="false"
                             android:textSize="20sp"
-                            android:onClick="onRadioButtonClicked" />
+                            android:onClick="onRadioButtonClicked"
+                            tools:targetApi="jelly_bean" />
 
                         <RadioButton
                             android:fontFamily="sans-serif-medium"
                             android:textStyle="normal|bold"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Invitado"
+                            android:text="@string/invitado"
                             android:textColor="@color/verdeboleteria"
 
                             android:id="@+id/SelectInvitado"
@@ -121,7 +125,8 @@
                             android:layout_weight="0"
                             android:checked="false"
                             android:textSize="20sp"
-                            android:onClick="onRadioButtonClicked" />
+                            android:onClick="onRadioButtonClicked"
+                            tools:targetApi="jelly_bean" />
                     </RadioGroup>
                     <TextView
                         android:layout_marginTop="10dp"
@@ -129,11 +134,12 @@
                         android:layout_height="50dp"
                         android:fontFamily="sans-serif-medium"
                         android:textStyle="normal|bold|italic"
-                        android:text="ID"
+                        android:text="@string/id"
                         android:gravity="center_horizontal"
                         android:id="@+id/textView5"
                         android:textSize="40sp"
-                        android:layout_gravity="center_horizontal" />
+                        android:layout_gravity="center_horizontal"
+                        tools:targetApi="jelly_bean" />
 
                     <RadioGroup
                         android:layout_marginTop="10dp"
@@ -158,7 +164,8 @@
                             android:layout_weight="0"
                             android:checked="false"
                             android:textSize="20sp"
-                            android:onClick="onRadioButtonClicked" />
+                            android:onClick="onRadioButtonClicked"
+                            tools:targetApi="jelly_bean" />
 
                         <RadioButton
                             android:fontFamily="sans-serif-medium"
@@ -173,7 +180,8 @@
                             android:layout_weight="0"
                             android:checked="false"
                             android:textSize="20sp"
-                            android:onClick="onRadioButtonClicked" />
+                            android:onClick="onRadioButtonClicked"
+                            tools:targetApi="jelly_bean" />
 
                     </RadioGroup>
 
@@ -188,7 +196,8 @@
                         android:gravity="center_horizontal"
                         android:layout_gravity="center_horizontal"
                         android:maxLines="1"
-                        android:textSize="20sp" />
+                        android:textSize="20sp"
+                        tools:targetApi="jelly_bean" />
 
                     <Button
                         android:layout_marginTop="10dp"
@@ -200,7 +209,8 @@
                         android:layout_width="match_parent"
                         android:background="@drawable/custom_button_background"
                         android:text="@string/enviar_id_socio"
-                        android:id="@+id/bidsocio" />
+                        android:id="@+id/bidsocio"
+                        tools:targetApi="jelly_bean"/>
 
                 </LinearLayout>
 

@@ -98,4 +98,9 @@
     <string name="tarjeta_no_ingresada_en_el_sistema">Tarjeta no ingresada en el sistema</string>
     <string name="estado_acceso">Estado Acceso</string>
     <string name="ultima_cuota_paga">Ultima Cuota Paga: --</string>
+    <string name="socio">Socio</string>
+    <string name="invitado">Invitado</string>
+    <string name="id">ID</string>
+    <string name="documento">Documento</string>
+    <string name="cargando">CARGANDO</string>
 </resources>

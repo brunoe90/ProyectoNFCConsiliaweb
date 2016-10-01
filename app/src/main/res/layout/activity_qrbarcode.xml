@@ -23,19 +23,21 @@
         android:text="@string/escanear_codigo_de_barras"
         android:id="@+id/bqr"
         android:layout_weight="0"
-        android:textColor="@color/verdeboleteria" />
+        android:textColor="@color/verdeboleteria"
+        tools:targetApi="jelly_bean" />
 
     <TextView
         android:layout_marginTop="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:textSize="50dp"
+        android:textSize="50sp"
         android:fontFamily="sans-serif-medium"
         android:textStyle="normal|bold|italic"
         android:text="@string/formato"
         android:id="@+id/formatTxt"
-        android:visibility="gone" />
+        android:visibility="gone"
+        tools:targetApi="jelly_bean" />
 
     <TextView
         android:layout_marginTop="10dp"
@@ -59,19 +61,21 @@
         android:text="@string/enviar"
         android:id="@+id/benviar"
         android:layout_weight="0"
-        android:textColor="@color/verdeboleteria" />
+        android:textColor="@color/verdeboleteria"
+        tools:targetApi="jelly_bean" />
 
     <TextView
         android:layout_marginTop="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:textSize="50dp"
+        android:textSize="50sp"
         android:fontFamily="sans-serif-medium"
         android:textStyle="normal|bold|italic"
         android:id="@+id/textView6"
         android:text="@string/id_socio"
-        android:textColor="@color/gris" />
+        android:textColor="@color/gris"
+        tools:targetApi="jelly_bean" />
 
     <RadioGroup
         android:layout_width="wrap_content"
@@ -92,21 +96,23 @@
             android:checked="false"
             android:textSize="20sp"
             android:onClick="onRadioButtonClicked"
-            android:textColor="@color/verdeboleteria" />
+            android:textColor="@color/verdeboleteria"
+            tools:targetApi="jelly_bean" />
 
         <RadioButton
             android:fontFamily="sans-serif-medium"
             android:textStyle="normal|bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Documento"
+            android:text="@string/documento"
             android:id="@+id/buttondni"
             android:layout_gravity="right"
             android:layout_weight="0"
             android:checked="false"
             android:textSize="20sp"
             android:onClick="onRadioButtonClicked"
-            android:textColor="@color/verdeboleteria" />
+            android:textColor="@color/verdeboleteria"
+            tools:targetApi="jelly_bean" />
 
     </RadioGroup>
 
@@ -133,5 +139,6 @@
         android:text="@string/enviar_id_socio"
         android:id="@+id/bidsocio"
         android:layout_weight="0"
-        android:textColor="@color/verdeboleteria" />
+        android:textColor="@color/verdeboleteria"
+        tools:targetApi="jelly_bean" />
 </LinearLayout>

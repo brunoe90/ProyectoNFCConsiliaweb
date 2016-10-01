@@ -64,7 +64,6 @@
 
         android:gravity="center_vertical"
         android:scrollbarSize="20sp"
-        android:text="10"
         android:textAlignment="center" />
 
     <Button

@@ -246,12 +246,6 @@ class SoapRequests {
             if (null== response.getPropertySafelyAsString("EstadoAcceso")){
                 return "0";
             }
-//            String acceso =response.getPropertySafelyAsString("EstadoAcceso").replace("anyType{","").replace("; }", "").replace("null","No tiene");
-//
-//            String parseo[] = acceso.split(";");
-
-//            String condiciondeacceso= "";
-     //       String algo = response.getProperty("EstadoAcceso").toString();
             SoapObject responsee = (SoapObject) response.getProperty("EstadoAcceso");
             String puertas = responsee.getPropertySafelyAsString("Puertas");
             String IdEstado = responsee.getPropertySafelyAsString("IdEstado");
@@ -319,7 +313,7 @@ class SoapRequests {
 
     String SearchInvitado(String idStadium, String numInvitado, String IP, String port) {
 
-        String data = null  ;
+        String data;
 
         String methodname = "SearchInvitado";
         SoapObject request = new SoapObject("http://controlplus.net/cwpwebservice",methodname);// new SoapObject(NAMESPACE, methodname);
@@ -356,17 +350,25 @@ class SoapRequests {
             String Estado = responsee.getPrimitivePropertyAsString("Estado");
             String CuotaCtrl = responsee.getPrimitivePropertyAsString("CuotaCtrl");
             String nombre = resultsString.getPrimitivePropertyAsString("Nombre");
-            String Nacimiento = resultsString.getPrimitivePropertyAsString("Nacimiento");
+            String Documento = resultsString.getPrimitivePropertyAsString("Documento");
             String IdEstado = resultsString.getPrimitivePropertyAsString("IdEstado");
             String Message = resultsString.getPrimitivePropertyAsString("Message");
+            String IdInvitado = resultsString.getPrimitivePropertyAsString("IdInvitado");
+            String Categoria = resultsString.getPrimitivePropertyAsString("Categoria");
             if (nombre==null ||nombre.equals("") ){
                 nombre="0";
             }
-            if (Nacimiento==null ||Nacimiento.equals("") ){
-                Nacimiento="0";
+            if (Documento==null ||Documento.equals("") ){
+                Documento="0";
 
-            }else if (Nacimiento.length()>7){
-                Nacimiento=GetStringCuotaPaga(Nacimiento);
+            }else{
+                Documento= "Documento: "+Documento;
+            }
+            if (Categoria==null ||Categoria.equals("") ){
+                Categoria="0";
+
+            }else{
+                Categoria= "Categoria: "+Categoria;
             }
             if (CuotaCtrl==null ||CuotaCtrl.equals("") ){
                 CuotaCtrl="0";
@@ -383,14 +385,24 @@ class SoapRequests {
             if (Message==null ||Message.equals("") ){
                 Message="0";
             }
+            if (IdInvitado==null ||IdInvitado.equals("") ){
+                IdInvitado="0";
+
+            }else{
+                IdInvitado = "Num. de Invitado: "+ IdInvitado;
+            }
+
             //  data = (resultsString.toString());
 
             data=   nombre+'\n'+
                     "IdEstado: "+ IdEstado+'\n'+
-                    "Fecha de Nac.:"+Nacimiento+'\n'+
+
                     "Estado: "+ Estado + '\n'+
                     "Cuota Control: " +CuotaCtrl +'\n'+
-                    "Mensaje: "+'\n'+
+                    IdInvitado+'\n'+
+                    Documento+'\n'+
+
+                    Categoria + '\n'+
                     resultsString.getPrimitivePropertyAsString("Message")+ '\n';
         } catch (Exception q) {
             q.printStackTrace();

@@ -265,7 +265,7 @@ public class pasanopasaActivity extends AppCompatActivity {
                             if (puertas.length()>10){
                                 Accesos.setTextSize(15);
                             }
-                            Accesos.setText("Accesos:"+puertas.replace("Puerta",""));
+                            Accesos.setText("Accesos:"+puertas.replace("Puerta","").replace("PUERTA",""));
                         }
 
                         //compartido
@@ -279,15 +279,28 @@ public class pasanopasaActivity extends AppCompatActivity {
 
 
                         //invitado
-                        int mensaje = stringsoap.indexOf("Mensaje: ");
-                        if (mensaje>0){
-                            String info = stringsoap.substring(mensaje+"Mensaje: ".length()+1);
-                            info = info.substring(0,info.indexOf('\n'));
+//                        int mensaje = stringsoap.indexOf("Mensaje: ");
+//                        if (mensaje>0){
+//                            String info = stringsoap.substring(mensaje+"Mensaje: ".length()+1);
+//                            info = info.substring(0,info.indexOf('\n'));
+//                            if (informacion.length()>20){
+//                                informacion.setTextSize(18);
+//                            }
+//                            informacion.setText("Mensaje: "+info);
+//                        }
+
+                        // invitado
+                        int IdInvitado = stringsoap.indexOf("Num. de Invitado: ");
+                        int IdCat      = stringsoap.indexOf("Categoria: ");
+                        if (IdInvitado>0){
+                            String fintrama = stringsoap.substring(IdCat);
+                            String info = stringsoap.substring(IdInvitado, IdCat+fintrama.indexOf('\n'));
                             if (informacion.length()>20){
                                 informacion.setTextSize(18);
                             }
-                            informacion.setText("Mensaje: "+info);
+                            informacion.setText(info);
                         }
+
 
                         //socio
                         int socio = stringsoap.indexOf("Estado del Socio: ");
@@ -298,6 +311,7 @@ public class pasanopasaActivity extends AppCompatActivity {
                             }
                             informacion.setText(info);
                         }
+
 
 
                         //INVITADO
@@ -347,7 +361,7 @@ public class pasanopasaActivity extends AppCompatActivity {
                             }
                             case 1: {
 
-                                if (TipoSocio.equals("socio")){
+                                {
                                     int puerta = stringsoap.indexOf("Puertas:");
                                     if (puerta>0){
                                         String info = stringsoap.substring(puerta+"Puertas:".length());
@@ -362,7 +376,7 @@ public class pasanopasaActivity extends AppCompatActivity {
                                                 layout.setBackground( getResources().getDrawable(R.drawable.backgroundok));
                                             }
 
-                                            datop.setText("Puede pasar");
+                                            datop.setText("OK");
                                             toneG.startTone(ToneGenerator.TONE_CDMA_ALERT_CALL_GUARD, 200);
                                         }else {
 
@@ -376,18 +390,17 @@ public class pasanopasaActivity extends AppCompatActivity {
                                                 layout.setBackground( getResources().getDrawable(R.drawable.backgroundnope));
                                             }
                                         }
+                                    }else {
+                                        datop.setText("No hay Puertas Asignadas");
+                                        toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
+                                        if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                                            assert layout != null;
+                                            layout.setBackgroundDrawable( getResources().getDrawable(R.drawable.backgroundnope) );
+                                        } else {
+                                            assert layout != null;
+                                            layout.setBackground( getResources().getDrawable(R.drawable.backgroundnope));
+                                        }
                                     }
-                                }else {
-                                    if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
-                                        assert layout != null;
-                                        layout.setBackgroundDrawable( getResources().getDrawable(R.drawable.backgroundok) );
-                                    } else {
-                                        assert layout != null;
-                                        layout.setBackground( getResources().getDrawable(R.drawable.backgroundok));
-                                    }
-
-                                    datop.setText("Puede pasar");
-                                    toneG.startTone(ToneGenerator.TONE_CDMA_ALERT_CALL_GUARD, 200);
                                 }
 
 
@@ -401,7 +414,7 @@ public class pasanopasaActivity extends AppCompatActivity {
                             case 2: {
                                 // puede pasar
 
-                                if (TipoSocio.equals("socio")){
+
                                     int puerta = stringsoap.indexOf("Puertas:");
                                     if (puerta>0){
                                         String info = stringsoap.substring(puerta+"Puertas:".length()+1);
@@ -430,19 +443,18 @@ public class pasanopasaActivity extends AppCompatActivity {
                                                 layout.setBackground( getResources().getDrawable(R.drawable.backgroundnope));
                                             }
                                         }
-                                    }
-                                }else {
-                                    if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
-                                        assert layout != null;
-                                        layout.setBackgroundDrawable( getResources().getDrawable(R.drawable.backgroundok) );
-                                    } else {
-                                        assert layout != null;
-                                        layout.setBackground( getResources().getDrawable(R.drawable.backgroundok));
-                                    }
-
-                                    datop.setText("Habilit. manual");
-                                    toneG.startTone(ToneGenerator.TONE_CDMA_ALERT_CALL_GUARD, 200);
+                                    }else {
+                                        datop.setText("No hay Puertas Asignadas");
+                                        toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
+                                        if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                                            assert layout != null;
+                                            layout.setBackgroundDrawable( getResources().getDrawable(R.drawable.backgroundnope) );
+                                        } else {
+                                            assert layout != null;
+                                            layout.setBackground( getResources().getDrawable(R.drawable.backgroundnope));
+                                        }
                                 }
+
 
 
                                 break;
@@ -830,22 +842,26 @@ public class pasanopasaActivity extends AppCompatActivity {
                         }
 
 
-                            if ((idTipo.equals( "8"))){
-                              //  handler.sendEmptyMessage(4);
+                        switch (idTipo) {
+                            case "8":
+                                //  handler.sendEmptyMessage(4);
                                 getSoap("getestado");
-                               // getSoap("GetFotoSocio");
-                            } else if ((idTipo.equals("3"))){
+                                // getSoap("GetFotoSocio");
+                                break;
+                            case "3":
 
                                 getSoap("getestadoinvitado");
 
                                 //stringsoap =    ex.SearchInvitado(idStadium,idSocio,bundle.getString("IP"),bundle.getString("port"));
                                 //handler.sendEmptyMessage(3);
-                            }else{
+                                break;
+                            default:
 
-                                idTipo="50";
+                                idTipo = "50";
                                 handler.sendEmptyMessage(2);
 
-                            }
+                                break;
+                        }
 
 
 
