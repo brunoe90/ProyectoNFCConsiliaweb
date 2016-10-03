@@ -49,7 +49,7 @@ class SoapRequests {
 
         SoapSerializationEnvelope envelope = getSoapSerializationEnvelope(request);
 
-        HttpTransportSE ht =  getHttpTransportSE( "http://"+IP+"/WebService.asmx");
+        HttpTransportSE ht =  getHttpTransportSE( "http://"+IP+":"+port+"/WebService.asmx");
         try {
             ht.call(SOAP_ACTION_getversion, envelope);
 
@@ -78,7 +78,7 @@ class SoapRequests {
 
     String getcaret(String idEstadio, String idSerie, String IP, String port) {
 
-        String data = null  ;
+        String data;
 
         String methodname = "SearchCarnet";
         SoapObject request = new SoapObject("http://controlplus.net/cwpwebservice",methodname);// new SoapObject(NAMESPACE, methodname);
@@ -89,7 +89,7 @@ class SoapRequests {
         SoapSerializationEnvelope envelope;
         envelope = getSoapSerializationEnvelope(request);
 
-        HttpTransportSE ht =  getHttpTransportSE( "http://"+IP+"/WebService.asmx");
+        HttpTransportSE ht =  getHttpTransportSE( "http://"+IP+":"+port+"/WebService.asmx");
         try {
 
             ht.call(SOAP_ACTION_searchcarnet,  envelope);
@@ -134,7 +134,7 @@ class SoapRequests {
         SoapSerializationEnvelope envelope;
         envelope = getSoapSerializationEnvelope(request);
 
-         HttpTransportSE ht =  getHttpTransportSE( "http://"+IP+"/WebService.asmx");
+         HttpTransportSE ht =  getHttpTransportSE( "http://"+IP+":"+port+"/WebService.asmx");
         try {
 
             ht.call(SOAP_ACTION_SearchSocioByDoc,  envelope);
@@ -176,7 +176,7 @@ class SoapRequests {
         SoapSerializationEnvelope envelope;
         envelope = getSoapSerializationEnvelope(request);
 
-        HttpTransportSE ht =  getHttpTransportSE( "http://"+IP+"/WebService.asmx");
+        HttpTransportSE ht =  getHttpTransportSE( "http://"+IP+":"+port+"/WebService.asmx");
         try {
 
             ht.call(SOAP_ACTION_SearchInvitadoByDoc,  envelope);
@@ -221,7 +221,7 @@ class SoapRequests {
         envelope = getSoapSerializationEnvelope(request);
         envelope.skipNullProperties=true;
         //envelope.dotNet = false;
-        HttpTransportSE ht =  getHttpTransportSE( "http://"+IP+"/WebService.asmx");
+        HttpTransportSE ht =  getHttpTransportSE( "http://"+IP+":"+port+"/WebService.asmx");
         try {
 
             ht.call(SOAP_ACTION_SearchSocio,  envelope);
@@ -326,7 +326,7 @@ class SoapRequests {
         envelope = getSoapSerializationEnvelope(request);
         envelope.skipNullProperties=true;
 
-         HttpTransportSE ht =  getHttpTransportSE( "http://"+IP+"/WebService.asmx");
+         HttpTransportSE ht =  getHttpTransportSE( "http://"+IP+":"+port+"/WebService.asmx");
         try {
 
             ht.call(SOAP_ACTION_SearchInvitado,  envelope);
@@ -422,7 +422,7 @@ class SoapRequests {
 
         SoapSerializationEnvelope envelope = getSoapSerializationEnvelope(request);
 
-         HttpTransportSE ht =  getHttpTransportSE( "http://"+IP+"/WebService.asmx");
+         HttpTransportSE ht =  getHttpTransportSE( "http://"+IP+":"+port+"/WebService.asmx");
         try {
             ht.call(SOAP_ACTION_getfoto, envelope);
 
@@ -461,7 +461,7 @@ class SoapRequests {
 
         SoapSerializationEnvelope envelope = getSoapSerializationEnvelope(request);
 
-         HttpTransportSE ht =  getHttpTransportSE( "http://"+IP+"/WebService.asmx");
+         HttpTransportSE ht =  getHttpTransportSE( "http://"+IP+":"+port+"/WebService.asmx");
         try {
             ht.call(SOAP_ACTION_getfoto_Invitado, envelope);
 
@@ -509,6 +509,7 @@ class SoapRequests {
     private HttpTransportSE getHttpTransportSE(String method   ) {
         HttpTransportSE ht = new HttpTransportSE(Proxy.NO_PROXY,method,8000);
         ht.debug = true;
+
         ht.setXmlVersionTag("<?xml version=\"1.0\" encoding= \"UTF-8\" ?>");
         return ht;
     }
