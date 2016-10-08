@@ -41,15 +41,15 @@ import com.google.android.gms.common.api.GoogleApiClient;
 
 public class NfcActivity extends AppCompatActivity implements View.OnClickListener {
 
-    Button botonvolver, benviarid, benviaridinvitado;
-    EditText editText;
+    Button botonvolver, benviarid;
+    Button benviaridinvitado;
+    EditText editText, editText2;
     long Resultado = 0;
     int signo = 0;
     Bundle bundle;
     String texto = "";
-    String InitadoSocio="";
     String NFC = "";
-    RadioButton bid, bdni,binvitado,bselectsocio;
+    RadioButton bid, bdni;
     String dato = "";
     TabHost host;
 
@@ -89,35 +89,38 @@ public class NfcActivity extends AppCompatActivity implements View.OnClickListen
         //Tab 1
         TabHost.TabSpec spec = host.newTabSpec("Tab One");
         spec.setContent(R.id.tab1);
-        spec.setIndicator("CON CARNET");
+        spec.setIndicator("ESCANEAR");
         host.addTab(spec);
 
         //Tab 2
         spec = host.newTabSpec("Tab Two");
         spec.setContent(R.id.tab2);
-        spec.setIndicator("SIN CARNET");
+        spec.setIndicator("SOCIO");
         host.addTab(spec);
 
         //Tab 3
-        /*
         spec = host.newTabSpec("Tab Three");
         spec.setContent(R.id.tab3);
         spec.setIndicator("INVITADO");
-        host.addTab(spec);*/
+        host.addTab(spec);
+
+        if (bundle.getInt("TAB")!=0){
+            int a = bundle.getInt("TAB");
+
+            host.setCurrentTab(a);
+        }
 
 
-        int a = bundle.getInt("TAB");
-
-        host.setCurrentTab(a);
 
         botonvolver = (Button) findViewById(R.id.bvolver);
         benviarid = (Button) findViewById(R.id.bidsocio);
-       // benviaridinvitado = (Button) findViewById(R.id.binvitado);
+        benviaridinvitado = (Button) findViewById(R.id.binvitado);
         editText = (EditText) findViewById(R.id.edtsocio);
+        editText2 = (EditText) findViewById(R.id.edtinvitado);
         bid = (RadioButton) findViewById(R.id.buttonsocio);
         bdni = (RadioButton) findViewById(R.id.buttondni);
-        binvitado = (RadioButton) findViewById(R.id.SelectInvitado);
-        bselectsocio = (RadioButton) findViewById(R.id.SelectSocio);
+        //binvitado = (RadioButton) findViewById(R.id.SelectInvitado);
+        //bselectsocio = (RadioButton) findViewById(R.id.SelectSocio);
 
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         //we are connected to a network
@@ -127,10 +130,9 @@ public class NfcActivity extends AppCompatActivity implements View.OnClickListen
         if (!connected)
             Toast.makeText(getBaseContext(), "Falla la coneccion a internet!!!!", Toast.LENGTH_LONG).show();
 
-
         botonvolver.setOnClickListener(this);
-
         benviarid.setOnClickListener(this);
+        benviaridinvitado.setOnClickListener(this);
 
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -163,7 +165,7 @@ public class NfcActivity extends AppCompatActivity implements View.OnClickListen
     public void onClick(View v) {
         botonvolver = (Button) findViewById(R.id.bvolver);
         benviarid = (Button) findViewById(R.id.bidsocio);
-       // benviaridinvitado = (Button) findViewById(R.id.binvitado);
+        benviaridinvitado = (Button) findViewById(R.id.binvitado);
 
         if (v.getId() == R.id.bvolver) {
             if (!(texto.equals(""))) {
@@ -192,6 +194,19 @@ public class NfcActivity extends AppCompatActivity implements View.OnClickListen
                 startActivity(intent);
             } else Toast.makeText(getBaseContext(), "Indicar Socio", Toast.LENGTH_LONG).show();
         }
+        if (v.getId() == R.id.binvitado) {
+
+            if (!(editText2.getText().toString().equals(""))) {
+                Intent intent = new Intent(NfcActivity.this, pasanopasaActivity.class);
+                bundle.putInt("idStadium", bundle.getInt("idStadium"));
+                bundle.remove("NFCTAG");
+                //bundle.putInt(dato, Integer.valueOf(editText.getText().toString()));
+                bundle.putString("manual",dato);
+                bundle.putInt("NumeroAconvertir",Integer.valueOf(editText.getText().toString()));
+                intent.putExtras(bundle);
+                startActivity(intent);
+            } else Toast.makeText(getBaseContext(), "Indicar Invitado", Toast.LENGTH_LONG).show();
+        }
     }
 
     @Override
@@ -211,50 +226,38 @@ public class NfcActivity extends AppCompatActivity implements View.OnClickListen
     public void onRadioButtonClicked(View view) {
         // Is the button now checked?
         boolean checked = ((RadioButton) view).isChecked();
-        bid = (RadioButton) findViewById(R.id.bid);
+//        bid = (RadioButton) findViewById(R.id.bid);
         bdni = (RadioButton) findViewById(R.id.buttondni);
-        binvitado = (RadioButton) findViewById(R.id.SelectInvitado);
-        bselectsocio = (RadioButton) findViewById(R.id.SelectSocio);
+//        binvitado = (RadioButton) findViewById(R.id.SelectInvitado);
+//        bselectsocio = (RadioButton) findViewById(R.id.SelectSocio);
 
         // Check which radio button was clicked
         switch (view.getId()) {
-            case R.id.bid:
+            case R.id.idInv:
                 if (checked){
-                    if (bselectsocio.isChecked()){
-                        dato = "idSocio";
-                    } else  dato = "idInvitado";
+                    dato = "idInvitado";
                 }
-
                 break;
-            case R.id.buttondni:
+
+            case R.id.dniInv:
                 if (checked) {
-                    if (bselectsocio.isChecked()){
-                        dato = "DocSocio";
-                    } else  dato = "DocInvitado";
+                    dato = "DocInvitado";
                 }
-
-
                 break;
         }
 
         switch (view.getId()) {
-            case R.id.SelectSocio:
+            case R.id.idsocio:
                 if (checked){
-                        if (bdni.isChecked()){
-                            dato = "DocSocio";
-                        } else  dato = "idSocio";
-                    break;
+                    dato = "idSocio";
                 }
+                break;
 
-
-            case R.id.SelectInvitado:
+            case R.id.docsocio:
                 if (checked){
-                    if (bdni.isChecked()){
-                        dato = "DocInv";
-                    } else  dato = "idInvitado";
-                    break;
+                    dato = "DocSocio";
                 }
-
+                break;
         }
     }
 
@@ -305,7 +308,7 @@ public class NfcActivity extends AppCompatActivity implements View.OnClickListen
                 texto = ByteArrayToHexString(intent.getByteArrayExtra(NfcAdapter.EXTRA_ID));
 
                 if (findViewById(R.id.text) != null) {
-                    ((TextView) findViewById(R.id.text)).setText("NFC Tag " + texto);
+                   // ((TextView) findViewById(R.id.text)).setText("NFC Tag " + texto);
                     //bundle.putString("NFCINVITADO",texto);////
                     NFC = texto;
                     int a =host.getCurrentTab();

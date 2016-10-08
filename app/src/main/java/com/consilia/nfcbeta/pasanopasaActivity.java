@@ -177,10 +177,15 @@ public class pasanopasaActivity extends AppCompatActivity {
                 } else if (UltimaActivity.equals("nfc")){
                     Intent intent = new Intent(pasanopasaActivity.this, NfcActivity.class);
 
+                    if (TipoSocio!=null)
                      {
-//                        if (!((Tarjeta.equals("") )||Tarjeta==null)){
-//                            bundle.putInt("TAB", 0);
-//                        } else bundle.putInt("TAB", 1);
+                        if (Tarjeta != null){
+                            bundle.putInt("TAB", 0);
+                        } else if (TipoSocio.equals("socio")) {
+                            bundle.putInt("TAB", 1);
+                        }else {
+                            bundle.putInt("TAB", 2);
+                        }
                     }
                     bundle.remove("NFCTAG");
                     bundle.remove("NFCINVITADO");

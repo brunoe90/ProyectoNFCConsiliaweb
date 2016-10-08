@@ -24,7 +24,8 @@
         android:textSize="50sp"
         android:fontFamily="sans-serif-medium"
         android:textStyle="normal|bold|italic"
-        android:typeface="normal" />
+        android:typeface="normal"
+        tools:targetApi="jelly_bean"/>
 
     <Spinner
         android:layout_marginTop="10dp"
@@ -34,8 +35,8 @@
         android:entries="@array/country_arrays"
         android:prompt="@string/country_prompt"
         android:spinnerMode="dropdown"
-
-        android:layout_weight="0.12" />
+        android:layout_weight="0.12"
+        android:background="@drawable/boton" />
 
     <TextView
         android:layout_marginTop="10dp"
@@ -48,7 +49,8 @@
 
         android:id="@+id/textView2"
         android:layout_gravity="center_horizontal"
-        android:textSize="50sp" />
+        android:textSize="50sp"
+        tools:targetApi="jelly_bean"/>
 
     <EditText
         android:layout_marginTop="10dp"
@@ -70,14 +72,15 @@
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:text="ENTRAR"
-        android:textColor="@color/verdeboleteria"
+        android:text="@string/entrar"
+        android:textColor="@color/grisboleteria"
         android:fontFamily="sans-serif-medium"
         android:textStyle="normal|bold"
         android:id="@+id/bentrar"
         android:layout_gravity="center_horizontal"
         android:onClick="bentrar"
-        android:background="@android:drawable/editbox_background"
-        android:textSize="30sp" />
+        android:background="@drawable/boton"
+        android:textSize="30sp"
+        tools:targetApi="jelly_bean"/>
 
 </LinearLayout>
