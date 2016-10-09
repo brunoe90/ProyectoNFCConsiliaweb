@@ -19,7 +19,7 @@ public class ConfigActivity extends AppCompatActivity {
     Bundle bundle;
     EditText etip;
     Spinner spinner;
-    int  idStadium;
+    int  idStadium,Puerta;
     //Typeface face= Typeface.createFromAsset(getAssets(),"fonts/digital.ttf");
     //txtV.setTypeface(face);
 
@@ -34,8 +34,12 @@ public class ConfigActivity extends AppCompatActivity {
         etip        = (EditText)findViewById(R.id.etstadio);
         bundle = getIntent().getExtras();
 
+        idStadium =     (bundle.getInt("idStadium"));
+        Puerta =        (bundle.getInt("Puerta"));
 
-
+        if (Puerta!=0){
+            etip.setText(String.valueOf(Puerta));
+        }
 
 
         //assert etip != null;

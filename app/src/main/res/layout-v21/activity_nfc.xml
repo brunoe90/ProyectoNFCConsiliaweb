@@ -162,8 +162,8 @@
                     <EditText
 
                         android:layout_width="match_parent"
-                        android:inputType="number"
                         android:layout_height="wrap_content"
+                        android:inputType="number"
                         android:id="@+id/edtsocio"
                         android:gravity="center_horizontal"
                         android:layout_gravity="center_horizontal"
@@ -186,7 +186,8 @@
                         android:background="@drawable/boton"
                         android:text="@string/enviar_id_socio"
                         android:id="@+id/bidsocio"
-                        tools:targetApi="jelly_bean" />
+                        tools:targetApi="jelly_bean"
+                        android:elevation="0dp" />
 
                 </LinearLayout>
 
@@ -266,6 +267,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-medium"
                         android:inputType="number"
+                        android:maxLength="10"
                         android:textColor="@color/verdeboleteria"
                         android:id="@+id/edtinvitado"
                         android:gravity="center_horizontal"
@@ -284,7 +286,8 @@
                         android:background="@drawable/boton"
                         android:text="@string/enviar_id_invitado"
                         android:id="@+id/binvitado"
-                        tools:targetApi="jelly_bean" />
+                        tools:targetApi="jelly_bean"
+                        android:elevation="0dp" />
 
 
                 </LinearLayout>

@@ -55,7 +55,7 @@
 
                     <ImageView
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="150dp"
                         app:srcCompat="@drawable/nfc"
                         android:id="@+id/imageView3" />
 
@@ -97,11 +97,6 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:srcCompat="@drawable/socio"
-                        android:id="@+id/imageView3" />
 
                     <TextView
                         android:layout_marginTop="10dp"
@@ -110,13 +105,20 @@
                         android:fontFamily="sans-serif-medium"
                         android:textStyle="normal|bold|italic"
                         android:textColor="@color/grisboleteria"
-                        android:background="@drawable/boton"
                         android:text="@string/socio"
                         android:gravity="center_horizontal"
                         android:id="@+id/textView5"
                         android:textSize="40sp"
                         android:layout_gravity="center_horizontal"
                         tools:targetApi="jelly_bean" />
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:srcCompat="@drawable/socio"
+                        android:id="@+id/imageView3" />
+
+
 
 
 
@@ -165,7 +167,6 @@
                     <EditText
 
                         android:layout_width="match_parent"
-                        android:layout_height="25sp"
                         android:fontFamily="sans-serif-medium"
                         android:inputType="number"
                         android:textColor="@color/verdeboleteria"
@@ -173,7 +174,9 @@
                         android:gravity="center_horizontal"
                         android:layout_gravity="center_horizontal"
                         android:maxLines="1"
-                        tools:targetApi="jelly_bean" />
+                        tools:targetApi="jelly_bean"
+                        android:layout_height="wrap_content"
+                        android:textSize="20sp" />
 
                     <Button
                         android:layout_marginTop="10dp"
@@ -198,12 +201,6 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
-
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:srcCompat="@drawable/invitado"
-                        android:id="@+id/imageView3" />
                     <TextView
                         android:layout_marginTop="10dp"
                         android:layout_width="match_parent"
@@ -212,12 +209,18 @@
                         android:textStyle="normal|bold|italic"
                         android:text="@string/invitado"
                         android:textColor="@color/grisboleteria"
-                        android:background="@drawable/boton"
                         android:gravity="center_horizontal"
                         android:id="@+id/textView6"
                         android:textSize="40sp"
                         android:layout_gravity="center_horizontal"
                         tools:targetApi="jelly_bean" />
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:srcCompat="@drawable/invitado"
+                        android:id="@+id/imageView3" />
+
 
                     <RadioGroup
                         android:layout_marginTop="10dp"
@@ -247,7 +250,7 @@
                             android:fontFamily="sans-serif-medium"
                             android:textStyle="normal|bold"
                             android:layout_width="wrap_content"
-                            android:layout_height="25sp"
+                            android:layout_height="wrap_content"
                             android:text="@string/documento_dni"
                             android:textColor="@color/verdeboleteria"
                             android:id="@+id/dniInv"
@@ -263,7 +266,7 @@
                     <EditText
 
                         android:layout_width="match_parent"
-                        android:layout_height="25sp"
+                        android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-medium"
                         android:inputType="number"
                         android:textColor="@color/verdeboleteria"
@@ -274,7 +277,6 @@
                         tools:targetApi="jelly_bean" />
 
                     <Button
-                        android:layout_marginTop="10dp"
                         android:fontFamily="sans-serif-medium"
                         android:textStyle="normal|bold"
                         android:layout_height="50dp"

@@ -120,6 +120,8 @@ public class MainActivity extends Activity {
             Toast.makeText(getBaseContext(), "Volviendo a Configuracion", Toast.LENGTH_LONG).show();
             bundle.putInt("idStadium", bundle.getInt("idStadium"));
             bundle.putInt("Puerta", bundle.getInt("Puerta"));
+            bundle.putString("IP",bundle.getString("IP"));
+            bundle.putString("port",bundle.getString("port"));
 
             Intent intent = new Intent(MainActivity.this, ConfigActivity.class);
             intent.putExtras(bundle);

@@ -202,7 +202,7 @@ public class NfcActivity extends AppCompatActivity implements View.OnClickListen
                 bundle.remove("NFCTAG");
                 //bundle.putInt(dato, Integer.valueOf(editText.getText().toString()));
                 bundle.putString("manual",dato);
-                bundle.putInt("NumeroAconvertir",Integer.valueOf(editText.getText().toString()));
+                bundle.putInt("NumeroAconvertir",Integer.valueOf(editText2.getText().toString()));
                 intent.putExtras(bundle);
                 startActivity(intent);
             } else Toast.makeText(getBaseContext(), "Indicar Invitado", Toast.LENGTH_LONG).show();
