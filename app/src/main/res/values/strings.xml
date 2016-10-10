@@ -104,4 +104,5 @@
     <string name="documento">Documento</string>
     <string name="cargando">CARGANDO</string>
     <string name="enviar_id_invitado">Enviar ID Invitado</string>
+    <string name="consultar">CONSULTAR</string>
 </resources>

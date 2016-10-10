@@ -30,7 +30,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TabHost;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.appindexing.Action;
@@ -133,6 +132,32 @@ public class NfcActivity extends AppCompatActivity implements View.OnClickListen
         botonvolver.setOnClickListener(this);
         benviarid.setOnClickListener(this);
         benviaridinvitado.setOnClickListener(this);
+
+
+        editText.setOnKeyListener(new View.OnKeyListener() {
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                    if (!editText.getText().toString().equals("")){
+                        benviarid.performClick();
+                    } else Toast.makeText(getBaseContext(), "Indicar Numero de Socio o Documento", Toast.LENGTH_LONG).show();
+                    return true;
+                }
+                return false;
+            }
+        });
+
+        editText2.setOnKeyListener(new View.OnKeyListener() {
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                    if (!editText2.getText().toString().equals("")){
+                        benviaridinvitado.performClick();
+                    } else Toast.makeText(getBaseContext(), "Indicar Numero de Invitado o Documento", Toast.LENGTH_LONG).show();
+                    return true;
+                }
+                return false;
+            }
+        });
+
 
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.

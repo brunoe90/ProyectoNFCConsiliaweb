@@ -6,6 +6,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
@@ -19,6 +20,9 @@ public class ConfigActivity extends AppCompatActivity {
     Bundle bundle;
     EditText etip;
     Spinner spinner;
+    String EstadioCrudo[];
+    String estadios[];
+    String EstadioPos[];
     int  idStadium,Puerta;
     //Typeface face= Typeface.createFromAsset(getAssets(),"fonts/digital.ttf");
     //txtV.setTypeface(face);
@@ -41,6 +45,23 @@ public class ConfigActivity extends AppCompatActivity {
             etip.setText(String.valueOf(Puerta));
         }
 
+        EstadioCrudo = bundle.getStringArray("Estadios");
+        assert EstadioCrudo != null;
+        estadios = new String[EstadioCrudo.length/2];
+        EstadioPos= new String[EstadioCrudo.length/2];
+        int j=0;
+        for(int i = 0; i!=(EstadioCrudo.length); i++){
+            if ( (i %2)==0 ) {
+
+                EstadioPos[i/2]=EstadioCrudo[i];
+                            //even... PAR
+            } else {
+
+                estadios[j]=EstadioCrudo[i];
+                j++;
+                            //odd... IMPAR
+            }
+        }
 
         //assert etip != null;
         //etip.setTypeface(face);
@@ -53,47 +74,27 @@ public class ConfigActivity extends AppCompatActivity {
 
         if (!connected) Toast.makeText(getBaseContext(), "Falla la coneccion a internet!!!!", Toast.LENGTH_LONG).show();
 
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,R.array.country_arrays, android.R.layout.simple_spinner_item);
+        ArrayAdapter<String> dataAdapter;
 
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        dataAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, estadios);
+        //dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(dataAdapter);
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        spinner.setAdapter(adapter);
-       // spinner.setOnItemSelectedListener((AdapterView.OnItemSelectedListener) this);
-        adapter.setDropDownViewResource(R.layout.spinner_item);
+        //   ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,estadios, android.R.layout.simple_spinner_item);
+//
+//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//
+//        spinner.setAdapter(adapter);
+//        adapter.setDropDownViewResource(R.layout.spinner_item);
+
+
         spinner.setOnItemSelectedListener(
                 new AdapterView.OnItemSelectedListener() {
-                    public void onItemSelected(AdapterView<?> parent,
-                                               android.view.View v, int position, long id) {
-                        switch (position){
-                            case 1:idStadium =11; break;
-                            case 2:idStadium =23; break;
-                            case 3:idStadium =25; break;
-                            case 4:idStadium =21; break;
-                            case 5:idStadium =24; break;
-                            case 6:idStadium =20; break;
-                            case 7:idStadium =26; break;
-                            case 8:idStadium =22; break;
-                            case 9:idStadium =15; break;
-                            case 10:idStadium =28; break;
-                            case 11:idStadium =27; break;
-                            case 12:idStadium =29; break;
-                            case 13:idStadium =9; break;
-                            case 14:idStadium =10; break;
-                            case 15:idStadium =19; break;
-                            case 16:idStadium =8; break;
-                            case 17:idStadium =30; break;
-                            case 18:idStadium =12; break;
-                            case 19:idStadium =2; break;
-                            case 20:idStadium =13; break;
-                            case 21:idStadium =17; break;
-                            case 22:idStadium =18; break;
-                            case 23:idStadium =14; break;
+                    public void onItemSelected(AdapterView<?> parent, android.view.View v, int position, long id) {
 
+                        idStadium=Integer.parseInt(EstadioPos[position]);
 
-
-
-
-                        }
                     }
 
                     public void onNothingSelected(AdapterView<?> parent) {
@@ -129,6 +130,19 @@ public class ConfigActivity extends AppCompatActivity {
         } else Toast.makeText(getBaseContext(), "Indicar Puerta de acceso", Toast.LENGTH_LONG).show();
     }
 
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if ((keyCode == KeyEvent.KEYCODE_BACK)) {
+            Log.d(this.getClass().getName(), "back button pressed");
+            bundle.putString("IP",bundle.getString("IP"));
+            bundle.putString("port",bundle.getString("port"));
+            Intent intent = new Intent(ConfigActivity.this, loginActivity.class);
+            intent.putExtras(bundle);
+            startActivity(intent);
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 
 }
 

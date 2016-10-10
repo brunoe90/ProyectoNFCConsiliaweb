@@ -28,6 +28,7 @@ class SoapRequests {
     private static final String SOAP_ACTION_getfoto_Invitado =  "http://controlplus.net/cwpwebservice/GetFotoInvitado";
     private static final String SOAP_ACTION_searchcarnet =      "http://controlplus.net/cwpwebservice/SearchCarnet";
     private static final String SOAP_ACTION_SearchInvitado =    "http://controlplus.net/cwpwebservice/SearchInvitado";
+    private static final String SOAP_ACTION_GetStadiums =    "http://controlplus.net/cwpwebservice/GetStadiums";
 
     private static String SESSION_ID;
 
@@ -69,6 +70,43 @@ class SoapRequests {
                 }
             }
             data = resultsString.toString();
+
+        } catch (Exception q) {
+            q.printStackTrace();
+        }
+        return data;
+    }
+
+    String GetStadiums(String IP, String port) {
+
+        String data = null;
+
+        String methodname = "GetStadiums";
+        SoapObject request = new SoapObject(NAMESPACE, methodname);
+        //request.addProperty("symbol", Value);
+
+        SoapSerializationEnvelope envelope = getSoapSerializationEnvelope(request);
+
+        HttpTransportSE ht =  getHttpTransportSE( "http://"+IP+":"+port+"/WebService.asmx");
+        try {
+            ht.call(SOAP_ACTION_GetStadiums, envelope);
+
+            testHttpResponse(ht);
+            SoapObject resultsString = (SoapObject)envelope.getResponse();
+
+            List<HeaderProperty> COOKIE_HEADER = (List<HeaderProperty>) ht.getServiceConnection().getResponseProperties();
+
+            for (int i = 0; i < COOKIE_HEADER.size(); i++) {
+                String key = COOKIE_HEADER.get(i).getKey();
+                String value = COOKIE_HEADER.get(i).getValue();
+
+                if (key != null && key.equalsIgnoreCase("set-cookie")) {
+                    SoapRequests.SESSION_ID = value.trim();
+                    Log.v("SOAP RETURN", "Cookie :" + SoapRequests.SESSION_ID);
+                    break;
+                }
+            }
+            data = resultsString.toString().replace("Id","").replace("Stadium=","").replace("StadiumData=","").replace("anyType{","").replace("}","").replace("; ; ",";").replace("IdStadium=","");
 
         } catch (Exception q) {
             q.printStackTrace();

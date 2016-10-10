@@ -184,7 +184,7 @@
                         android:textSize="20sp"
                         android:textColor="@color/grisboleteria"
                         android:background="@drawable/boton"
-                        android:text="@string/enviar_id_socio"
+                        android:text="@string/consultar"
                         android:id="@+id/bidsocio"
                         tools:targetApi="jelly_bean" />
 
@@ -282,7 +282,7 @@
                         android:textColor="@color/grisboleteria"
                         android:layout_width="match_parent"
                         android:background="@drawable/boton"
-                        android:text="@string/enviar_id_invitado"
+                        android:text="@string/consultar"
                         android:id="@+id/binvitado"
                         tools:targetApi="jelly_bean" />
 
