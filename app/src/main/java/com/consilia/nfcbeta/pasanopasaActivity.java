@@ -1,8 +1,10 @@
 package com.consilia.nfcbeta;
 
 import android.annotation.TargetApi;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -12,6 +14,17 @@ import android.media.AudioManager;
 import android.media.ToneGenerator;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
+import android.nfc.NfcAdapter;
+import android.nfc.NfcManager;
+import android.nfc.tech.IsoDep;
+import android.nfc.tech.MifareClassic;
+import android.nfc.tech.MifareUltralight;
+import android.nfc.tech.Ndef;
+import android.nfc.tech.NfcA;
+import android.nfc.tech.NfcB;
+import android.nfc.tech.NfcF;
+import android.nfc.tech.NfcV;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
@@ -25,6 +38,13 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.appindexing.Thing;
+import com.google.android.gms.common.api.GoogleApiClient;
+
+
 
 
 public class pasanopasaActivity extends AppCompatActivity {
@@ -48,6 +68,14 @@ public class pasanopasaActivity extends AppCompatActivity {
     String      datomanual;
     String      TipoSocio;
     int         NumeroAconvertir;
+    int signo = 0;
+    long Resultado = 0;
+    String texto = "";
+    String NFC = "";
+
+
+    private GoogleApiClient client;
+
 
 
     public void setUltimaActivity(String val){
@@ -59,6 +87,18 @@ public class pasanopasaActivity extends AppCompatActivity {
         return this.UltimaActivity;
 
     }
+
+    private final String[][] techList = new String[][]{
+            new String[]{
+                    NfcA.class.getName(),
+                    NfcB.class.getName(),
+                    NfcF.class.getName(),
+                    NfcV.class.getName(),
+                    IsoDep.class.getName(),
+                    MifareClassic.class.getName(),
+                    MifareUltralight.class.getName(), Ndef.class.getName()
+            }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,6 +135,9 @@ public class pasanopasaActivity extends AppCompatActivity {
                 connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED;
 
         if (!connected) Toast.makeText(getBaseContext(), "Falla la coneccion a internet!!!!", Toast.LENGTH_LONG).show();
+
+
+
 
         if (null != idStadium||idStadium.equals("")){
 
@@ -199,6 +242,7 @@ public class pasanopasaActivity extends AppCompatActivity {
                 }
             }
         });
+        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
     @Override
@@ -346,7 +390,8 @@ public class pasanopasaActivity extends AppCompatActivity {
                         }
 
 
-                        switch (Integer.valueOf(idTipo)) {
+                        switch (Integer.valueOf(idTipo))
+                        {
 
                             case 0: {
                                 //no puede pasar
@@ -732,6 +777,182 @@ public class pasanopasaActivity extends AppCompatActivity {
             return false;
         }
     });
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // creating pending intent:
+        Context context = this;
+        NfcManager manager = (NfcManager) context.getSystemService(Context.NFC_SERVICE);
+        NfcAdapter adapter = manager.getDefaultAdapter();
+        if (adapter != null && adapter.isEnabled()) {
+            PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, new Intent(this, getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
+            // creating intent receiver for NFC events:
+            IntentFilter filter = new IntentFilter();
+            filter.addAction(NfcAdapter.ACTION_TAG_DISCOVERED);
+            filter.addAction(NfcAdapter.ACTION_NDEF_DISCOVERED);
+            filter.addAction(NfcAdapter.ACTION_TECH_DISCOVERED);
+            // enabling foreground dispatch for getting intent from NFC event:
+            NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(this);
+            nfcAdapter.enableForegroundDispatch(this, pendingIntent, new IntentFilter[]{filter}, this.techList);
+
+        } else{
+            for (int i=0; i < 30; i++)
+            {
+                Toast.makeText(getBaseContext(), "Prender el NFC desde el menu!!!!", Toast.LENGTH_LONG).show();
+            }
+        }
+
+
+
+    }
+
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        // disabling foreground dispatch:
+        NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(this);
+        nfcAdapter.disableForegroundDispatch(this);
+    }
+
+
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+    @Override
+    protected void onNewIntent(Intent intent) {
+
+        if (intent.getAction().equals(NfcAdapter.ACTION_TAG_DISCOVERED)) {
+            {
+                texto = ByteArrayToHexString(intent.getByteArrayExtra(NfcAdapter.EXTRA_ID));
+
+                {
+                    // ((TextView) findViewById(R.id.text)).setText("NFC Tag " + texto);
+                    //bundle.putString("NFCINVITADO",texto);////
+                    NFC = texto;
+                    bundle.putString("NFCTAG",NFC);
+
+                    try {
+                        imageView.setImageResource(R.drawable.nofoto);
+                    } catch (Exception q) {
+                        q.printStackTrace();
+                    }
+
+                    tresultado.setText("");
+                    Accesos.setText("");
+                    informacion.setText("");
+                    dato.setText("");
+                    datop.setText("");
+
+
+                    RelativeLayout layout = (RelativeLayout) findViewById(R.id.pasanopasa);
+
+                    final int sdk = android.os.Build.VERSION.SDK_INT;
+                    if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                        assert layout != null;
+                        layout.setBackgroundDrawable( getResources().getDrawable(R.drawable.escritorio) );
+                    } else {
+                        assert layout != null;
+                        layout.setBackground( getResources().getDrawable(R.drawable.escritorio));
+                    }
+
+
+
+
+
+                    getSoap("getcarnet");
+
+
+
+                }
+            }
+            Log.d("asd", NfcAdapter.EXTRA_ID);
+            //Log.d("asd", ByteArrayToHexString(intent.getByteArrayExtra(NfcAdapter.EXTRA_ID)));
+
+        }
+    }
+
+    private String ByteArrayToHexString(byte[] inarray) {
+        int i, j, in;
+        String[] hex = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F"};
+        String out = "";
+        signo = 0;
+        byte buffer[] = new byte[inarray.length];
+        // buffer=inarray;
+
+        for (j = inarray.length; j > 0; j--) {
+
+            buffer[buffer.length - j] = inarray[j - 1];
+        }
+
+        if (buffer[buffer.length - 1] < 0) {
+            signo = 1;
+
+            for (j = inarray.length; j > 0; j--) {
+
+                buffer[buffer.length - j] = (byte) ~buffer[buffer.length - j];
+            }
+            buffer[buffer.length - 1] = (byte) ((byte) 0x7f & buffer[buffer.length - 1]);
+            buffer[0]++;
+        }
+
+        for (j = buffer.length; j > 0; j--) {
+
+            in = (int) buffer[j - 1] & 0xff;
+            i = (in >> 4) & 0x0f;
+            out += hex[i];
+            i = in & 0x0f;
+            out += hex[i];
+        }
+
+
+        if (signo == 1) {
+
+            Resultado = -Long.parseLong(out, 16);
+
+        } else Resultado = Long.parseLong(out, 16);
+
+
+        return String.valueOf(Resultado);
+    }
+
+
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    public Action getIndexApiAction() {
+        Thing object = new Thing.Builder()
+                .setName("Nfc Page") // TODO: Define a title for the content shown.
+                // TODO: Make sure this auto-generated URL is correct.
+                .setUrl(Uri.parse("http://[ENTER-YOUR-URL-HERE]"))
+                .build();
+        return new Action.Builder(Action.TYPE_VIEW)
+                .setObject(object)
+                .setActionStatus(Action.STATUS_TYPE_COMPLETED)
+                .build();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client.connect();
+        AppIndex.AppIndexApi.start(client, getIndexApiAction());
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        AppIndex.AppIndexApi.end(client, getIndexApiAction());
+        client.disconnect();
+    }
+
     public Bitmap getRoundedShape(Bitmap scaleBitmapImage) {
         int targetWidth = 200;
         int targetHeight = 200;

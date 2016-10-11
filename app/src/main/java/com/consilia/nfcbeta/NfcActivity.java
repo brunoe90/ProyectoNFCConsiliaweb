@@ -18,7 +18,6 @@ import android.nfc.tech.NfcA;
 import android.nfc.tech.NfcB;
 import android.nfc.tech.NfcF;
 import android.nfc.tech.NfcV;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -324,7 +323,7 @@ public class NfcActivity extends AppCompatActivity implements View.OnClickListen
         nfcAdapter.disableForegroundDispatch(this);
     }
 
-    @TargetApi(Build.VERSION_CODES.KITKAT)
+
     @Override
     protected void onNewIntent(Intent intent) {
 
