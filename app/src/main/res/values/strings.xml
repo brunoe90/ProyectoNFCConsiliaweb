@@ -105,4 +105,5 @@
     <string name="cargando">CARGANDO</string>
     <string name="enviar_id_invitado">Enviar ID Invitado</string>
     <string name="consultar">CONSULTAR</string>
+    <string name="leer_qr">LEER QR</string>
 </resources>

@@ -270,7 +270,7 @@
                         android:fontFamily="sans-serif-medium"
                         android:inputType="number"
                         android:textColor="@color/verdeboleteria"
-                        android:id="@+id/edtsocio"
+                        android:id="@+id/edtinvitado"
                         android:gravity="center_horizontal"
                         android:maxLines="1"
                         android:textSize="20sp"
