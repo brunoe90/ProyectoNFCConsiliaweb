@@ -165,19 +165,19 @@ public class ServerActivity extends AppCompatActivity {
                 switch (method) {
 
                     case "getversion":{
-                        stringsoap =    ex.getversion(bundle.getString("IP"),bundle.getString("port"));
+                        stringsoap =    ex.getversion(bundle.getString("IP"));
                         handler.sendEmptyMessage(0);
                         break;}
 
                     case "GetFotoSocio":{
-                        byte[] foto =   ex.getfotosocio((idStadium),String.valueOf(idSocio ),bundle.getString("IP"),bundle.getString("port"));
+                        byte[] foto =   ex.getfotosocio((idStadium),String.valueOf(idSocio ),bundle.getString("IP"));
                         decodedByte =   BitmapFactory.decodeByteArray(foto, 0, foto.length);
                         handler.sendEmptyMessage(1);
                         break;}
 
                     case "buscar":{
 
-                        numSocio =      ex.getsociobydoc((idStadium), String.valueOf(idSocio ), tipodoc,bundle.getString("IP"),bundle.getString("port")); //type="s:int" devuelve entero ////////// ENTRA unsigned byte idStadium -- string idTipoDoc -- long documento
+                        numSocio =      ex.getsociobydoc((idStadium), String.valueOf(idSocio ), tipodoc,bundle.getString("IP")); //type="s:int" devuelve entero ////////// ENTRA unsigned byte idStadium -- string idTipoDoc -- long documento
                         stringsoap =    String.valueOf(numSocio);
                         idSocio=        numSocio;
                         handler.sendEmptyMessage(2);
@@ -185,13 +185,13 @@ public class ServerActivity extends AppCompatActivity {
 
                     case "getestado":{
                         String numSocio;
-                        numSocio =      ex.getsocio((idStadium),String.valueOf(idSocio ),String.valueOf(idSocio ),bundle.getString("IP"),bundle.getString("port") ); //type="s:int" devuelve entero ////////// ENTRA unsigned byte idStadium -- string idTipoDoc -- long documento
+                        numSocio =      ex.getsocio((idStadium),String.valueOf(idSocio ),String.valueOf(idSocio ),bundle.getString("IP")); //type="s:int" devuelve entero ////////// ENTRA unsigned byte idStadium -- string idTipoDoc -- long documento
                         stringsoap =    String.valueOf(numSocio);
                         handler.sendEmptyMessage(3);
                         break;}
 
                     case "getcarnet":{
-                        stringsoap =    ex.getcaret(idStadium,bundle.getString("NFCTAG"),bundle.getString("IP"),bundle.getString("port"));
+                        stringsoap =    ex.getcaret(idStadium,bundle.getString("NFCTAG"),bundle.getString("IP"));
                         idSocio=        numSocio;
                         handler.sendEmptyMessage(4);
                         break;}

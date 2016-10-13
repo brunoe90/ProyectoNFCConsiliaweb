@@ -44,9 +44,6 @@ import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;
 import com.google.android.gms.common.api.GoogleApiClient;
 
-
-
-
 public class pasanopasaActivity extends AppCompatActivity {
     TextView    dato,datop,tresultado,Accesos,informacion;
     String      stringsoap;
@@ -73,10 +70,7 @@ public class pasanopasaActivity extends AppCompatActivity {
     String texto = "";
     String NFC = "";
 
-
     private GoogleApiClient client;
-
-
 
     public void setUltimaActivity(String val){
         this.UltimaActivity = val;
@@ -123,7 +117,6 @@ public class pasanopasaActivity extends AppCompatActivity {
         Tarjeta =       bundle.getString("NFCTAG");
         datomanual  =   bundle.getString("manual");
         NumeroAconvertir=bundle.getInt("NumeroAconvertir");
-        //UltimaActivity = bundle.getString("lastActivity");
 
         // Seteo variable ultima medante metodo
         this.setUltimaActivity(bundle.getString("lastActivity"));
@@ -135,9 +128,6 @@ public class pasanopasaActivity extends AppCompatActivity {
                 connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED;
 
         if (!connected) Toast.makeText(getBaseContext(), "Falla la coneccion a internet!!!!", Toast.LENGTH_LONG).show();
-
-
-
 
         if (null != idStadium||idStadium.equals("")){
 
@@ -312,7 +302,7 @@ public class pasanopasaActivity extends AppCompatActivity {
                             puertas=stringsoap.substring(numpuertas+8);
 
                             if (puertas.length()>10){
-                                Accesos.setTextSize(15);
+                                Accesos.setTextSize(20);
                             }
                             Accesos.setText("Accesos:"+puertas.replace("Puerta","").replace("PUERTA",""));
                         }
@@ -323,20 +313,6 @@ public class pasanopasaActivity extends AppCompatActivity {
                             dato.setTextSize(24);
                         }
                         dato.setText(Nombre);
-
-
-
-
-                        //invitado
-//                        int mensaje = stringsoap.indexOf("Mensaje: ");
-//                        if (mensaje>0){
-//                            String info = stringsoap.substring(mensaje+"Mensaje: ".length()+1);
-//                            info = info.substring(0,info.indexOf('\n'));
-//                            if (informacion.length()>20){
-//                                informacion.setTextSize(18);
-//                            }
-//                            informacion.setText("Mensaje: "+info);
-//                        }
 
                         // invitado
                         int IdInvitado = stringsoap.indexOf("Num. de Invitado: ");
@@ -379,10 +355,8 @@ public class pasanopasaActivity extends AppCompatActivity {
                             String UCP = stringsoap.substring(stringsoap.indexOf("Ultima Cuota Paga: ")+19);
                             UCP = UCP.substring(0,UCP.indexOf("#"));
 
-                            tresultado.setText("Última Cuota Paga: "+'\n'+UCP);
+                            tresultado.setText("UCP: "+'\n'+UCP);
                         }
-
-
 
                         int callback =stringsoap.indexOf("IdEstado");
                         if (stringsoap.indexOf("IdEstado")>0){
@@ -405,8 +379,6 @@ public class pasanopasaActivity extends AppCompatActivity {
                                     assert layout != null;
                                     layout.setBackground( getResources().getDrawable(R.drawable.backgroundnope));
                                 }
-
-
                                 break;
                             }
                             case 1: {
@@ -452,12 +424,7 @@ public class pasanopasaActivity extends AppCompatActivity {
                                         }
                                     }
                                 }
-
-
-
                                 // puede pasar
-
-
 
                                 break;
                             }
@@ -528,7 +495,6 @@ public class pasanopasaActivity extends AppCompatActivity {
                             case 4: {
 
                                 //no puede pasar
-
                                 if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
                                     assert layout != null;
                                     layout.setBackgroundDrawable( getResources().getDrawable(R.drawable.backgroundnope) );
@@ -555,7 +521,6 @@ public class pasanopasaActivity extends AppCompatActivity {
                                     assert layout != null;
                                     layout.setBackground( getResources().getDrawable(R.drawable.backgroundnope));
                                 }
-
 
                                 datop.setText("Cuota Vencida");
                                 toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
@@ -695,7 +660,6 @@ public class pasanopasaActivity extends AppCompatActivity {
                                     layout.setBackground( getResources().getDrawable(R.drawable.backgroundnope));
                                 }
 
-
                                 datop.setText("Tarjeta Defectuosa");
                                 toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
 
@@ -708,8 +672,6 @@ public class pasanopasaActivity extends AppCompatActivity {
                                     layout.setBackground( getResources().getDrawable(R.drawable.backgroundnope));
                                 }
 
-
-
                                 datop.setText("Difiere N. de Serie");
                                 toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
 
@@ -721,8 +683,6 @@ public class pasanopasaActivity extends AppCompatActivity {
                                 } else {assert layout != null;
                                     layout.setBackground( getResources().getDrawable(R.drawable.backgroundnope));
                                 }
-
-
 
                                 datop.setText("Pasadas Excedidas");
                                 toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
@@ -804,10 +764,7 @@ public class pasanopasaActivity extends AppCompatActivity {
             }
         }
 
-
-
     }
-
 
     @Override
     protected void onPause() {
@@ -844,7 +801,6 @@ public class pasanopasaActivity extends AppCompatActivity {
                     dato.setText("");
                     datop.setText("");
 
-
                     RelativeLayout layout = (RelativeLayout) findViewById(R.id.pasanopasa);
 
                     final int sdk = android.os.Build.VERSION.SDK_INT;
@@ -856,14 +812,7 @@ public class pasanopasaActivity extends AppCompatActivity {
                         layout.setBackground( getResources().getDrawable(R.drawable.escritorio));
                     }
 
-
-
-
-
                     getSoap("getcarnet");
-
-
-
                 }
             }
             Log.d("asd", NfcAdapter.EXTRA_ID);
@@ -985,19 +934,19 @@ public class pasanopasaActivity extends AppCompatActivity {
                 context = getApplicationContext();
                 switch (method) {
                     case "getversion":{
-                        stringsoap =    ex.getversion(bundle.getString("IP"),bundle.getString("port"));
+                        stringsoap =    ex.getversion(bundle.getString("IP"));
                         handler.sendEmptyMessage(0);
                         break;}
 
                     case "GetFotoSocio":{
-                        byte[] foto =   ex.getfotosocio((idStadium),String.valueOf(idSocio ),bundle.getString("IP"),bundle.getString("port"));
+                        byte[] foto =   ex.getfotosocio((idStadium),String.valueOf(idSocio ),bundle.getString("IP"));
                         decodedByte =   BitmapFactory.decodeByteArray(foto, 0, foto.length);
                         handler.sendEmptyMessage(1);
                         TipoSocio="socio";
                         break;}
                     case "GetFotoInvitado":{
                         TipoSocio="invitado";
-                        byte[] foto =   ex.getfotoinvitado((idStadium),String.valueOf(idSocio ),bundle.getString("IP"),bundle.getString("port"));
+                        byte[] foto =   ex.getfotoinvitado((idStadium),String.valueOf(idSocio ),bundle.getString("IP"));
                         decodedByte =   BitmapFactory.decodeByteArray(foto, 0, foto.length);
                         handler.sendEmptyMessage(1);
                         break;}
@@ -1005,7 +954,7 @@ public class pasanopasaActivity extends AppCompatActivity {
 
                     case "buscar":{
                         TipoSocio="socio";
-                        numSocio =      ex.getsociobydoc((idStadium), String.valueOf(NumeroAconvertir ), tipodoc,bundle.getString("IP"),bundle.getString("port")); //type="s:int" devuelve entero ////////// ENTRA unsigned byte idStadium -- string idTipoDoc -- long documento
+                        numSocio =      ex.getsociobydoc((idStadium), String.valueOf(NumeroAconvertir ), tipodoc,bundle.getString("IP")); //type="s:int" devuelve entero ////////// ENTRA unsigned byte idStadium -- string idTipoDoc -- long documento
                         stringsoap =    numSocio;
                         idSocio=        numSocio;
                         getSoap("getestado");
@@ -1015,7 +964,7 @@ public class pasanopasaActivity extends AppCompatActivity {
 
                     case "getestado":{
                         TipoSocio="socio";
-                        numSocio =      ex.getsocio((idStadium),String.valueOf(idSocio ),String.valueOf(idSocio ) ,bundle.getString("IP"),bundle.getString("port")); //type="s:int" devuelve entero ////////// ENTRA unsigned byte idStadium -- string idTipoDoc -- long documento
+                        numSocio =      ex.getsocio((idStadium),String.valueOf(idSocio ),String.valueOf(idSocio ) ,bundle.getString("IP")); //type="s:int" devuelve entero ////////// ENTRA unsigned byte idStadium -- string idTipoDoc -- long documento
                         stringsoap =    numSocio;
 
                         getSoap("GetFotoSocio");
@@ -1023,7 +972,7 @@ public class pasanopasaActivity extends AppCompatActivity {
                         break;}
 
                     case "getestadoinvitado":{
-                        numSocio =      ex.SearchInvitado(String.valueOf(idStadium),String.valueOf(idSocio ) ,bundle.getString("IP"),bundle.getString("port")); //type="s:int" devuelve entero ////////// ENTRA unsigned byte idStadium -- string idTipoDoc -- long documento
+                        numSocio =      ex.SearchInvitado(String.valueOf(idStadium),String.valueOf(idSocio ) ,bundle.getString("IP")); //type="s:int" devuelve entero ////////// ENTRA unsigned byte idStadium -- string idTipoDoc -- long documento
                         stringsoap =    numSocio;
                         TipoSocio="invitado";
                         getSoap("GetFotoInvitado");
@@ -1033,7 +982,7 @@ public class pasanopasaActivity extends AppCompatActivity {
 
                     case "buscarinvitado":{
                         TipoSocio="invitado";
-                        numSocio =      ex.getinvitadobydoc((idStadium), String.valueOf(NumeroAconvertir ), tipodoc,bundle.getString("IP"),bundle.getString("port")); //type="s:int" devuelve entero ////////// ENTRA unsigned byte idStadium -- string idTipoDoc -- long documento
+                        numSocio =      ex.getinvitadobydoc((idStadium), String.valueOf(NumeroAconvertir ), tipodoc,bundle.getString("IP")); //type="s:int" devuelve entero ////////// ENTRA unsigned byte idStadium -- string idTipoDoc -- long documento
                         stringsoap =    numSocio;
                         idSocio=        numSocio;
                         //idTipo="3";
@@ -1041,16 +990,8 @@ public class pasanopasaActivity extends AppCompatActivity {
                         //handler.sendEmptyMessage(2);
                         break;}
 
-                    /*
-
-                    else if (!idInvitado.equals("0")){
-                            getSoap("getestadoinvitado");
-                        } else if (!DocInvitado.equals("0")){
-                            getSoap("buscarinvitado");
-                        }
-                     */
                     case "getcarnet": {
-                        stringsoap =    ex.getcaret(idStadium,bundle.getString("NFCTAG"),bundle.getString("IP"),bundle.getString("port"));
+                        stringsoap =    ex.getcaret(idStadium,bundle.getString("NFCTAG"),bundle.getString("IP"));
 
                         if (stringsoap.equals("0")){
                             idTipo="0";
@@ -1066,7 +1007,6 @@ public class pasanopasaActivity extends AppCompatActivity {
                         } else {
                             idSocio = stringsoap.substring(stringsoap.indexOf('\n')+1).replace(" ","");
                         }
-
 
                         switch (idTipo) {
                             case "8":
@@ -1085,15 +1025,12 @@ public class pasanopasaActivity extends AppCompatActivity {
 
                                 idTipo = "50";
                                 handler.sendEmptyMessage(2);
-
                                 break;
                         }
 
-
-
                         break;}
                     case "getinvitado":{
-                        stringsoap =    ex.SearchInvitado(idStadium,idSocio,bundle.getString("IP"),bundle.getString("port"));
+                        stringsoap =    ex.SearchInvitado(idStadium,idSocio,bundle.getString("IP"));
                         idSocio=        stringsoap;
                         if (stringsoap==null){
                             idSocio="0";
@@ -1101,8 +1038,6 @@ public class pasanopasaActivity extends AppCompatActivity {
                         TipoSocio="invitado";
                         getSoap("GetFotoInvitado");
                         handler.sendEmptyMessage(3);
-
-
                         break;
                     }
                 }

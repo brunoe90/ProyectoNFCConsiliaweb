@@ -93,7 +93,7 @@ public class MainActivity extends Activity {
                     public void run() {
 
                         SoapRequests ex = new SoapRequests();
-                        String stringsoap = ex.getversion(bundle.getString("IP"),bundle.getString("port"));
+                        String stringsoap = ex.getversion(bundle.getString("IP"));
                         if (stringsoap!=null ) {
                             if (!stringsoap.equals("0")) {
                                 handler.sendEmptyMessage(1);

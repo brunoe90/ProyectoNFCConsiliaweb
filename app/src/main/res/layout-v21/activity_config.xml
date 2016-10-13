@@ -37,7 +37,6 @@
         android:background="@drawable/boton" />
 
     <TextView
-        android:layout_marginTop="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/puerta"
@@ -49,7 +48,6 @@
         android:textSize="50sp" />
 
     <EditText
-        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:inputType="number"
@@ -62,7 +60,6 @@
         android:gravity="center_horizontal" />
 
     <Button
-        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:text="@string/entrar"

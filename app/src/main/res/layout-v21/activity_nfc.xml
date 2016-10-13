@@ -172,6 +172,7 @@
                         android:fontFamily="sans-serif-medium"
                         android:textSize="20sp"
                         android:textAlignment="center"
+                        android:maxLength="8"
                         android:textColor="@color/verdeboleteria"
                         android:paddingBottom="10dp"
                         android:paddingTop="10dp" />
@@ -267,11 +268,11 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-medium"
                         android:inputType="number"
-                        android:maxLength="10"
                         android:textColor="@color/verdeboleteria"
                         android:id="@+id/edtinvitado"
                         android:gravity="center_horizontal"
                         android:maxLines="1"
+                        android:maxLength="8"
                         android:textSize="20sp"
                         tools:targetApi="jelly_bean"
                         android:textAlignment="center" />

@@ -24,6 +24,7 @@ public class ConfigActivity extends AppCompatActivity {
     String estadios[];
     String EstadioPos[];
     int  idStadium,Puerta;
+    int posicion;
     //Typeface face= Typeface.createFromAsset(getAssets(),"fonts/digital.ttf");
     //txtV.setTypeface(face);
 
@@ -63,8 +64,6 @@ public class ConfigActivity extends AppCompatActivity {
             }
         }
 
-        //assert etip != null;
-        //etip.setTypeface(face);
 
         boolean connected;
         ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -75,18 +74,14 @@ public class ConfigActivity extends AppCompatActivity {
         if (!connected) Toast.makeText(getBaseContext(), "Falla la coneccion a internet!!!!", Toast.LENGTH_LONG).show();
 
         ArrayAdapter<String> dataAdapter;
-
         dataAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, estadios);
-        //dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(dataAdapter);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        //   ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,estadios, android.R.layout.simple_spinner_item);
-//
-//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//
-//        spinner.setAdapter(adapter);
-//        adapter.setDropDownViewResource(R.layout.spinner_item);
+
+        if (bundle.getInt("pos")!=0){
+            spinner.setSelection(bundle.getInt("pos"));
+        }
 
 
         spinner.setOnItemSelectedListener(
@@ -94,6 +89,8 @@ public class ConfigActivity extends AppCompatActivity {
                     public void onItemSelected(AdapterView<?> parent, android.view.View v, int position, long id) {
 
                         idStadium=Integer.parseInt(EstadioPos[position]);
+                        posicion=position;
+                        bundle.putInt("pos",posicion);
 
                     }
 

@@ -19,7 +19,7 @@ import java.util.Locale;
 
 class SoapRequests {
     private static final boolean DEBUG_SOAP_REQUEST_RESPONSE = true;
-    private static final String NAMESPACE =                     "http://192.168.0.1/WebService.asmx";
+    private static final String NAMESPACE =                     "http://controlplus.net/WebService.asmx";
     private static final String SOAP_ACTION_getversion =        "http://controlplus.net/cwpwebservice/GetVersion";
     private static final String SOAP_ACTION_SearchSocioByDoc =  "http://controlplus.net/cwpwebservice/SearchSocioByDoc";
     private static final String SOAP_ACTION_SearchInvitadoByDoc =  "http://controlplus.net/cwpwebservice/SearchInvitadoByDoc";
@@ -40,7 +40,7 @@ class SoapRequests {
         }
     }
 
-    String getversion(String IP, String port) {
+    String getversion(String IP) {
 
         String data = null;
 
@@ -50,7 +50,7 @@ class SoapRequests {
 
         SoapSerializationEnvelope envelope = getSoapSerializationEnvelope(request);
 
-        HttpTransportSE ht =  getHttpTransportSE( "http://"+IP+":"+port+"/WebService.asmx");
+        HttpTransportSE ht =  getHttpTransportSE( IP);
         try {
             ht.call(SOAP_ACTION_getversion, envelope);
 
@@ -77,7 +77,7 @@ class SoapRequests {
         return data;
     }
 
-    String GetStadiums(String IP, String port) {
+    String GetStadiums(String IP) {
 
         String data = null;
 
@@ -87,7 +87,7 @@ class SoapRequests {
 
         SoapSerializationEnvelope envelope = getSoapSerializationEnvelope(request);
 
-        HttpTransportSE ht =  getHttpTransportSE( "http://"+IP+":"+port+"/WebService.asmx");
+        HttpTransportSE ht =  getHttpTransportSE( IP);
         try {
             ht.call(SOAP_ACTION_GetStadiums, envelope);
 
@@ -114,7 +114,7 @@ class SoapRequests {
         return data;
     }
 
-    String getcaret(String idEstadio, String idSerie, String IP, String port) {
+    String getcaret(String idEstadio, String idSerie, String IP) {
 
         String data;
 
@@ -127,7 +127,7 @@ class SoapRequests {
         SoapSerializationEnvelope envelope;
         envelope = getSoapSerializationEnvelope(request);
 
-        HttpTransportSE ht =  getHttpTransportSE( "http://"+IP+":"+port+"/WebService.asmx");
+        HttpTransportSE ht =  getHttpTransportSE( IP);
         try {
 
             ht.call(SOAP_ACTION_searchcarnet,  envelope);
@@ -158,7 +158,7 @@ class SoapRequests {
         return data;
     }
 
-    String getsociobydoc(String idStadium, String documento, String idTipoDoc, String IP, String port) {
+    String getsociobydoc(String idStadium, String documento, String idTipoDoc, String IP) {
 
         String data = null  ;
 
@@ -172,7 +172,7 @@ class SoapRequests {
         SoapSerializationEnvelope envelope;
         envelope = getSoapSerializationEnvelope(request);
 
-         HttpTransportSE ht =  getHttpTransportSE( "http://"+IP+":"+port+"/WebService.asmx");
+        HttpTransportSE ht =  getHttpTransportSE( IP);
         try {
 
             ht.call(SOAP_ACTION_SearchSocioByDoc,  envelope);
@@ -200,7 +200,7 @@ class SoapRequests {
         return data;
     }
 
-    String getinvitadobydoc(String idStadium, String documento, String idTipoDoc, String IP, String port) {
+    String getinvitadobydoc(String idStadium, String documento, String idTipoDoc, String IP) {
 
         String data = null  ;
 
@@ -214,7 +214,7 @@ class SoapRequests {
         SoapSerializationEnvelope envelope;
         envelope = getSoapSerializationEnvelope(request);
 
-        HttpTransportSE ht =  getHttpTransportSE( "http://"+IP+":"+port+"/WebService.asmx");
+        HttpTransportSE ht =  getHttpTransportSE( IP);
         try {
 
             ht.call(SOAP_ACTION_SearchInvitadoByDoc,  envelope);
@@ -242,7 +242,7 @@ class SoapRequests {
         return data;
     }
 
-    String getsocio(String idStadium, String numSocio, String documento, String IP, String port) {
+    String getsocio(String idStadium, String numSocio, String documento, String IP) {
 
         String data;
        // idStadium="2";
@@ -259,7 +259,7 @@ class SoapRequests {
         envelope = getSoapSerializationEnvelope(request);
         envelope.skipNullProperties=true;
         //envelope.dotNet = false;
-        HttpTransportSE ht =  getHttpTransportSE( "http://"+IP+":"+port+"/WebService.asmx");
+        HttpTransportSE ht =  getHttpTransportSE( IP);
         try {
 
             ht.call(SOAP_ACTION_SearchSocio,  envelope);
@@ -290,6 +290,8 @@ class SoapRequests {
             String UCP =(response.getPrimitivePropertySafelyAsString("UltimoPago"));
             String Estado = response.getPrimitivePropertySafelyAsString("Estado");
 
+
+
             if (Estado==null ||Estado.equals("") ){
                 Estado="0";
             }
@@ -297,13 +299,13 @@ class SoapRequests {
                 puertas="Sin Accesos asignados";
             }
             if (UCP==null ||UCP.equals("") ){
-                UCP="No Asigna";
+                UCP="No Registra";
             }else {
                 UCP=GetStringCuotaPaga(response.getPrimitivePropertySafelyAsString("UltimoPago").substring(0,  7));
             }
 
             data =  response.getPrimitivePropertySafelyAsString("Nombre")+ '\n'+
-                    "Socio Número: "+response.getPrimitivePropertySafelyAsString("NumSocio")+'\n'+
+                    "Socio N°: "+response.getPrimitivePropertySafelyAsString("NumSocio")+'\n'+
                     "Documento: "+          response.getPrimitivePropertySafelyAsString("Documento")+'\n'+
                     //"Num. Socio: "+         response.getPrimitivePropertySafelyAsString("NumSocio")+'\n'+
                     "Categoria: "+          response.getPrimitivePropertySafelyAsString("Categoria") +'\n'+
@@ -349,7 +351,7 @@ class SoapRequests {
         return nuevaFecha;
     }
 
-    String SearchInvitado(String idStadium, String numInvitado, String IP, String port) {
+    String SearchInvitado(String idStadium, String numInvitado, String IP) {
 
         String data;
 
@@ -364,7 +366,7 @@ class SoapRequests {
         envelope = getSoapSerializationEnvelope(request);
         envelope.skipNullProperties=true;
 
-         HttpTransportSE ht =  getHttpTransportSE( "http://"+IP+":"+port+"/WebService.asmx");
+        HttpTransportSE ht =  getHttpTransportSE( IP);
         try {
 
             ht.call(SOAP_ACTION_SearchInvitado,  envelope);
@@ -427,7 +429,7 @@ class SoapRequests {
                 IdInvitado="0";
 
             }else{
-                IdInvitado = "Num. de Invitado: "+ IdInvitado;
+                IdInvitado = "Invitado N°: "+ IdInvitado;
             }
 
             //  data = (resultsString.toString());
@@ -449,7 +451,7 @@ class SoapRequests {
         return data;
     }
 
-    byte[] getfotosocio(String idStadium, String numSocio, String IP, String port) {
+    byte[] getfotosocio(String idStadium, String numSocio, String IP) {
 
         byte data[] = new byte[0];
         String methodname = "GetFotoSocio";
@@ -460,7 +462,7 @@ class SoapRequests {
 
         SoapSerializationEnvelope envelope = getSoapSerializationEnvelope(request);
 
-         HttpTransportSE ht =  getHttpTransportSE( "http://"+IP+":"+port+"/WebService.asmx");
+        HttpTransportSE ht =  getHttpTransportSE( IP);
         try {
             ht.call(SOAP_ACTION_getfoto, envelope);
 
@@ -488,7 +490,7 @@ class SoapRequests {
         return data;
     }
 
-    byte[] getfotoinvitado(String idStadium, String numSocio, String IP, String port) {
+    byte[] getfotoinvitado(String idStadium, String numSocio, String IP) {
 
         byte data[] = new byte[0];
         String methodname = "GetFotoInvitado";
@@ -499,12 +501,12 @@ class SoapRequests {
 
         SoapSerializationEnvelope envelope = getSoapSerializationEnvelope(request);
 
-         HttpTransportSE ht =  getHttpTransportSE( "http://"+IP+":"+port+"/WebService.asmx");
+        HttpTransportSE ht =  getHttpTransportSE( IP);
         try {
             ht.call(SOAP_ACTION_getfoto_Invitado, envelope);
 
             testHttpResponse(ht);
-            SoapPrimitive resultsString = (SoapPrimitive) envelope.getResponse();
+            SoapObject resultsString = (SoapObject) envelope.getResponse();
 
             List<HeaderProperty> COOKIE_HEADER = (List<HeaderProperty>) ht.getServiceConnection().getResponseProperties();
 
