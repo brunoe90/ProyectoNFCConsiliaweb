@@ -257,7 +257,7 @@ class SoapRequests {
 
 
         envelope = getSoapSerializationEnvelope(request);
-        envelope.skipNullProperties=true;
+        //envelope.skipNullProperties=true;
         //envelope.dotNet = false;
         HttpTransportSE ht =  getHttpTransportSE( IP);
         try {
@@ -289,8 +289,20 @@ class SoapRequests {
             String IdEstado = responsee.getPropertySafelyAsString("IdEstado");
             String UCP =(response.getPrimitivePropertySafelyAsString("UltimoPago"));
             String Estado = response.getPrimitivePropertySafelyAsString("Estado");
+            String TicketVirtual= responsee.getPropertySafelyAsString("TicketVirtual");
+            String ContadorSocio = response.getPrimitivePropertyAsString("ContadorSocio");
+
+            if (ContadorSocio==null ||ContadorSocio.equals("")){
+                ContadorSocio="0";
+            }
 
 
+
+            if (TicketVirtual==null ||TicketVirtual.equals("") || TicketVirtual.equals("null")){
+                TicketVirtual="TicketVirtual: No tiene";
+            }else{
+                TicketVirtual= "TicketVirtual: "+TicketVirtual;
+            }
 
             if (Estado==null ||Estado.equals("") ){
                 Estado="0";
@@ -305,7 +317,7 @@ class SoapRequests {
             }
 
             data =  response.getPrimitivePropertySafelyAsString("Nombre")+ '\n'+
-                    "Socio N°: "+response.getPrimitivePropertySafelyAsString("NumSocio")+'\n'+
+                    "Socio N°: "+response.getPrimitivePropertySafelyAsString("NumSocio")+"-"+ContadorSocio+'\n'+
                     "Documento: "+          response.getPrimitivePropertySafelyAsString("Documento")+'\n'+
                     //"Num. Socio: "+         response.getPrimitivePropertySafelyAsString("NumSocio")+'\n'+
                     "Categoria: "+          response.getPrimitivePropertySafelyAsString("Categoria") +'\n'+
@@ -317,6 +329,7 @@ class SoapRequests {
                     "Estado del Socio: "+             Estado+'\n'+
                     "Ultima Cuota Paga: " + UCP +"#"+'\n'+" "+
                     "IdEstado: "+ IdEstado+'\n'+
+                    TicketVirtual+'\n'+
                     "Puertas:" +puertas;
 
 
@@ -395,6 +408,23 @@ class SoapRequests {
             String Message = resultsString.getPrimitivePropertyAsString("Message");
             String IdInvitado = resultsString.getPrimitivePropertyAsString("IdInvitado");
             String Categoria = resultsString.getPrimitivePropertyAsString("Categoria");
+            String TicketVirtual= responsee.getPropertySafelyAsString("TicketVirtual");
+            String Contador = resultsString.getPrimitivePropertyAsString("Contador");
+
+            if (Contador==null ||Contador.equals("")){
+                Contador="0";
+            }
+
+
+
+            if (TicketVirtual==null ||TicketVirtual.equals("") || TicketVirtual.equals("null")){
+                TicketVirtual="TicketVirtual: No tiene";
+            }else{
+                TicketVirtual= "TicketVirtual: "+TicketVirtual;
+            }
+
+
+
             if (nombre==null ||nombre.equals("") ){
                 nombre="0";
             }
@@ -429,7 +459,7 @@ class SoapRequests {
                 IdInvitado="0";
 
             }else{
-                IdInvitado = "Invitado N°: "+ IdInvitado;
+                IdInvitado = "Invitado Nº: "+ IdInvitado;
             }
 
             //  data = (resultsString.toString());
@@ -439,11 +469,11 @@ class SoapRequests {
 
                     "Estado: "+ Estado + '\n'+
                     "Cuota Control: " +CuotaCtrl +'\n'+
-                    IdInvitado+'\n'+
+                    IdInvitado+"-"+Contador+'\n'+
                     Documento+'\n'+
-
                     Categoria + '\n'+
-                    resultsString.getPrimitivePropertyAsString("Message")+ '\n';
+                    resultsString.getPrimitivePropertyAsString("Message")+ '\n'+
+                    TicketVirtual+'\n';
         } catch (Exception q) {
             q.printStackTrace();
             data = "0";
@@ -490,14 +520,14 @@ class SoapRequests {
         return data;
     }
 
-    byte[] getfotoinvitado(String idStadium, String numSocio, String IP) {
+    byte[] getfotoinvitado(String idStadium, String numInvitado, String IP) {
 
         byte data[] = new byte[0];
         String methodname = "GetFotoInvitado";
 
         SoapObject request = new SoapObject("http://controlplus.net/cwpwebservice", methodname);
         request.addProperty("idStadium", idStadium);
-        request.addProperty("numSocio", numSocio);
+        request.addProperty("numInvitado", numInvitado);
 
         SoapSerializationEnvelope envelope = getSoapSerializationEnvelope(request);
 
@@ -506,7 +536,7 @@ class SoapRequests {
             ht.call(SOAP_ACTION_getfoto_Invitado, envelope);
 
             testHttpResponse(ht);
-            SoapObject resultsString = (SoapObject) envelope.getResponse();
+            SoapPrimitive resultsString = (SoapPrimitive) envelope.getResponse();
 
             List<HeaderProperty> COOKIE_HEADER = (List<HeaderProperty>) ht.getServiceConnection().getResponseProperties();
 
@@ -525,6 +555,7 @@ class SoapRequests {
 
         } catch (Exception q) {
             q.printStackTrace();
+            data[0]=0;
         }
         return data;
     }

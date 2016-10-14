@@ -87,7 +87,7 @@
         android:id="@+id/tresultado"
 
         android:textAlignment="viewStart"
-        android:textSize="20sp"
+        android:textSize="25sp"
         android:textColor="@color/grisboleteria"
         android:layout_alignParentBottom="true"
         android:layout_alignLeft="@+id/imageView"
@@ -119,18 +119,22 @@
         android:layout_alignStart="@+id/Puertas" />
 
     <ImageView
-        android:layout_width="120sp"
         android:innerRadius="0dp"
         android:id="@+id/imageView"
-        android:shadowColor="#000000"
+        android:shadowColor="#FFFFFF"
         android:contentDescription=""
         android:adjustViewBounds="false"
 
         android:background="@drawable/nofoto"
         android:fadingEdge="horizontal|vertical"
-        android:layout_height="132sp"
         android:layout_alignTop="@+id/buttonfoto"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_width="160dp"
+        android:layout_height="176dp"
+        android:paddingBottom="2dp"
+        android:paddingLeft="2dp"
+        android:paddingRight="2dp"
+        android:paddingTop="2dp" />
 
 </RelativeLayout>
 

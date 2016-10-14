@@ -315,7 +315,7 @@ public class pasanopasaActivity extends AppCompatActivity {
                         dato.setText(Nombre);
 
                         // invitado
-                        int IdInvitado = stringsoap.indexOf("Num. de Invitado: ");
+                        int IdInvitado = stringsoap.indexOf("Invitado Nº: ");
                         int IdCat      = stringsoap.indexOf("Categoria: ");
                         if (IdInvitado>0){
                             String fintrama = stringsoap.substring(IdCat);
@@ -332,21 +332,22 @@ public class pasanopasaActivity extends AppCompatActivity {
                         if (socio>0){
                             String info = stringsoap.substring(stringsoap.indexOf('\n')+1, socio-1);
                             if (informacion.length()>20){
-                                informacion.setTextSize(18);
+                                informacion.setTextSize(22);
                             }
                             informacion.setText(info);
                         }
 
 
 
-                        //INVITADO
-                        int CC = stringsoap.indexOf("Cuota Control: ");
-                        if (CC>0){
-                            String UCP = stringsoap.substring(stringsoap.indexOf("Cuota Control: ")+15);
-                            UCP = UCP.substring(0,UCP.indexOf('\n'));
 
-                            tresultado.setText("Cuota Control: "+'\n'+'\n'+UCP);
-                        }
+                        //INVITADO
+//                        int CC = stringsoap.indexOf("Cuota Control: ");
+//                        if (CC>0){
+//                            String UCP = stringsoap.substring(stringsoap.indexOf("Cuota Control: ")+15);
+//                            UCP = UCP.substring(0,UCP.indexOf('\n'));
+//
+//                            tresultado.setText("Cuota Control: "+'\n'+'\n'+UCP);
+//                        }
 
 
                         //SOCIO
@@ -355,8 +356,21 @@ public class pasanopasaActivity extends AppCompatActivity {
                             String UCP = stringsoap.substring(stringsoap.indexOf("Ultima Cuota Paga: ")+19);
                             UCP = UCP.substring(0,UCP.indexOf("#"));
 
-                            tresultado.setText("UCP: "+'\n'+UCP);
+                            tresultado.setText("UCP: "+UCP);
                         }
+
+
+                        int TV = stringsoap.indexOf("TicketVirtual");
+                        if (TV>0){
+                            String info = stringsoap.substring(TV);
+                            info = info.substring(0,info.indexOf('\n'));
+
+                            tresultado.setText(tresultado.getText().toString()+'\n'+info);
+                            if (tresultado.length()>25){
+                                tresultado.setTextSize(20);
+                            }
+                        }
+
 
                         int callback =stringsoap.indexOf("IdEstado");
                         if (stringsoap.indexOf("IdEstado")>0){
@@ -414,6 +428,8 @@ public class pasanopasaActivity extends AppCompatActivity {
                                         }
                                     }else {
                                         datop.setText("No hay Puertas Asignadas");
+                                        datop.setTextSize(20);
+                                      //  tresultado.setTextSize(24);
                                         toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
                                         if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
                                             assert layout != null;
@@ -1031,7 +1047,7 @@ public class pasanopasaActivity extends AppCompatActivity {
                         break;}
                     case "getinvitado":{
                         stringsoap =    ex.SearchInvitado(idStadium,idSocio,bundle.getString("IP"));
-                        idSocio=        stringsoap;
+                       // idSocio=        stringsoap;
                         if (stringsoap==null){
                             idSocio="0";
                         }
