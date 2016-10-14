@@ -1,5 +1,6 @@
 package com.consilia.nfcbeta;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
@@ -10,12 +11,20 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStreamReader;
+
 public class loginActivity extends AppCompatActivity   {
 
     Button entrar;
     EditText  IP;
     Bundle bundle;
     String stringsoap;
+    FileOutputStream myFileOutput;
+    FileInputStream myFileInput;
+    String myFilename = "configFile.cfg";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +53,23 @@ public class loginActivity extends AppCompatActivity   {
 
                         SoapRequests ex = new SoapRequests();
                         stringsoap = ex.GetStadiums(IP.getText().toString());
+
+                        // Guarda en archivo ##############################################################
+                        String strAux = IP.getText().toString();
+
+                        // Al presionar el boton... guardamos en un archivo...
+                        try{
+                            myFileOutput = openFileOutput(myFilename, Context.MODE_PRIVATE);
+                            myFileOutput.write( strAux.getBytes() );
+                            myFileOutput.close();
+                        }
+                        catch ( Exception ignored){
+
+                        }
+                        // ###############################################################################
+
+
+
                         if (stringsoap!=null ) {
                             if (!stringsoap.equals("0")) {
                                 handler.sendEmptyMessage(1);
@@ -59,6 +85,29 @@ public class loginActivity extends AppCompatActivity   {
 
             }
         });
+
+        // Recupera texto ################################################################
+        try {
+            // Abrimos stream y creamos buffer...
+            myFileInput                         = openFileInput(myFilename);
+            InputStreamReader inputStreamReader = new InputStreamReader( myFileInput );
+            BufferedReader bufferedReader       = new BufferedReader( inputStreamReader );
+
+            // Obtenemos string
+            String strAux = bufferedReader.readLine();
+
+            // Grabamos string
+            IP.setText( strAux );
+
+            // Cerramos flujo
+            myFileInput.close();
+        }
+        catch (Exception ignored){
+
+        }
+        // ################################################################################
+
+
 
     }
 
@@ -76,6 +125,10 @@ public class loginActivity extends AppCompatActivity   {
                     bundle.putStringArray("Estadios",estadios);
                     bundle.putString("IP",IP.getText().toString());
                     Intent intent = new Intent(loginActivity.this, ConfigActivity.class);
+
+
+
+
                     intent.putExtras(bundle);
                     startActivity(intent);
                     break;

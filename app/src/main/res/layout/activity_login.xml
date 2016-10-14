@@ -19,7 +19,6 @@
         android:id="@+id/ip"
         android:textColor="@color/verdeboleteria"
         android:textSize="20sp"
-        android:text="@string/http_192_168_0_1_webservice_asmx"
         android:textAlignment="center"
         android:maxLength="40"
         android:inputType="textWebEditText"
