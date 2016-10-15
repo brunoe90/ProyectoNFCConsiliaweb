@@ -29,7 +29,7 @@ public class QRBarcodeActivity extends AppCompatActivity implements View.OnClick
     Bundle bundle;
     EditText editText, editText2;
     String idSocio="";
-    RadioButton bsocio,bdni;
+//    RadioButton bsocio,bdni;
     String dato="";
     TabHost host;
     Button botonvolver;
@@ -45,13 +45,12 @@ public class QRBarcodeActivity extends AppCompatActivity implements View.OnClick
         bqr = (Button) findViewById(R.id.bqr);
         benviar = (Button) findViewById(R.id.benviar);
         benviarid = (Button)findViewById(R.id.bidsocio);
-        bsocio = (RadioButton)findViewById(R.id.buttonsocio);
-        bdni = (RadioButton)findViewById(R.id.buttondni);
+//        bsocio = (RadioButton)findViewById(R.id.buttonsocio);
+//        bdni = (RadioButton)findViewById(R.id.buttondni);
         botonvolver = (Button) findViewById(R.id.bvolver);
-        benviarid = (Button) findViewById(R.id.bidsocio);
         benviaridinvitado = (Button) findViewById(R.id.binvitado);
 
-        editText = (EditText)findViewById(R.id.editText4);
+//        editText = (EditText)findViewById(R.id.editText4);
         bundle= new Bundle();
         bundle = getIntent().getExtras();
         bundle.putString("lastActivity","qr");
@@ -203,7 +202,7 @@ public class QRBarcodeActivity extends AppCompatActivity implements View.OnClick
         // Is the button now checked?
         boolean checked = ((RadioButton) view).isChecked();
 //        bid = (RadioButton) findViewById(R.id.bid);
-        bdni = (RadioButton) findViewById(R.id.buttondni);
+//        bdni = (RadioButton) findViewById(R.id.buttondni);
 //        binvitado = (RadioButton) findViewById(R.id.SelectInvitado);
 //        bselectsocio = (RadioButton) findViewById(R.id.SelectSocio);
 
@@ -252,8 +251,8 @@ public class QRBarcodeActivity extends AppCompatActivity implements View.OnClick
         return super.onKeyDown(keyCode, event);
     }
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
-        formatTxt = (TextView)findViewById(R.id.formatTxt);
-        contentTxt= (TextView)findViewById(R.id.contentTxt);
+//        formatTxt = (TextView)findViewById(R.id.formatTxt);
+//        contentTxt= (TextView)findViewById(R.id.contentTxt);
         IntentResult scanningResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
         if (scanningResult != null) {
             String scanContent = scanningResult.getContents();

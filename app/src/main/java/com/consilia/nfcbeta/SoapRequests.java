@@ -291,6 +291,14 @@ class SoapRequests {
             String Estado = response.getPrimitivePropertySafelyAsString("Estado");
             String TicketVirtual= responsee.getPropertySafelyAsString("TicketVirtual");
             String ContadorSocio = response.getPrimitivePropertyAsString("ContadorSocio");
+            String EstadoAcceso = responsee.getPropertySafelyAsString("Estado");
+
+            if (EstadoAcceso==null ||EstadoAcceso.equals("")){
+                EstadoAcceso="";
+            }else{
+                EstadoAcceso= "EstadoAcceso "+EstadoAcceso;
+            }
+
 
             if (ContadorSocio==null ||ContadorSocio.equals("")){
                 ContadorSocio="0";
@@ -330,6 +338,7 @@ class SoapRequests {
                     "Ultima Cuota Paga: " + UCP +"#"+'\n'+" "+
                     "IdEstado: "+ IdEstado+'\n'+
                     TicketVirtual+'\n'+
+                    EstadoAcceso+'\n'+
                     "Puertas:" +puertas;
 
 

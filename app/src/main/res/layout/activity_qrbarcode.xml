@@ -110,7 +110,7 @@
                         android:fontFamily="sans-serif-medium"
                         android:textStyle="normal|bold|italic"
                         android:textColor="@color/grisboleteria"
-                        android:text="@string/socio"
+                        android:text="@string/id_socio"
                         android:gravity="center_horizontal"
                         android:id="@+id/textView5"
                         android:textSize="40sp"
@@ -119,7 +119,7 @@
 
                     <ImageView
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="150dp"
                         app:srcCompat="@drawable/socio"
                         android:id="@+id/imageView3" />
 
@@ -185,7 +185,6 @@
                         android:textSize="20sp" />
 
                     <Button
-                        android:layout_marginTop="10dp"
                         android:fontFamily="sans-serif-medium"
                         android:textStyle="normal|bold"
                         android:layout_height="50dp"
@@ -193,7 +192,7 @@
                         android:textColor="@color/grisboleteria"
                         android:layout_width="match_parent"
                         android:background="@drawable/boton"
-                        android:text="@string/enviar"
+                        android:text="@string/consultar"
                         android:id="@+id/bidsocio"
                         tools:targetApi="jelly_bean" />
 
@@ -223,7 +222,7 @@
 
                     <ImageView
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="150dp"
                         app:srcCompat="@drawable/invitado"
                         android:id="@+id/imageView3" />
 
@@ -291,9 +290,11 @@
                         android:textColor="@color/grisboleteria"
                         android:layout_width="match_parent"
                         android:background="@drawable/boton"
-                        android:text="@string/enviar"
+                        android:text="@string/consultar"
                         android:id="@+id/binvitado"
-                        tools:targetApi="jelly_bean" />
+                        tools:targetApi="jelly_bean"
+                        android:minHeight="0dp"
+                        android:minWidth="0dp" />
 
                 </LinearLayout>
 
@@ -305,105 +306,4 @@
     </TabHost>
 
 
-    <TextView
-        android:layout_marginTop="10dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:textSize="50sp"
-        android:fontFamily="sans-serif-medium"
-        android:textStyle="normal|bold|italic"
-        android:text="@string/formato"
-        android:id="@+id/formatTxt"
-        android:visibility="gone"
-        tools:targetApi="jelly_bean" />
-
-    <TextView
-        android:layout_marginTop="10dp"
-        android:background="@drawable/custom_tview_background"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/contentTxt"
-        android:textSize="30sp"
-        android:layout_gravity="center_horizontal"
-        android:visibility="gone" />
-
-    <TextView
-        android:layout_marginTop="10dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:textSize="50sp"
-        android:fontFamily="sans-serif-medium"
-        android:textStyle="normal|bold|italic"
-        android:id="@+id/textView6"
-        android:text="@string/id_socio"
-        android:textColor="@color/gris"
-        tools:targetApi="jelly_bean" />
-
-    <RadioGroup
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_gravity="center_horizontal"
-        android:layout_weight="0">
-
-        <RadioButton
-            android:fontFamily="sans-serif-medium"
-            android:textStyle="normal|bold"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/idsocio"
-            android:id="@+id/buttonsocio"
-            android:layout_gravity="center_horizontal"
-            android:layout_weight="0"
-            android:checked="false"
-            android:textSize="20sp"
-            android:onClick="onRadioButtonClicked"
-            android:textColor="@color/verdeboleteria"
-            tools:targetApi="jelly_bean" />
-
-        <RadioButton
-            android:fontFamily="sans-serif-medium"
-            android:textStyle="normal|bold"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/documento"
-            android:id="@+id/buttondni"
-            android:layout_gravity="right"
-            android:layout_weight="0"
-            android:checked="false"
-            android:textSize="20sp"
-            android:onClick="onRadioButtonClicked"
-            android:textColor="@color/verdeboleteria"
-            tools:targetApi="jelly_bean" />
-
-    </RadioGroup>
-
-    <EditText
-        android:layout_marginTop="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:inputType="number"
-        android:ems="10"
-        android:maxLength="10"
-        android:id="@+id/editText4"
-        android:foregroundGravity="center_horizontal"
-        android:layout_gravity="center_horizontal"
-        android:textColor="@color/gris" />
-
-    <Button
-        android:layout_marginTop="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:fontFamily="sans-serif-medium"
-        android:textStyle="normal|bold"
-        android:layout_gravity="center_horizontal"
-        android:background="@android:drawable/editbox_background"
-        android:textSize="30sp"
-        android:text="@string/enviar"
-        android:id="@+id/bidsocio"
-        android:layout_weight="0"
-        android:textColor="@color/grisboleteria"
-        tools:targetApi="jelly_bean" />
 </LinearLayout>

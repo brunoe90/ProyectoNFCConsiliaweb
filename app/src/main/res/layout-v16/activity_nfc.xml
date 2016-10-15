@@ -173,9 +173,7 @@
                         android:textSize="20sp"
                         android:textAlignment="center"
                         android:maxLength="8"
-                        android:textColor="@color/verdeboleteria"
-                        android:paddingBottom="10dp"
-                        android:paddingTop="10dp" />
+                        android:textColor="@color/verdeboleteria" />
 
                     <Button
                         android:layout_width="match_parent"

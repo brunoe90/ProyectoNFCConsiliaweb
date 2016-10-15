@@ -38,7 +38,6 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;
@@ -360,6 +359,18 @@ public class pasanopasaActivity extends AppCompatActivity {
                         }
 
 
+                        int EstadoAcceso = stringsoap.indexOf("EstadoAcceso ");
+                        if (EstadoAcceso>0){
+                            String info = stringsoap.substring(EstadoAcceso);
+                            info = info.substring("EstadoAcceso ".length(),info.indexOf('\n'));
+
+                            datop.setText(info);
+                            if (datop.length()>15){
+                                datop.setTextSize(20);
+                            }
+                        }
+
+
                         int TV = stringsoap.indexOf("TicketVirtual");
                         if (TV>0){
                             String info = stringsoap.substring(TV);
@@ -371,11 +382,11 @@ public class pasanopasaActivity extends AppCompatActivity {
                             }
                         }
 
-
                         int callback =stringsoap.indexOf("IdEstado");
                         if (stringsoap.indexOf("IdEstado")>0){
                             idTipo=stringsoap.substring(callback+8,callback+8+4).replace("\n","").replace(" ","").replace(":","");
                         }
+
 
 
                         switch (Integer.valueOf(idTipo))
@@ -384,7 +395,7 @@ public class pasanopasaActivity extends AppCompatActivity {
                             case 0: {
                                 //no puede pasar
 
-                                datop.setText("Fue Deshabilitado");
+//                                datop.setText("Fue Deshabilitado");
                                 toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
                                 if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
                                     assert layout != null;
@@ -412,11 +423,11 @@ public class pasanopasaActivity extends AppCompatActivity {
                                                 layout.setBackground( getResources().getDrawable(R.drawable.backgroundok));
                                             }
 
-                                            datop.setText("OK");
+//                                            datop.setText("OK");
                                             toneG.startTone(ToneGenerator.TONE_CDMA_ALERT_CALL_GUARD, 200);
                                         }else {
 
-                                            datop.setText("Puerta equivocada");
+//                                            datop.setText("Puerta equivocada");
                                             toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
                                             if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
                                                 assert layout != null;
@@ -427,7 +438,7 @@ public class pasanopasaActivity extends AppCompatActivity {
                                             }
                                         }
                                     }else {
-                                        datop.setText("No hay Puertas Asignadas");
+//                                        datop.setText("No hay Puertas Asignadas");
                                         datop.setTextSize(20);
                                       //  tresultado.setTextSize(24);
                                         toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
@@ -462,11 +473,11 @@ public class pasanopasaActivity extends AppCompatActivity {
                                                 layout.setBackground( getResources().getDrawable(R.drawable.backgroundok));
                                             }
 
-                                            datop.setText("Habilit. manual");
+//                                            datop.setText("Habilit. manual");
                                             toneG.startTone(ToneGenerator.TONE_CDMA_ALERT_CALL_GUARD, 200);
                                         }else {
 
-                                            datop.setText("Puerta equivocada");
+//                                            datop.setText("Puerta equivocada");
                                             toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
                                             if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
                                                 assert layout != null;
@@ -477,7 +488,7 @@ public class pasanopasaActivity extends AppCompatActivity {
                                             }
                                         }
                                     }else {
-                                        datop.setText("No hay Puertas Asignadas");
+//                                        datop.setText("No hay Puertas Asignadas");
                                         toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
                                         if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
                                             assert layout != null;
@@ -503,7 +514,7 @@ public class pasanopasaActivity extends AppCompatActivity {
                                 }
 
 
-                                datop.setText("Ya ingreso al estadio");
+//                                datop.setText("Ya ingreso al estadio");
                                 toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
 
                                 break;
@@ -520,7 +531,7 @@ public class pasanopasaActivity extends AppCompatActivity {
                                 }
 
 
-                                datop.setText("No esta activo");
+//                                datop.setText("No esta activo");
                                 toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
 
 
@@ -538,7 +549,7 @@ public class pasanopasaActivity extends AppCompatActivity {
                                     layout.setBackground( getResources().getDrawable(R.drawable.backgroundnope));
                                 }
 
-                                datop.setText("Cuota Vencida");
+//                                datop.setText("Cuota Vencida");
                                 toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
 
 
@@ -547,7 +558,7 @@ public class pasanopasaActivity extends AppCompatActivity {
                             case 6: {
                                 // no pasa
 
-                                datop.setText("Paso por Perimetral");
+//                                datop.setText("Paso por Perimetral");
                                 if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
                                     assert layout != null;
                                     layout.setBackgroundDrawable( getResources().getDrawable(R.drawable.backgroundnope) );
@@ -571,7 +582,7 @@ public class pasanopasaActivity extends AppCompatActivity {
                                 }
 
 
-                                datop.setText("Abono vencido");
+//                                datop.setText("Abono vencido");
                                 toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
 
 
@@ -579,7 +590,7 @@ public class pasanopasaActivity extends AppCompatActivity {
                             } case 8: {
                                 // no pasa
                                 toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
-                                datop.setText("Canjeo por ticket");
+//                                datop.setText("Canjeo por ticket");
                                 if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
                                     assert layout != null;
                                     layout.setBackgroundDrawable( getResources().getDrawable(R.drawable.backgroundnope) );
@@ -601,7 +612,7 @@ public class pasanopasaActivity extends AppCompatActivity {
                                 }
 
 
-                                datop.setText("Credencial Vencida");
+//                                datop.setText("Credencial Vencida");
                                 toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
 
                                 break;
@@ -616,7 +627,7 @@ public class pasanopasaActivity extends AppCompatActivity {
                                 }
 
 
-                                datop.setText("Copia no Habilitada");
+//                                datop.setText("Copia no Habilitada");
 
                                 toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
                                 break;
@@ -632,7 +643,7 @@ public class pasanopasaActivity extends AppCompatActivity {
                                 }
 
 
-                                datop.setText("No tiene carnet");
+//                                datop.setText("No tiene carnet");
                                 toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
 
                                 break;
@@ -647,7 +658,7 @@ public class pasanopasaActivity extends AppCompatActivity {
                                 }
 
 
-                                datop.setText("Sector incorrecto");
+//                                datop.setText("Sector incorrecto");
 
                                 toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
                                 break;
@@ -661,7 +672,7 @@ public class pasanopasaActivity extends AppCompatActivity {
                                 }
 
 
-                                datop.setText("Sector Completo");
+//                                datop.setText("Sector Completo");
                                 toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
 
                                 break;
@@ -676,7 +687,7 @@ public class pasanopasaActivity extends AppCompatActivity {
                                     layout.setBackground( getResources().getDrawable(R.drawable.backgroundnope));
                                 }
 
-                                datop.setText("Tarjeta Defectuosa");
+//                                datop.setText("Tarjeta Defectuosa");
                                 toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
 
                                 break;
@@ -688,7 +699,7 @@ public class pasanopasaActivity extends AppCompatActivity {
                                     layout.setBackground( getResources().getDrawable(R.drawable.backgroundnope));
                                 }
 
-                                datop.setText("Difiere N. de Serie");
+//                                datop.setText("Difiere N. de Serie");
                                 toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
 
                                 break;
@@ -700,7 +711,7 @@ public class pasanopasaActivity extends AppCompatActivity {
                                     layout.setBackground( getResources().getDrawable(R.drawable.backgroundnope));
                                 }
 
-                                datop.setText("Pasadas Excedidas");
+//                                datop.setText("Pasadas Excedidas");
                                 toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
 
                                 break;
@@ -714,7 +725,7 @@ public class pasanopasaActivity extends AppCompatActivity {
                                 }
 
 
-                                datop.setText("Actividad Vencida");
+//                                datop.setText("Actividad Vencida");
 
                                 toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
                                 break;
@@ -728,11 +739,23 @@ public class pasanopasaActivity extends AppCompatActivity {
                                 }
 
 
-                                datop.setText("Fuera de Horario");
+//                                datop.setText("Fuera de Horario");
 
                                 toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
                                 break;
                             }
+
+                            default:{
+
+                                if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {assert layout != null;
+                                    layout.setBackgroundDrawable( getResources().getDrawable(R.drawable.backgroundnope) );
+                                } else {assert layout != null;
+                                    layout.setBackground( getResources().getDrawable(R.drawable.backgroundnope));
+                                }
+                                toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
+                            }
+
+
                         }
                     }
                     break;}

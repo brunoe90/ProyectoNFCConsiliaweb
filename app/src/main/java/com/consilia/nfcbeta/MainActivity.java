@@ -46,8 +46,8 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
         tv = (TextView) findViewById(R.id.text);
-        formatTxt = (TextView) findViewById(R.id.formatTxt);
-        contentTxt  = (TextView)findViewById(R.id.contentTxt);
+//        formatTxt = (TextView) findViewById(R.id.formatTxt);
+//        contentTxt  = (TextView)findViewById(R.id.contentTxt);
         bt1 = (Button) findViewById(R.id.button1);
         bt4 = (ImageButton) findViewById(R.id.button4);
         bnfc= (ImageButton) findViewById(R.id.buttonNFC);

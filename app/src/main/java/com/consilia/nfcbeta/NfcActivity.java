@@ -47,7 +47,7 @@ public class NfcActivity extends AppCompatActivity implements View.OnClickListen
     Bundle bundle;
     String texto = "";
     String NFC = "";
-    RadioButton bid, bdni;
+    //RadioButton bid, bdni;
     String dato = "";
     TabHost host;
 
@@ -115,8 +115,8 @@ public class NfcActivity extends AppCompatActivity implements View.OnClickListen
         benviaridinvitado = (Button) findViewById(R.id.binvitado);
         editText = (EditText) findViewById(R.id.edtsocio);
         editText2 = (EditText) findViewById(R.id.edtinvitado);
-        bid = (RadioButton) findViewById(R.id.buttonsocio);
-        bdni = (RadioButton) findViewById(R.id.buttondni);
+//        bid = (RadioButton) findViewById(R.id.buttonsocio);
+//        bdni = (RadioButton) findViewById(R.id.buttondni);
         //binvitado = (RadioButton) findViewById(R.id.SelectInvitado);
         //bselectsocio = (RadioButton) findViewById(R.id.SelectSocio);
 
@@ -251,7 +251,7 @@ public class NfcActivity extends AppCompatActivity implements View.OnClickListen
         // Is the button now checked?
         boolean checked = ((RadioButton) view).isChecked();
 //        bid = (RadioButton) findViewById(R.id.bid);
-        bdni = (RadioButton) findViewById(R.id.buttondni);
+//        bdni = (RadioButton) findViewById(R.id.buttondni
 //        binvitado = (RadioButton) findViewById(R.id.SelectInvitado);
 //        bselectsocio = (RadioButton) findViewById(R.id.SelectSocio);
 
