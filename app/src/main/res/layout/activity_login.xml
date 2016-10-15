@@ -69,9 +69,10 @@
     <ImageView
         app:srcCompat="@drawable/login"
         android:id="@+id/imageView2"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
         android:paddingTop="10dp"
         android:layout_below="@+id/textView7"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:paddingBottom="10dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp" />
 </RelativeLayout>
