@@ -280,11 +280,11 @@ class SoapRequests {
                 }
 
             }
-           // response.getPropertySafelyAsString("EstadoAcceso");
-            if (null== response.getPropertySafelyAsString("EstadoAcceso")){
-                return "0";
+           String a = response.getPropertySafelyAsString("EstadoAcceso");
+            if ( a.equals("")){
+                return response.getPropertySafelyAsString("Message");
             }
-            SoapObject responsee = (SoapObject) response.getProperty("EstadoAcceso");
+            SoapObject responsee = (SoapObject) response.getPropertySafely("EstadoAcceso");
             String puertas = responsee.getPropertySafelyAsString("Puertas");
             String IdEstado = responsee.getPropertySafelyAsString("IdEstado");
             String UCP =(response.getPrimitivePropertySafelyAsString("UltimoPago"));
@@ -408,6 +408,11 @@ class SoapRequests {
                     break;
                 }
             }
+
+            String a = resultsString.getPropertySafelyAsString("EstadoAcceso");
+            if ( a.equals("")){
+                return resultsString.getPropertySafelyAsString("Message");
+            }
             SoapObject responsee = (SoapObject) resultsString.getProperty("EstadoAcceso");
             String Estado = responsee.getPrimitivePropertyAsString("Estado");
             String CuotaCtrl = responsee.getPrimitivePropertyAsString("CuotaCtrl");
@@ -525,6 +530,7 @@ class SoapRequests {
 
         } catch (Exception q) {
             q.printStackTrace();
+            data[0]=0;
         }
         return data;
     }

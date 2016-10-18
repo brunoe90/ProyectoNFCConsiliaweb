@@ -338,9 +338,13 @@ public class NfcActivity extends AppCompatActivity implements View.OnClickListen
                     int a =host.getCurrentTab();
                     if (a==0){
                         bundle.putString("NFCTAG",texto);
+                        bundle.remove("NumeroAconvertir");
+                        bundle.remove("manual");
                         botonvolver.performClick();
                     }else {
                         bundle.putString("NFCINVITADO",texto);
+                        bundle.remove("NumeroAconvertir");
+                        bundle.remove("manual");
                         botonvolver.performClick();
                     }
 

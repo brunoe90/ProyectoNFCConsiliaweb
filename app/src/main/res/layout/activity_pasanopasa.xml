@@ -87,7 +87,7 @@
         android:id="@+id/tresultado"
 
         android:textAlignment="viewStart"
-        android:textSize="25sp"
+        android:textSize="22sp"
         android:textColor="@color/grisboleteria"
         android:layout_alignParentBottom="true"
         android:layout_alignLeft="@+id/imageView"

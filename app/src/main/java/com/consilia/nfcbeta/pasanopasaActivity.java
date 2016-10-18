@@ -283,7 +283,15 @@ public class pasanopasaActivity extends AppCompatActivity {
                     }
 
 
-                    dato.setText("Tarjeta erronea");
+                    int noexiste= stringsoap.indexOf("no existe");
+                    if (0<noexiste){
+                        dato.setText(stringsoap);
+                    }else{
+
+                        dato.setText("Tarjeta erronea");
+                    }
+
+
                     toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
 
                 }break;
@@ -978,6 +986,7 @@ public class pasanopasaActivity extends AppCompatActivity {
                         break;}
 
                     case "GetFotoSocio":{
+
                         byte[] foto =   ex.getfotosocio((idStadium),String.valueOf(idSocio ),bundle.getString("IP"));
                         decodedByte =   BitmapFactory.decodeByteArray(foto, 0, foto.length);
                         handler.sendEmptyMessage(1);
@@ -1006,16 +1015,27 @@ public class pasanopasaActivity extends AppCompatActivity {
                         numSocio =      ex.getsocio((idStadium),String.valueOf(idSocio ),String.valueOf(idSocio ) ,bundle.getString("IP")); //type="s:int" devuelve entero ////////// ENTRA unsigned byte idStadium -- string idTipoDoc -- long documento
                         stringsoap =    numSocio;
 
-                        getSoap("GetFotoSocio");
-                        handler.sendEmptyMessage(3);
+                        int noexiste= stringsoap.indexOf("no existe");
+                        if (0<noexiste){
+                            handler.sendEmptyMessage(2);
+                        }else{
+                            getSoap("GetFotoSocio");
+                            handler.sendEmptyMessage(3);
+                        }
+
                         break;}
 
                     case "getestadoinvitado":{
                         numSocio =      ex.SearchInvitado(String.valueOf(idStadium),String.valueOf(idSocio ) ,bundle.getString("IP")); //type="s:int" devuelve entero ////////// ENTRA unsigned byte idStadium -- string idTipoDoc -- long documento
                         stringsoap =    numSocio;
                         TipoSocio="invitado";
-                        getSoap("GetFotoInvitado");
-                        handler.sendEmptyMessage(3);
+                        int noexiste= stringsoap.indexOf("no existe");
+                        if (0<noexiste){
+                            handler.sendEmptyMessage(2);
+                        }else{
+                            getSoap("GetFotoSocio");
+                            handler.sendEmptyMessage(3);
+                        }
                         break;
                     }
 
@@ -1051,7 +1071,7 @@ public class pasanopasaActivity extends AppCompatActivity {
                             case "8":
                                 //  handler.sendEmptyMessage(4);
                                 getSoap("getestado");
-                                // getSoap("GetFotoSocio");
+
                                 break;
                             case "3":
 
