@@ -7,9 +7,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Path;
-import android.graphics.Rect;
 import android.media.AudioManager;
 import android.media.ToneGenerator;
 import android.net.ConnectivityManager;
@@ -112,7 +109,7 @@ public class pasanopasaActivity extends AppCompatActivity {
         datop=          (TextView) findViewById(R.id.datop);
         idSocio =       String.valueOf(bundle.getInt("idSocio"));
         idStadium =     String.valueOf(bundle.getInt("idStadium"));
-        Puerta =        String.valueOf(bundle.getInt("Puerta"));
+        Puerta =        bundle.getString("Puerta");
         Tarjeta =       bundle.getString("NFCTAG");
         datomanual  =   bundle.getString("manual");
         NumeroAconvertir=bundle.getInt("NumeroAconvertir");
@@ -130,7 +127,8 @@ public class pasanopasaActivity extends AppCompatActivity {
 
         if (null != idStadium||idStadium.equals("")){
 
-            if (null!=Puerta||Puerta.equals("")){
+            assert Puerta != null;
+            if (!Puerta.equals("")){
 
                 assert UltimaActivity != null;
                 //getSoap("buscarinvitado");
@@ -240,7 +238,7 @@ public class pasanopasaActivity extends AppCompatActivity {
             Log.d(this.getClass().getName(), "back button pressed");
            // Toast.makeText(getBaseContext(), "Volviendo al menu", Toast.LENGTH_LONG).show();
             bundle.putInt("idStadium",Integer.valueOf(idStadium));
-            bundle.putInt("Puerta", Integer.valueOf(Puerta));
+            bundle.putString("Puerta", (Puerta));
             Intent intent = new Intent(pasanopasaActivity.this, MainActivity.class);
             intent.putExtras(bundle);
             startActivity(intent);
@@ -310,6 +308,8 @@ public class pasanopasaActivity extends AppCompatActivity {
 
                             if (puertas.length()>10){
                                 Accesos.setTextSize(20);
+                            }else if (puertas.length()>30){
+                                Accesos.setTextSize(15);
                             }
                             Accesos.setText("Accesos:"+puertas.replace("Puerta","").replace("PUERTA",""));
                         }
@@ -333,7 +333,6 @@ public class pasanopasaActivity extends AppCompatActivity {
                             informacion.setText(info);
                         }
 
-
                         //socio
                         int socio = stringsoap.indexOf("Estado del Socio: ");
                         if (socio>0){
@@ -344,19 +343,6 @@ public class pasanopasaActivity extends AppCompatActivity {
                             informacion.setText(info);
                         }
 
-
-
-
-                        //INVITADO
-//                        int CC = stringsoap.indexOf("Cuota Control: ");
-//                        if (CC>0){
-//                            String UCP = stringsoap.substring(stringsoap.indexOf("Cuota Control: ")+15);
-//                            UCP = UCP.substring(0,UCP.indexOf('\n'));
-//
-//                            tresultado.setText("Cuota Control: "+'\n'+'\n'+UCP);
-//                        }
-
-
                         //SOCIO
                         int ucpfinder = stringsoap.indexOf("Ultima Cuota Paga: ");
                         if (ucpfinder>0){
@@ -365,7 +351,6 @@ public class pasanopasaActivity extends AppCompatActivity {
 
                             tresultado.setText("UCP: "+UCP);
                         }
-
 
                         int EstadoAcceso = stringsoap.indexOf("EstadoAcceso ");
                         if (EstadoAcceso>0){
@@ -377,7 +362,6 @@ public class pasanopasaActivity extends AppCompatActivity {
                                 datop.setTextSize(20);
                             }
                         }
-
 
                         int TV = stringsoap.indexOf("TicketVirtual");
                         if (TV>0){
@@ -419,10 +403,16 @@ public class pasanopasaActivity extends AppCompatActivity {
                                 {
                                     int puerta = stringsoap.indexOf("Puertas:");
                                     if (puerta>0){
-                                        String info = stringsoap.substring(puerta+"Puertas:".length());
-
-
-                                        if (info.indexOf(Puerta)>0){
+                                        //String info = stringsoap.substring(puerta+"Puertas:".length());
+                                        puertas=stringsoap.substring(numpuertas+8);
+                                        String estadios[] =puertas.split(",");
+                                        puerta=0;
+                                        for (String estadio : estadios) {
+                                            if (estadio.equals(Puerta)) {
+                                                puerta = 1;
+                                            }
+                                        }
+                                        if (puerta==1){
                                             if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
                                                 assert layout != null;
                                                 layout.setBackgroundDrawable( getResources().getDrawable(R.drawable.backgroundok) );
@@ -469,10 +459,18 @@ public class pasanopasaActivity extends AppCompatActivity {
 
                                     int puerta = stringsoap.indexOf("Puertas:");
                                     if (puerta>0){
-                                        String info = stringsoap.substring(puerta+"Puertas:".length()+1);
+                                        //String info = stringsoap.substring(puerta+"Puertas:".length());
+                                        puertas=stringsoap.substring(numpuertas+8);
+                                        puertas=puertas.replace("Puerta","").replace("PUERTA","").replace(" ","");
+                                        String estadios[] =puertas.split(",");
+                                        puerta=0;
+                                        for (String estadio : estadios) {
+                                            if (estadio.equals(Puerta.replace(" ",""))) {
+                                                puerta = 1;
+                                            }
+                                        }
 
-
-                                        if (info.indexOf(Puerta)>0){
+                                        if ( puerta == 1){
                                             if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
                                                 assert layout != null;
                                                 layout.setBackgroundDrawable( getResources().getDrawable(R.drawable.backgroundok) );
@@ -949,7 +947,7 @@ public class pasanopasaActivity extends AppCompatActivity {
         client.disconnect();
     }
 
-    public Bitmap getRoundedShape(Bitmap scaleBitmapImage) {
+    /*public Bitmap getRoundedShape(Bitmap scaleBitmapImage) {
         int targetWidth = 200;
         int targetHeight = 200;
         Bitmap targetBitmap = Bitmap.createBitmap(targetWidth,
@@ -969,7 +967,7 @@ public class pasanopasaActivity extends AppCompatActivity {
             scaleBitmapImage.getHeight()),
             new Rect(0, 0, targetWidth, targetHeight), null);
         return targetBitmap;
-    }
+    }*/
 
     private void getSoap( final String method) {
         new Thread(new Runnable() {
@@ -1045,7 +1043,7 @@ public class pasanopasaActivity extends AppCompatActivity {
                         stringsoap =    numSocio;
                         idSocio=        numSocio;
                         //idTipo="3";
-                        getSoap("getinvitado");
+                        getSoap("getestadoinvitado");
                         //handler.sendEmptyMessage(2);
                         break;}
 

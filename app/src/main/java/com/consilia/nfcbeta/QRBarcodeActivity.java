@@ -243,7 +243,7 @@ public class QRBarcodeActivity extends AppCompatActivity implements View.OnClick
             Log.d(this.getClass().getName(), "back button pressed");
            // Toast.makeText(getBaseContext(), "Volviendo al menu", Toast.LENGTH_LONG).show();
             bundle.putInt("idStadium",bundle.getInt("idStadium"));
-            bundle.putInt("Puerta",bundle.getInt("Puerta"));
+            bundle.putString("Puerta",bundle.getString("Puerta"));
             Intent intent = new Intent(QRBarcodeActivity.this, MainActivity.class);
             intent.putExtras(bundle);
             startActivity(intent);

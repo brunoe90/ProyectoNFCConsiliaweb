@@ -50,9 +50,9 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:inputType="number"
         android:ems="10"
-        android:maxLength="4"
+        android:maxLength="20"
+        android:inputType="textCapCharacters"
         android:textColor="@color/grisboleteria"
         android:id="@+id/etstadio"
         android:layout_gravity="center_horizontal"

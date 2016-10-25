@@ -238,6 +238,7 @@ class SoapRequests {
 
         } catch (Exception q) {
             q.printStackTrace();
+            data ="0";
         }
         return data;
     }

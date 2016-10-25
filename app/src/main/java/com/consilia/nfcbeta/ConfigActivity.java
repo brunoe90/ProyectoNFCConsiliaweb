@@ -23,7 +23,8 @@ public class ConfigActivity extends AppCompatActivity {
     String EstadioCrudo[];
     String estadios[];
     String EstadioPos[];
-    int  idStadium,Puerta;
+    int  idStadium;
+    String Puerta;
     int posicion;
     //Typeface face= Typeface.createFromAsset(getAssets(),"fonts/digital.ttf");
     //txtV.setTypeface(face);
@@ -40,9 +41,9 @@ public class ConfigActivity extends AppCompatActivity {
         bundle = getIntent().getExtras();
 
         idStadium =     (bundle.getInt("idStadium"));
-        Puerta =        (bundle.getInt("Puerta"));
+        Puerta =        (bundle.getString("Puerta"));
 
-        if (Puerta!=0){
+        if (Puerta != null){
             etip.setText(String.valueOf(Puerta));
         }
 
@@ -104,7 +105,7 @@ public class ConfigActivity extends AppCompatActivity {
                 if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
                     if (!etip.getText().toString().equals("")){
                         bundle.putInt("idStadium",idStadium);
-                        bundle.putInt("Puerta", Integer.valueOf(etip.getText().toString()));
+                        bundle.putString("Puerta", (etip.getText().toString()));
                         bundle.putString("IP",bundle.getString("IP"));
                         bundle.putString("port",bundle.getString("port"));
                         Intent intent = new Intent(ConfigActivity.this, MainActivity.class);
@@ -119,7 +120,7 @@ public class ConfigActivity extends AppCompatActivity {
     }
     public void bentrar(View view) {
         if (!etip.getText().toString().equals("")) {
-            bundle.putInt("Puerta", Integer.valueOf(etip.getText().toString()));
+            bundle.putString("Puerta", (etip.getText().toString()));
             bundle.putInt("idStadium", idStadium);
             Intent intent = new Intent(ConfigActivity.this, MainActivity.class);
             intent.putExtras(bundle);
