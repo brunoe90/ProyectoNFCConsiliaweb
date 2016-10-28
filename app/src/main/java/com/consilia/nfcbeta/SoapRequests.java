@@ -498,7 +498,7 @@ class SoapRequests {
 
     byte[] getfotosocio(String idStadium, String numSocio, String IP) {
 
-        byte data[] = new byte[0];
+        byte data[] = new byte[1];
         String methodname = "GetFotoSocio";
 
         SoapObject request = new SoapObject("http://controlplus.net/cwpwebservice", methodname);
@@ -531,6 +531,7 @@ class SoapRequests {
 
         } catch (Exception q) {
             q.printStackTrace();
+            Log.e("LogsAndroid", "Mensaje de error");
             data[0]=0;
         }
         return data;
@@ -538,7 +539,7 @@ class SoapRequests {
 
     byte[] getfotoinvitado(String idStadium, String numInvitado, String IP) {
 
-        byte data[] = new byte[0];
+        byte data[] = new byte[1];
         String methodname = "GetFotoInvitado";
 
         SoapObject request = new SoapObject("http://controlplus.net/cwpwebservice", methodname);

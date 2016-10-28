@@ -405,6 +405,7 @@ public class pasanopasaActivity extends AppCompatActivity {
                                     if (puerta>0){
                                         //String info = stringsoap.substring(puerta+"Puertas:".length());
                                         puertas=stringsoap.substring(numpuertas+8);
+                                        puertas=puertas.replace("Puerta","").replace("PUERTA","").replace("puerta","").replace("S","").replace("s","").replace(" ","");
                                         String estadios[] =puertas.split(",");
                                         puerta=0;
                                         for (String estadio : estadios) {
@@ -425,7 +426,7 @@ public class pasanopasaActivity extends AppCompatActivity {
                                             toneG.startTone(ToneGenerator.TONE_CDMA_ALERT_CALL_GUARD, 200);
                                         }else {
 
-//                                            datop.setText("Puerta equivocada");
+                                            datop.setText("Puerta equivocada");
                                             toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
                                             if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
                                                 assert layout != null;
@@ -483,7 +484,7 @@ public class pasanopasaActivity extends AppCompatActivity {
                                             toneG.startTone(ToneGenerator.TONE_CDMA_ALERT_CALL_GUARD, 200);
                                         }else {
 
-//                                            datop.setText("Puerta equivocada");
+                                            datop.setText("Puerta equivocada");
                                             toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
                                             if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
                                                 assert layout != null;
