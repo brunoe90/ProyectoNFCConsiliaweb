@@ -409,7 +409,7 @@ public class pasanopasaActivity extends AppCompatActivity {
                                         String estadios[] =puertas.split(",");
                                         puerta=0;
                                         for (String estadio : estadios) {
-                                            if (estadio.equals(Puerta)) {
+                                            if (estadio.equals(Puerta.replace(" ",""))) {
                                                 puerta = 1;
                                             }
                                         }
