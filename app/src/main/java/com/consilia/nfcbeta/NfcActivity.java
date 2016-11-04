@@ -1,6 +1,5 @@
 package com.consilia.nfcbeta;
 
-import android.annotation.TargetApi;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -29,8 +28,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TabHost;
+import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;
@@ -42,6 +41,7 @@ public class NfcActivity extends AppCompatActivity implements View.OnClickListen
     Button botonvolver, benviarid;
     Button benviaridinvitado;
     EditText editText, editText2;
+    TextView textView;
     long Resultado = 0;
     int signo = 0;
     Bundle bundle;
@@ -104,21 +104,26 @@ public class NfcActivity extends AppCompatActivity implements View.OnClickListen
 
         if (bundle.getInt("TAB")!=0){
             int a = bundle.getInt("TAB");
-
             host.setCurrentTab(a);
         }
-
-
 
         botonvolver = (Button) findViewById(R.id.bvolver);
         benviarid = (Button) findViewById(R.id.bidsocio);
         benviaridinvitado = (Button) findViewById(R.id.binvitado);
         editText = (EditText) findViewById(R.id.edtsocio);
         editText2 = (EditText) findViewById(R.id.edtinvitado);
+        textView = (TextView) findViewById(R.id.textView);
 //        bid = (RadioButton) findViewById(R.id.buttonsocio);
 //        bdni = (RadioButton) findViewById(R.id.buttondni);
         //binvitado = (RadioButton) findViewById(R.id.SelectInvitado);
         //bselectsocio = (RadioButton) findViewById(R.id.SelectSocio);
+        Context context = this;
+        NfcManager manager = (NfcManager) context.getSystemService(Context.NFC_SERVICE);
+        NfcAdapter adapter = manager.getDefaultAdapter();
+
+        if (adapter == null || !adapter.isEnabled()) {
+            textView.setText("NFC Desactivado");
+        }
 
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         //we are connected to a network
@@ -131,7 +136,6 @@ public class NfcActivity extends AppCompatActivity implements View.OnClickListen
         botonvolver.setOnClickListener(this);
         benviarid.setOnClickListener(this);
         benviaridinvitado.setOnClickListener(this);
-
 
         editText.setOnKeyListener(new View.OnKeyListener() {
             public boolean onKey(View v, int keyCode, KeyEvent event) {
@@ -156,7 +160,6 @@ public class NfcActivity extends AppCompatActivity implements View.OnClickListen
                 return false;
             }
         });
-
 
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -255,7 +258,6 @@ public class NfcActivity extends AppCompatActivity implements View.OnClickListen
 //        binvitado = (RadioButton) findViewById(R.id.SelectInvitado);
 //        bselectsocio = (RadioButton) findViewById(R.id.SelectSocio);
 
-        // Check which radio button was clicked
         switch (view.getId()) {
             case R.id.idInv:
                 if (checked){
@@ -303,12 +305,9 @@ public class NfcActivity extends AppCompatActivity implements View.OnClickListen
             NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(this);
             nfcAdapter.enableForegroundDispatch(this, pendingIntent, new IntentFilter[]{filter}, this.techList);
 
-        } else{
-            for (int i=0; i < 30; i++)
-            {
-                Toast.makeText(getBaseContext(), "Prender el NFC desde el menu!!!!", Toast.LENGTH_LONG).show();
-            }
-        }
+        }/* else{
+               Toast.makeText(getBaseContext(), "Prender el NFC desde el menu!!!!", Toast.LENGTH_LONG).show();
+        }*/
 
 
 

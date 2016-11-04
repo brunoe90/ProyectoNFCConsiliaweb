@@ -261,6 +261,11 @@ public class pasanopasaActivity extends AppCompatActivity {
                 case 0: tresultado.setText(stringsoap); break;
 
                 case 1:{
+                    int timeout = stringsoap.indexOf("timeout");
+                    if (timeout>0){
+                        Toast.makeText(getBaseContext(), "Falla al encontrar Puerta", Toast.LENGTH_LONG).show();
+                        break;
+                    }
                     try {
                         imageView.setImageBitmap(/*getRoundedShape*/(decodedByte));
                     } catch (Exception q) {
@@ -269,6 +274,11 @@ public class pasanopasaActivity extends AppCompatActivity {
                     break;}
 
                 case 2:{
+                    int timeout = stringsoap.indexOf("timeout");
+                    if (timeout>0){
+                        Toast.makeText(getBaseContext(), "Falla al encontrar Puerta", Toast.LENGTH_LONG).show();
+                        break;
+                    }
                     RelativeLayout layout = (RelativeLayout) findViewById(R.id.pasanopasa);
 
                     final int sdk = android.os.Build.VERSION.SDK_INT;
@@ -299,7 +309,12 @@ public class pasanopasaActivity extends AppCompatActivity {
 
                     final int sdk = android.os.Build.VERSION.SDK_INT;
                     String puertas;
-
+                    int timeout = stringsoap.indexOf("timeout");
+                    if (timeout>0){
+                        stringsoap="0";
+                        Toast.makeText(getBaseContext(), "Falla al encontrar Puerta", Toast.LENGTH_LONG).show();
+                        break;
+                    }
                     if (!stringsoap.equals("0"))
                     {
                         int numpuertas = stringsoap.indexOf("Puertas:");
@@ -315,11 +330,14 @@ public class pasanopasaActivity extends AppCompatActivity {
                         }
 
                         //compartido
-                        String Nombre = stringsoap.substring(0,stringsoap.indexOf('\n'));
-                        if (dato.length()>15){
-                            dato.setTextSize(24);
+                        int nom= stringsoap.indexOf('\n');
+                        if (nom>0){
+                            String Nombre = stringsoap.substring(0,nom);
+                            if (dato.length()>15){
+                                dato.setTextSize(24);
+                            }
+                            dato.setText(Nombre);
                         }
-                        dato.setText(Nombre);
 
                         // invitado
                         int IdInvitado = stringsoap.indexOf("Invitado Nº: ");
@@ -380,7 +398,10 @@ public class pasanopasaActivity extends AppCompatActivity {
                         }
 
 
-
+                        if (idTipo==null){
+                            idTipo="0";
+                            Toast.makeText(getBaseContext(), "Falló de conexión", Toast.LENGTH_LONG).show();
+                        }
                         switch (Integer.valueOf(idTipo))
                         {
 
@@ -456,8 +477,6 @@ public class pasanopasaActivity extends AppCompatActivity {
                             }
                             case 2: {
                                 // puede pasar
-
-
                                     int puerta = stringsoap.indexOf("Puertas:");
                                     if (puerta>0){
                                         //String info = stringsoap.substring(puerta+"Puertas:".length());
@@ -803,12 +822,9 @@ public class pasanopasaActivity extends AppCompatActivity {
             NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(this);
             nfcAdapter.enableForegroundDispatch(this, pendingIntent, new IntentFilter[]{filter}, this.techList);
 
-        } else{
-            for (int i=0; i < 30; i++)
-            {
+        }/* else{
                 Toast.makeText(getBaseContext(), "Prender el NFC desde el menu!!!!", Toast.LENGTH_LONG).show();
-            }
-        }
+        }*/
 
     }
 
@@ -1017,7 +1033,8 @@ public class pasanopasaActivity extends AppCompatActivity {
                         int noexiste= stringsoap.indexOf("no existe");
                         if (0<noexiste){
                             handler.sendEmptyMessage(2);
-                        }else{
+                        }
+                        else{
                             getSoap("GetFotoSocio");
                             handler.sendEmptyMessage(3);
                         }
@@ -1051,13 +1068,19 @@ public class pasanopasaActivity extends AppCompatActivity {
                     case "getcarnet": {
                         stringsoap =    ex.getcaret(idStadium,bundle.getString("NFCTAG"),bundle.getString("IP"));
 
-                        if (stringsoap.equals("0")){
-                            idTipo="0";
-                            idSocio="0";
-                            handler.sendEmptyMessage(3);
-                        }else{
-                            idSocio=        stringsoap.substring(stringsoap.indexOf(",")+2);
-                            idTipo=    stringsoap.substring(stringsoap.indexOf(":")+2,stringsoap.indexOf(","));
+                        switch (stringsoap) {
+                            case "0":
+                                idTipo = "0";
+                                idSocio = "0";
+                                handler.sendEmptyMessage(3);
+                                break;
+                            case "timeout":
+                                idSocio="0";
+                                break;
+                            default:
+                                idSocio = stringsoap.substring(stringsoap.indexOf(",") + 2);
+                                idTipo = stringsoap.substring(stringsoap.indexOf(":") + 2, stringsoap.indexOf(","));
+                                break;
                         }
 
                         if (stringsoap==null){
@@ -1091,6 +1114,8 @@ public class pasanopasaActivity extends AppCompatActivity {
                         stringsoap =    ex.SearchInvitado(idStadium,idSocio,bundle.getString("IP"));
                        // idSocio=        stringsoap;
                         if (stringsoap==null){
+                            idSocio="0";
+                        }else if (stringsoap.equals("timeout")) {
                             idSocio="0";
                         }
                         TipoSocio="invitado";

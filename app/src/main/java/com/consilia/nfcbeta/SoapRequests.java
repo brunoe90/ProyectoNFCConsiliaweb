@@ -1,8 +1,8 @@
 package com.consilia.nfcbeta;
 
+import android.content.Context;
 import android.util.Base64;
 import android.util.Log;
-
 import org.ksoap2.HeaderProperty;
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.SoapObject;
@@ -10,6 +10,7 @@ import org.ksoap2.serialization.SoapPrimitive;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
 import java.net.Proxy;
+import java.net.SocketTimeoutException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -151,7 +152,9 @@ class SoapRequests {
 
             data=   "Tipo: "+       resultsString.getPrimitivePropertySafelyAsString("IdTipo") +","+'\n'+
                    /* "numero: "+*/     resultsString.getPrimitivePropertySafelyAsString("IdNumero");
-        } catch (Exception q) {
+        } catch (SocketTimeoutException bug) {
+            data="timeout";
+        }catch (Exception q) {
             q.printStackTrace();
             data ="0";
         }
@@ -194,6 +197,8 @@ class SoapRequests {
             }
             data = (resultsString.toString());
 
+        }catch (SocketTimeoutException bug) {
+            data="timeout";
         } catch (Exception q) {
             q.printStackTrace();
         }
@@ -236,7 +241,9 @@ class SoapRequests {
             }
             data = (resultsString.toString());
 
-        } catch (Exception q) {
+        } catch (SocketTimeoutException bug) {
+            data="timeout";
+        }catch (Exception q) {
             q.printStackTrace();
             data ="0";
         }
@@ -245,7 +252,7 @@ class SoapRequests {
 
     String getsocio(String idStadium, String numSocio, String documento, String IP) {
 
-        String data;
+        String data = null;
        // idStadium="2";
         String methodname = "SearchSocio";
         SoapObject request = new SoapObject("http://controlplus.net/cwpwebservice",methodname);// new SoapObject(NAMESPACE, methodname);
@@ -343,7 +350,9 @@ class SoapRequests {
                     "Puertas:" +puertas;
 
 
-        } catch (Exception q) {
+        }  catch (SocketTimeoutException bug) {
+            data="timeout";
+        }catch (Exception q) {
             q.printStackTrace();
             data = "0";
         }
@@ -489,6 +498,8 @@ class SoapRequests {
                     Categoria + '\n'+
                     resultsString.getPrimitivePropertyAsString("Message")+ '\n'+
                     TicketVirtual+'\n';
+        }catch (SocketTimeoutException bug) {
+            data="timeout";
         } catch (Exception q) {
             q.printStackTrace();
             data = "0";
@@ -570,7 +581,9 @@ class SoapRequests {
             String decode =resultsString.toString();
             data = Base64.decode(decode.getBytes(), Base64.DEFAULT); //resultsString.toString();
 
-        } catch (Exception q) {
+        } catch (SocketTimeoutException bug) {
+            data[0]=0;
+        }catch (Exception q) {
             q.printStackTrace();
             data[0]=0;
         }
