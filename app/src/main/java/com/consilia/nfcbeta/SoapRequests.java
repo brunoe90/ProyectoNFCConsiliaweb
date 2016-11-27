@@ -74,6 +74,8 @@ class SoapRequests {
 
         } catch (Exception q) {
             q.printStackTrace();
+            Log.e("LogsAndroid", "Mensaje de error- datos version");
+
         }
         return data;
     }
@@ -111,6 +113,8 @@ class SoapRequests {
 
         } catch (Exception q) {
             q.printStackTrace();
+            Log.e("LogsAndroid", "Mensaje de error- getestadios");
+
         }
         return data;
     }
@@ -542,7 +546,7 @@ class SoapRequests {
 
         } catch (Exception q) {
             q.printStackTrace();
-            Log.e("LogsAndroid", "Mensaje de error");
+            Log.e("LogsAndroid", "Mensaje de error- foto");
             data[0]=0;
         }
         return data;
@@ -583,9 +587,13 @@ class SoapRequests {
 
         } catch (SocketTimeoutException bug) {
             data[0]=0;
+            Log.e("LogsAndroid", "Mensaje de error- timeout");
+
         }catch (Exception q) {
             q.printStackTrace();
             data[0]=0;
+            Log.e("LogsAndroid", "Mensaje de error- error de datos");
+
         }
         return data;
     }

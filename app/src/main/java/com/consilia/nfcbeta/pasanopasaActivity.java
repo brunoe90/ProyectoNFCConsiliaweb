@@ -237,8 +237,15 @@ public class pasanopasaActivity extends AppCompatActivity {
         if ((keyCode == KeyEvent.KEYCODE_BACK)) {
             Log.d(this.getClass().getName(), "back button pressed");
            // Toast.makeText(getBaseContext(), "Volviendo al menu", Toast.LENGTH_LONG).show();
+
+
             bundle.putInt("idStadium",Integer.valueOf(idStadium));
             bundle.putString("Puerta", (Puerta));
+            if (decodedByte!=null){
+                decodedByte.recycle();
+                decodedByte =null;
+            }
+
             Intent intent = new Intent(pasanopasaActivity.this, MainActivity.class);
             intent.putExtras(bundle);
             startActivity(intent);
@@ -327,10 +334,12 @@ public class pasanopasaActivity extends AppCompatActivity {
                         if (numpuertas>0){
                             puertas=stringsoap.substring(numpuertas+8);
 
-                            if (puertas.length()>10){
+                            if (puertas.length()<30){
                                 Accesos.setTextSize(20);
-                            }else if (puertas.length()>30){
-                                Accesos.setTextSize(15);
+                            }else if (puertas.length()<40){
+                                Accesos.setTextSize(14);
+                            }else if (puertas.length()>40){
+                                Accesos.setTextSize(14);
                             }
                             Accesos.setText("Accesos:"+puertas.replace("Puerta","").replace("PUERTA",""));
                         }
@@ -385,6 +394,9 @@ public class pasanopasaActivity extends AppCompatActivity {
                             if (datop.length()>15){
                                 datop.setTextSize(20);
                             }
+                            if (datop.length()>40){
+                                datop.setTextSize(15);
+                            }
                         }
 
                         int TV = stringsoap.indexOf("TicketVirtual");
@@ -407,6 +419,7 @@ public class pasanopasaActivity extends AppCompatActivity {
                         if (idTipo==null){
                             idTipo="0";
                             Toast.makeText(getBaseContext(), "Falló de conexión", Toast.LENGTH_LONG).show();
+                            dato.setText("Fallo de conexión");
                         }
                         switch (Integer.valueOf(idTipo))
                         {
@@ -466,6 +479,9 @@ public class pasanopasaActivity extends AppCompatActivity {
                                     }else {
 //                                        datop.setText("No hay Puertas Asignadas");
                                         datop.setTextSize(20);
+                                        if (datop.length()>40){
+                                            datop.setTextSize(15);
+                                        }
                                       //  tresultado.setTextSize(24);
                                         toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
                                         if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
