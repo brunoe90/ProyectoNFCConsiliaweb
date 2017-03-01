@@ -1107,7 +1107,7 @@ public class pasanopasaActivity extends AppCompatActivity {
                         if (0<noexiste){
                             handler.sendEmptyMessage(2);
                         }else{
-                            getSoap("GetFotoSocio");
+                            getSoap("GetFotoInvitado");
                             handler.sendEmptyMessage(3);
                         }
                         break;
