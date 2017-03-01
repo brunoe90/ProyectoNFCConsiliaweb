@@ -499,8 +499,7 @@ class SoapRequests {
 
             data=   nombre+'\n'+
                     "IdEstado: "+ IdEstado+'\n'+
-
-                    "Estado: "+ Estado + '\n'+
+                    "EstadoAcceso "+ Estado + '\n'+
                     "Cuota Control: " +CuotaCtrl +'\n'+
                     IdInvitado+"-"+Contador+'\n'+
                     Documento+'\n'+
