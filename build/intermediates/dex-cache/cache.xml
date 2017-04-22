@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="true"
+        jar="/home/geniod/.android/build-cache/321cfdccdb5e2d37f9fa85e925de11d56faf1b8a/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="67bd36ee9340ec7c254108936ad16b24bed160cc">
+        <dex dex="/home/geniod/Android/proyectos/ProyectoNFCConsiliaweb/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_bb3938e0c203478de7a198d2709d04732d9e2491/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/geniod/Android/Sdk/extras/android/m2repository/com/android/support/support-annotations/23.4.0/support-annotations-23.4.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="ffbe55fdb2bb456b1485831706a9eac3300bb6b8">
+        <dex dex="/home/geniod/Android/proyectos/ProyectoNFCConsiliaweb/app/build/intermediates/transforms/dex/debug/folders/1000/10/support-annotations-23.4.0_6d5c4eb66d71a9b806e7363025faf41f92888637/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/geniod/.android/build-cache/f9f987665f9daeb2219a1873008babce8fc503f5/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="548f06de403a9409f00554b3ee12a9fdea0e236c">
+        <dex dex="/home/geniod/Android/proyectos/ProyectoNFCConsiliaweb/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_5e491d3145a8089951f7ca8632d98727c0db36b1/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/geniod/Android/proyectos/ProyectoNFCConsiliaweb/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="a5120c1a87560162c3997c118155b7f13ca8d8d1">
+        <dex dex="/home/geniod/Android/proyectos/ProyectoNFCConsiliaweb/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_a16703dedc75a7ad35eff392fe6fcaa482c6ed5d/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/geniod/.android/build-cache/321cfdccdb5e2d37f9fa85e925de11d56faf1b8a/output/jars/libs/internal_impl-23.4.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="ea3c07504d2c8f4b13aa17c45c1b68ed9c1c3674">
+        <dex dex="/home/geniod/Android/proyectos/ProyectoNFCConsiliaweb/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-23.4.0_6ec0c5e8eef652a8285485a3f04d29a111f96348/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/geniod/.android/build-cache/b07b24c23a78491b05d7e580fb10dd376eb5b23e/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="c2c594cace5d83a3227b2b6e658ecbfd586d3ed9">
+        <dex dex="/home/geniod/Android/proyectos/ProyectoNFCConsiliaweb/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_2cd0f3dcba01b5cc2d9f675fc5e1b5f4272fdb44/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/geniod/Android/proyectos/ProyectoNFCConsiliaweb/app/libs/ksoap2-android-assembly-3.6.0-jar-with-dependencies.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="b37dc43b673256709b75daab4850b0c017459ec6">
+        <dex dex="/home/geniod/Android/proyectos/ProyectoNFCConsiliaweb/app/build/intermediates/transforms/dex/debug/folders/1000/2/ksoap2-android-assembly-3.6.0-jar-with-dependencies_9feba5f5da023318f1704b21d79af9772708989f/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/geniod/.android/build-cache/f42c93c67dac022c0914ab436492695706ab2f77/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="de4db3785756bfb0915a9f59a9b3f2fea7407be4">
+        <dex dex="/home/geniod/Android/proyectos/ProyectoNFCConsiliaweb/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_17c4af731ab185bfcf53de78cc92cd93b094643a/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/geniod/Android/proyectos/ProyectoNFCConsiliaweb/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="510aa6efc159983dfbffa676a0dae37568c0a46f">
+        <dex dex="/home/geniod/Android/proyectos/ProyectoNFCConsiliaweb/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_3f5aafa0cb48acd7f3a3fd1da5665383676f06b2/classes.dex" />
+    </item>
+
+</items>
