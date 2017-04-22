@@ -257,10 +257,13 @@ public class QRBarcodeActivity extends AppCompatActivity implements View.OnClick
         if (scanningResult != null) {
             String scanContent = scanningResult.getContents();
             String scanFormat = scanningResult.getFormatName();
-            formatTxt.setText("FORMAT: " + scanFormat);
-            contentTxt.setText("CONTENT: " + scanContent);
-            bundle.putString("QRCONTENIDO",scanContent);
-            idSocio=scanContent;
+            if (scanFormat !=null && scanContent !=null){
+                formatTxt.setText("FORMAT: " + scanFormat);
+                contentTxt.setText("CONTENT: " + scanContent);
+                bundle.putString("QRCONTENIDO",scanContent);
+                idSocio=scanContent;
+            }
+
         }
         else{
             Toast toast = Toast.makeText(getApplicationContext(),

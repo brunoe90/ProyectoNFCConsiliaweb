@@ -48,7 +48,7 @@ public class NfcActivity extends AppCompatActivity implements View.OnClickListen
     String texto = "";
     String NFC = "";
     //RadioButton bid, bdni;
-    String dato = "";
+    String dato = "idSocio";
     TabHost host;
 
     private final String[][] techList = new String[][]{

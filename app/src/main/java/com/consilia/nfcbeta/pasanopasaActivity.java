@@ -237,8 +237,15 @@ public class pasanopasaActivity extends AppCompatActivity {
         if ((keyCode == KeyEvent.KEYCODE_BACK)) {
             Log.d(this.getClass().getName(), "back button pressed");
            // Toast.makeText(getBaseContext(), "Volviendo al menu", Toast.LENGTH_LONG).show();
+
+
             bundle.putInt("idStadium",Integer.valueOf(idStadium));
             bundle.putString("Puerta", (Puerta));
+            if (decodedByte!=null){
+                decodedByte.recycle();
+                decodedByte =null;
+            }
+
             Intent intent = new Intent(pasanopasaActivity.this, MainActivity.class);
             intent.putExtras(bundle);
             startActivity(intent);
@@ -264,6 +271,8 @@ public class pasanopasaActivity extends AppCompatActivity {
                     int timeout = stringsoap.indexOf("timeout");
                     if (timeout>0){
                         Toast.makeText(getBaseContext(), "Falla al encontrar Puerta", Toast.LENGTH_LONG).show();
+                        dato.setText("SE INTERRUMPIO LA CONEXION");
+                        informacion.setText("Intente nuevamente");
                         break;
                     }
                     try {
@@ -277,6 +286,8 @@ public class pasanopasaActivity extends AppCompatActivity {
                     int timeout = stringsoap.indexOf("timeout");
                     if (timeout>0){
                         Toast.makeText(getBaseContext(), "Falla al encontrar Puerta", Toast.LENGTH_LONG).show();
+                        dato.setText("SE INTERRUMPIO LA CONEXION");
+                        informacion.setText("Intente nuevamente");
                         break;
                     }
                     RelativeLayout layout = (RelativeLayout) findViewById(R.id.pasanopasa);
@@ -313,6 +324,8 @@ public class pasanopasaActivity extends AppCompatActivity {
                     if (timeout>0){
                         stringsoap="0";
                         Toast.makeText(getBaseContext(), "Falla al encontrar Puerta", Toast.LENGTH_LONG).show();
+                        dato.setText("SE INTERRUMPIO LA CONEXION");
+                        informacion.setText("Intente nuevamente");
                         break;
                     }
                     if (!stringsoap.equals("0"))
@@ -321,10 +334,12 @@ public class pasanopasaActivity extends AppCompatActivity {
                         if (numpuertas>0){
                             puertas=stringsoap.substring(numpuertas+8);
 
-                            if (puertas.length()>10){
+                            if (puertas.length()<30){
                                 Accesos.setTextSize(20);
-                            }else if (puertas.length()>30){
-                                Accesos.setTextSize(15);
+                            }else if (puertas.length()<40){
+                                Accesos.setTextSize(14);
+                            }else if (puertas.length()>40){
+                                Accesos.setTextSize(14);
                             }
                             Accesos.setText("Accesos:"+puertas.replace("Puerta","").replace("PUERTA",""));
                         }
@@ -379,6 +394,9 @@ public class pasanopasaActivity extends AppCompatActivity {
                             if (datop.length()>15){
                                 datop.setTextSize(20);
                             }
+                            if (datop.length()>40){
+                                datop.setTextSize(15);
+                            }
                         }
 
                         int TV = stringsoap.indexOf("TicketVirtual");
@@ -401,6 +419,7 @@ public class pasanopasaActivity extends AppCompatActivity {
                         if (idTipo==null){
                             idTipo="0";
                             Toast.makeText(getBaseContext(), "Falló de conexión", Toast.LENGTH_LONG).show();
+                            dato.setText("Fallo de conexión");
                         }
                         switch (Integer.valueOf(idTipo))
                         {
@@ -460,6 +479,9 @@ public class pasanopasaActivity extends AppCompatActivity {
                                     }else {
 //                                        datop.setText("No hay Puertas Asignadas");
                                         datop.setTextSize(20);
+                                        if (datop.length()>40){
+                                            datop.setTextSize(15);
+                                        }
                                       //  tresultado.setTextSize(24);
                                         toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
                                         if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
@@ -582,19 +604,55 @@ public class pasanopasaActivity extends AppCompatActivity {
                                 break;
                             }
                             case 6: {
-                                // no pasa
+                                // Paso por perimetral
+                                int puerta = stringsoap.indexOf("Puertas:");
+                                if (puerta>0){
+                                    //String info = stringsoap.substring(puerta+"Puertas:".length());
+                                    puertas=stringsoap.substring(numpuertas+8);
+                                    puertas=puertas.replace("Puerta","").replace("PUERTA","").replace(" ","");
+                                    String estadios[] =puertas.split(",");
+                                    puerta=0;
+                                    for (String estadio : estadios) {
+                                        if (estadio.equals(Puerta.replace(" ",""))) {
+                                            puerta = 1;
+                                        }
+                                    }
 
-//                                datop.setText("Paso por Perimetral");
-                                if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
-                                    assert layout != null;
-                                    layout.setBackgroundDrawable( getResources().getDrawable(R.drawable.backgroundnope) );
-                                } else {
-                                    assert layout != null;
-                                    layout.setBackground( getResources().getDrawable(R.drawable.backgroundnope));
+                                    if ( puerta == 1){
+                                        if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                                            assert layout != null;
+                                            layout.setBackgroundDrawable( getResources().getDrawable(R.drawable.backgroundok) );
+                                        } else {
+                                            assert layout != null;
+                                            layout.setBackground( getResources().getDrawable(R.drawable.backgroundok));
+                                        }
+
+//                                            datop.setText("Habilit. manual");
+                                        toneG.startTone(ToneGenerator.TONE_CDMA_ALERT_CALL_GUARD, 200);
+                                    }else {
+
+                                        datop.setText("Puerta equivocada");
+                                        toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
+                                        if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                                            assert layout != null;
+                                            layout.setBackgroundDrawable( getResources().getDrawable(R.drawable.backgroundnope) );
+                                        } else {
+                                            assert layout != null;
+                                            layout.setBackground( getResources().getDrawable(R.drawable.backgroundnope));
+                                        }
+                                    }
+                                }else {
+//                                        datop.setText("No hay Puertas Asignadas");
+                                    toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
+                                    if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                                        assert layout != null;
+                                        layout.setBackgroundDrawable( getResources().getDrawable(R.drawable.backgroundnope) );
+                                    } else {
+                                        assert layout != null;
+                                        layout.setBackground( getResources().getDrawable(R.drawable.backgroundnope));
+                                    }
                                 }
 
-
-                                toneG.startTone(ToneGenerator.TONE_PROP_BEEP2);
 
                                 break;
                             } case 7: {
@@ -864,7 +922,7 @@ public class pasanopasaActivity extends AppCompatActivity {
                     tresultado.setText("");
                     Accesos.setText("");
                     informacion.setText("");
-                    dato.setText("");
+                    dato.setText("CARGANDO");
                     datop.setText("");
 
                     RelativeLayout layout = (RelativeLayout) findViewById(R.id.pasanopasa);
@@ -1053,7 +1111,7 @@ public class pasanopasaActivity extends AppCompatActivity {
                         if (0<noexiste){
                             handler.sendEmptyMessage(2);
                         }else{
-                            getSoap("GetFotoSocio");
+                            getSoap("GetFotoInvitado");
                             handler.sendEmptyMessage(3);
                         }
                         break;
@@ -1080,6 +1138,8 @@ public class pasanopasaActivity extends AppCompatActivity {
                                 break;
                             case "timeout":
                                 idSocio="0";
+                                dato.setText("SE INTERRUMPIO LA CONEXION");
+                                informacion.setText("Intente nuevamente");
                                 break;
                             default:
                                 idSocio = stringsoap.substring(stringsoap.indexOf(",") + 2);
@@ -1120,6 +1180,8 @@ public class pasanopasaActivity extends AppCompatActivity {
                         if (stringsoap==null){
                             idSocio="0";
                         }else if (stringsoap.equals("timeout")) {
+                            dato.setText("SE INTERRUMPIO LA CONEXION");
+                            informacion.setText("Intente nuevamente");
                             idSocio="0";
                         }
                         TipoSocio="invitado";

@@ -1,14 +1,15 @@
 package com.consilia.nfcbeta;
 
-import android.content.Context;
 import android.util.Base64;
 import android.util.Log;
+
 import org.ksoap2.HeaderProperty;
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapPrimitive;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
+
 import java.net.Proxy;
 import java.net.SocketTimeoutException;
 import java.text.SimpleDateFormat;
@@ -74,6 +75,8 @@ class SoapRequests {
 
         } catch (Exception q) {
             q.printStackTrace();
+            Log.e("LogsAndroid", "Mensaje de error- datos version");
+
         }
         return data;
     }
@@ -111,6 +114,8 @@ class SoapRequests {
 
         } catch (Exception q) {
             q.printStackTrace();
+            Log.e("LogsAndroid", "Mensaje de error- getestadios");
+
         }
         return data;
     }
@@ -433,6 +438,7 @@ class SoapRequests {
             String IdInvitado = resultsString.getPrimitivePropertyAsString("IdInvitado");
             String Categoria = resultsString.getPrimitivePropertyAsString("Categoria");
             String TicketVirtual= responsee.getPropertySafelyAsString("TicketVirtual");
+            String Puertas= responsee.getPropertySafelyAsString("Puertas");
             String Contador = resultsString.getPrimitivePropertyAsString("Contador");
 
             if (Contador==null ||Contador.equals("")){
@@ -476,6 +482,9 @@ class SoapRequests {
             if (Estado==null ||Estado.equals("") ){
                 Estado="0";
             }
+            if (Puertas==null ){
+                Puertas="";
+            }
             if (Message==null ||Message.equals("") ){
                 Message="0";
             }
@@ -490,14 +499,14 @@ class SoapRequests {
 
             data=   nombre+'\n'+
                     "IdEstado: "+ IdEstado+'\n'+
-
-                    "Estado: "+ Estado + '\n'+
+                    "EstadoAcceso "+ Estado + '\n'+
                     "Cuota Control: " +CuotaCtrl +'\n'+
                     IdInvitado+"-"+Contador+'\n'+
                     Documento+'\n'+
                     Categoria + '\n'+
                     resultsString.getPrimitivePropertyAsString("Message")+ '\n'+
-                    TicketVirtual+'\n';
+                    TicketVirtual+'\n'+
+                    "Puertas:" +Puertas;
         }catch (SocketTimeoutException bug) {
             data="timeout";
         } catch (Exception q) {
@@ -542,7 +551,7 @@ class SoapRequests {
 
         } catch (Exception q) {
             q.printStackTrace();
-            Log.e("LogsAndroid", "Mensaje de error");
+            Log.e("LogsAndroid", "Mensaje de error- foto");
             data[0]=0;
         }
         return data;
@@ -583,9 +592,13 @@ class SoapRequests {
 
         } catch (SocketTimeoutException bug) {
             data[0]=0;
+            Log.e("LogsAndroid", "Mensaje de error- timeout");
+
         }catch (Exception q) {
             q.printStackTrace();
             data[0]=0;
+            Log.e("LogsAndroid", "Mensaje de error- error de datos");
+
         }
         return data;
     }
