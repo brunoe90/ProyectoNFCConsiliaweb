@@ -833,7 +833,9 @@ public class pasanopasaActivity extends AppCompatActivity {
         super.onPause();
         // disabling foreground dispatch:
         NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(this);
-        nfcAdapter.disableForegroundDispatch(this);
+         if (nfcAdapter != null && nfcAdapter.isEnabled()) {
+             nfcAdapter.disableForegroundDispatch(this);
+         }
     }
 
 
@@ -843,6 +845,8 @@ public class pasanopasaActivity extends AppCompatActivity {
 
         if (intent.getAction().equals(NfcAdapter.ACTION_TAG_DISCOVERED)) {
             {
+
+
                 texto = ByteArrayToHexString(intent.getByteArrayExtra(NfcAdapter.EXTRA_ID));
 
                 {

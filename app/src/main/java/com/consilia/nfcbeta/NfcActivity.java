@@ -319,7 +319,9 @@ public class NfcActivity extends AppCompatActivity implements View.OnClickListen
         super.onPause();
         // disabling foreground dispatch:
         NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(this);
-        nfcAdapter.disableForegroundDispatch(this);
+        if (nfcAdapter != null && nfcAdapter.isEnabled()) {
+            nfcAdapter.disableForegroundDispatch(this);
+        }
     }
 
 
