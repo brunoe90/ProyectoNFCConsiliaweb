@@ -433,7 +433,7 @@ class SoapRequests {
             String CuotaCtrl = responsee.getPrimitivePropertyAsString("CuotaCtrl");
             String nombre = resultsString.getPrimitivePropertyAsString("Nombre");
             String Documento = resultsString.getPrimitivePropertyAsString("Documento");
-            String IdEstado = resultsString.getPrimitivePropertyAsString("IdEstado");
+            String IdEstado = responsee.getPrimitivePropertyAsString("IdEstado");
             String Message = resultsString.getPrimitivePropertyAsString("Message");
             String IdInvitado = resultsString.getPrimitivePropertyAsString("IdInvitado");
             String Categoria = resultsString.getPrimitivePropertyAsString("Categoria");
