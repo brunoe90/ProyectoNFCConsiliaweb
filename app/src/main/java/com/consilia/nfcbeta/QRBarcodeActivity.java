@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -157,6 +158,17 @@ public class QRBarcodeActivity extends AppCompatActivity implements View.OnClick
         });
 
 
+        FloatingActionButton myFab = (FloatingActionButton)  findViewById(R.id.floatingActionButton3);
+        assert myFab != null;
+        myFab.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                bundle.putInt("idStadium", bundle.getInt("idStadium"));
+                bundle.putString("Puerta", bundle.getString("Puerta"));
+                Intent intent = new Intent(QRBarcodeActivity.this, NfcActivity.class);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
 
     }
 

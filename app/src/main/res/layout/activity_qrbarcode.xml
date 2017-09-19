@@ -14,9 +14,9 @@
 
 
     <TabHost
+        android:id="@+id/tabHost"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/tabHost">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -35,165 +35,176 @@
                 android:layout_height="match_parent">
 
 
-
                 <LinearLayout
-                    android:tag="tab1"
                     android:id="@+id/tab1"
-
                     android:layout_width="match_parent"
+
                     android:layout_height="match_parent"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:tag="tab1">
 
                     <TextView
-                        android:layout_marginTop="10dp"
+                        android:id="@+id/text"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:fontFamily="sans-serif-medium"
-                        android:textStyle="normal"
-                        android:id="@+id/text"
-                        android:textSize="30sp"
-                        android:textColor="@color/verdeboleteria"
                         android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:textColor="@color/verdeboleteria"
+                        android:textSize="30sp"
+                        android:textStyle="normal"
                         tools:targetApi="jelly_bean" />
 
                     <Button
-                        android:text="@string/leer_qr"
+                        android:id="@+id/bqr"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/bqr"
                         android:background="@drawable/boton"
+                        android:text="@string/leer_qr"
                         android:textColor="@color/grisboleteria"
                         android:textSize="40sp"
                         android:textStyle="normal|bold|italic" />
 
                     <TextView
+                        android:id="@+id/textView12"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/textView12" />
+                        android:layout_height="wrap_content" />
 
                     <ImageView
+                        android:id="@+id/imageView5"
                         android:layout_width="match_parent"
                         android:layout_height="120dp"
-                        app:srcCompat="@drawable/qractivity"
-                        android:id="@+id/imageView5" />
+                        app:srcCompat="@drawable/qractivity" />
 
                     <Button
-                        android:layout_marginTop="10dp"
+                        android:id="@+id/benviar"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:fontFamily="sans-serif-medium"
-                        android:textStyle="normal|bold"
                         android:layout_gravity="center_horizontal"
-                        android:background="@android:drawable/editbox_background"
-                        android:textSize="30sp"
-                        android:text="@string/enviar"
-                        android:id="@+id/benviar"
+                        android:layout_marginTop="10dp"
                         android:layout_weight="0"
+                        android:background="@android:drawable/editbox_background"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="@string/enviar"
                         android:textColor="@color/verdeboleteria"
+                        android:textSize="30sp"
+                        android:textStyle="normal|bold"
                         tools:targetApi="jelly_bean" />
+
+                    <TextView
+                        android:id="@+id/textView9"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="" />
+
+                    <android.support.design.widget.FloatingActionButton
+                        android:id="@+id/floatingActionButton3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:scaleType="center"
+                        android:clickable="true"
+                        app:backgroundTint="@android:color/white"
+                        app:elevation="1dp"
+                        app:srcCompat="@drawable/qr" />
 
 
                 </LinearLayout>
 
                 <LinearLayout
-                    android:tag="tab2"
                     android:id="@+id/tab2"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:tag="tab2">
 
 
                     <TextView
-                        android:layout_marginTop="10dp"
+                        android:id="@+id/textView5"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:fontFamily="sans-serif-medium"
-                        android:textStyle="normal|bold|italic"
-                        android:textColor="@color/grisboleteria"
-                        android:text="@string/id_socio"
-                        android:gravity="center_horizontal"
-                        android:id="@+id/textView5"
-                        android:textSize="40sp"
                         android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:gravity="center_horizontal"
+                        android:text="@string/id_socio"
+                        android:textColor="@color/grisboleteria"
+                        android:textSize="40sp"
+                        android:textStyle="normal|bold|italic"
                         tools:targetApi="jelly_bean" />
 
                     <ImageView
+                        android:id="@+id/imageView3"
                         android:layout_width="match_parent"
                         android:layout_height="150dp"
-                        app:srcCompat="@drawable/socio"
-                        android:id="@+id/imageView3" />
-
-
-
-
+                        app:srcCompat="@drawable/socio" />
 
 
                     <RadioGroup
-                        android:layout_marginTop="10dp"
                         android:layout_width="wrap_content"
-                        android:textColor="@color/verdeboleteria"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
                         android:layout_gravity="center_horizontal"
-                        android:layout_weight="0" >
+                        android:layout_marginTop="10dp"
+                        android:layout_weight="0"
+                        android:orientation="horizontal"
+                        android:textColor="@color/verdeboleteria">
 
                         <RadioButton
-                            android:fontFamily="sans-serif-medium"
-                            android:textStyle="normal|bold"
+                            android:id="@+id/idsocio"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/id"
-                            android:id="@+id/idsocio"
-                            android:textColor="@color/verdeboleteria"
                             android:layout_gravity="center_horizontal"
                             android:layout_weight="0"
                             android:checked="false"
-                            android:textSize="20sp"
+                            android:fontFamily="sans-serif-medium"
                             android:onClick="onRadioButtonClicked"
+                            android:text="@string/id"
+                            android:textColor="@color/verdeboleteria"
+                            android:textSize="20sp"
+                            android:textStyle="normal|bold"
                             tools:targetApi="jelly_bean" />
 
                         <RadioButton
-                            android:fontFamily="sans-serif-medium"
-                            android:textStyle="normal|bold"
+                            android:id="@+id/docsocio"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/documento_dni"
-                            android:textColor="@color/verdeboleteria"
-                            android:id="@+id/docsocio"
                             android:layout_gravity="right"
                             android:layout_weight="0"
                             android:checked="false"
-                            android:textSize="20sp"
+                            android:fontFamily="sans-serif-medium"
                             android:onClick="onRadioButtonClicked"
+                            android:text="@string/documento_dni"
+                            android:textColor="@color/verdeboleteria"
+                            android:textSize="20sp"
+                            android:textStyle="normal|bold"
                             tools:targetApi="jelly_bean" />
 
                     </RadioGroup>
 
                     <EditText
 
-                        android:layout_width="match_parent"
-                        android:fontFamily="sans-serif-medium"
-                        android:inputType="number"
-                        android:textColor="@color/verdeboleteria"
                         android:id="@+id/edtsocio"
-                        android:gravity="center_horizontal"
-                        android:layout_gravity="center_horizontal"
-                        android:maxLines="1"
-                        android:maxLength="8"
-                        tools:targetApi="jelly_bean"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="20sp" />
+                        android:layout_gravity="center_horizontal"
+                        android:fontFamily="sans-serif-medium"
+                        android:gravity="center_horizontal"
+                        android:inputType="number"
+                        android:maxLength="8"
+                        android:maxLines="1"
+                        android:textColor="@color/verdeboleteria"
+                        android:textSize="20sp"
+                        tools:targetApi="jelly_bean" />
 
                     <Button
-                        android:fontFamily="sans-serif-medium"
-                        android:textStyle="normal|bold"
-                        android:layout_height="50dp"
-                        android:textSize="20sp"
-                        android:textColor="@color/grisboleteria"
-                        android:layout_width="match_parent"
-                        android:background="@drawable/boton"
-                        android:text="@string/consultar"
                         android:id="@+id/bidsocio"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:background="@drawable/boton"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="@string/consultar"
+                        android:textColor="@color/grisboleteria"
+                        android:textSize="20sp"
+                        android:textStyle="normal|bold"
                         tools:targetApi="jelly_bean" />
 
 
@@ -207,94 +218,94 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:layout_marginTop="10dp"
+                        android:id="@+id/textView6"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="10dp"
                         android:fontFamily="sans-serif-medium"
-                        android:textStyle="normal|bold|italic"
+                        android:gravity="center_horizontal"
                         android:text="@string/invitado"
                         android:textColor="@color/grisboleteria"
-                        android:gravity="center_horizontal"
-                        android:id="@+id/textView6"
                         android:textSize="40sp"
-                        android:layout_gravity="center_horizontal"
+                        android:textStyle="normal|bold|italic"
                         tools:targetApi="jelly_bean" />
 
                     <ImageView
+                        android:id="@+id/imageView3"
                         android:layout_width="match_parent"
                         android:layout_height="150dp"
-                        app:srcCompat="@drawable/invitado"
-                        android:id="@+id/imageView3" />
+                        app:srcCompat="@drawable/invitado" />
 
 
                     <RadioGroup
-                        android:layout_marginTop="10dp"
                         android:layout_width="wrap_content"
-                        android:textColor="@color/verdeboleteria"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
                         android:layout_gravity="center_horizontal"
-                        android:layout_weight="0" >
+                        android:layout_marginTop="10dp"
+                        android:layout_weight="0"
+                        android:orientation="horizontal"
+                        android:textColor="@color/verdeboleteria">
 
                         <RadioButton
-                            android:fontFamily="sans-serif-medium"
-                            android:textStyle="normal|bold"
+                            android:id="@+id/idInv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/id"
-                            android:id="@+id/idInv"
-                            android:textColor="@color/verdeboleteria"
                             android:layout_gravity="center_horizontal"
                             android:layout_weight="0"
                             android:checked="false"
-                            android:textSize="20sp"
+                            android:fontFamily="sans-serif-medium"
                             android:onClick="onRadioButtonClicked"
+                            android:text="@string/id"
+                            android:textColor="@color/verdeboleteria"
+                            android:textSize="20sp"
+                            android:textStyle="normal|bold"
                             tools:targetApi="jelly_bean" />
 
                         <RadioButton
-                            android:fontFamily="sans-serif-medium"
-                            android:textStyle="normal|bold"
+                            android:id="@+id/dniInv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/documento_dni"
-                            android:textColor="@color/verdeboleteria"
-                            android:id="@+id/dniInv"
                             android:layout_gravity="right"
                             android:layout_weight="0"
                             android:checked="false"
-                            android:textSize="20sp"
+                            android:fontFamily="sans-serif-medium"
                             android:onClick="onRadioButtonClicked"
+                            android:text="@string/documento_dni"
+                            android:textColor="@color/verdeboleteria"
+                            android:textSize="20sp"
+                            android:textStyle="normal|bold"
                             tools:targetApi="jelly_bean" />
 
                     </RadioGroup>
 
                     <EditText
 
+                        android:id="@+id/edtinvitado"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-medium"
-                        android:inputType="number"
-                        android:textColor="@color/verdeboleteria"
-                        android:id="@+id/edtinvitado"
-                        android:maxLength="8"
                         android:gravity="center_horizontal"
+                        android:inputType="number"
+                        android:maxLength="8"
                         android:maxLines="1"
+                        android:textColor="@color/verdeboleteria"
                         android:textSize="20sp"
                         tools:targetApi="jelly_bean" />
 
                     <Button
-                        android:fontFamily="sans-serif-medium"
-                        android:textStyle="normal|bold"
-                        android:layout_height="50dp"
-                        android:textSize="20sp"
-                        android:textColor="@color/grisboleteria"
-                        android:layout_width="match_parent"
-                        android:background="@drawable/boton"
-                        android:text="@string/consultar"
                         android:id="@+id/binvitado"
-                        tools:targetApi="jelly_bean"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:background="@drawable/boton"
+                        android:fontFamily="sans-serif-medium"
                         android:minHeight="0dp"
-                        android:minWidth="0dp" />
+                        android:minWidth="0dp"
+                        android:text="@string/consultar"
+                        android:textColor="@color/grisboleteria"
+                        android:textSize="20sp"
+                        android:textStyle="normal|bold"
+                        tools:targetApi="jelly_bean" />
 
                 </LinearLayout>
 
