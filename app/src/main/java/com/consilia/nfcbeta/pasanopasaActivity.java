@@ -252,6 +252,7 @@ public class pasanopasaActivity extends AppCompatActivity {
         }
         return super.onKeyDown(keyCode, event);
     }
+
     private Handler handler = new Handler(new Handler.Callback() {
 
         @TargetApi(Build.VERSION_CODES.JELLY_BEAN)

@@ -18,6 +18,7 @@ import android.nfc.tech.NfcB;
 import android.nfc.tech.NfcF;
 import android.nfc.tech.NfcV;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -161,6 +162,19 @@ public class NfcActivity extends AppCompatActivity implements View.OnClickListen
             }
         });
 
+
+        FloatingActionButton myFab = (FloatingActionButton)  findViewById(R.id.floatingActionButton3);
+        assert myFab != null;
+        myFab.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                bundle.putInt("idStadium", bundle.getInt("idStadium"));
+                bundle.putString("Puerta", bundle.getString("Puerta"));
+                Intent intent = new Intent(NfcActivity.this, QRBarcodeActivity.class);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
+
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
@@ -235,6 +249,7 @@ public class NfcActivity extends AppCompatActivity implements View.OnClickListen
             } else Toast.makeText(getBaseContext(), "Indicar Invitado", Toast.LENGTH_LONG).show();
         }
     }
+
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
