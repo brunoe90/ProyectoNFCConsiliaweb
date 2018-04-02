@@ -51,20 +51,19 @@
         tools:targetApi="jelly_bean"/>
 
     <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-
-        android:inputType="textCapCharacters"
-        android:maxLength="20"
-        android:textColor="@color/gris"
         android:id="@+id/etstadio"
+        android:layout_width="match_parent"
+
+        android:layout_height="wrap_content"
         android:layout_gravity="center_vertical|center_horizontal|center"
-
-        android:textSize="20sp"
-
         android:gravity="center_vertical|center_horizontal"
+        android:maxLength="20"
+
         android:scrollbarSize="20sp"
-        android:textAlignment="center" />
+
+        android:textAlignment="center"
+        android:textColor="@color/gris"
+        android:textSize="20sp" />
 
     <Button
         android:layout_width="match_parent"

@@ -110,7 +110,7 @@ class SoapRequests {
                     break;
                 }
             }
-            data = resultsString.toString().replace("Id","").replace("Stadium=","").replace("StadiumData=","").replace("anyType{","").replace("}","").replace("; ; ",";").replace("IdStadium=","");
+            data = resultsString.toString().replace("Id","").replace("Stadium=","").replace("StadiumData=","").replace("anyType{","").replace("}","").replace("; ; ",";").replace("IdStadium=","").replaceAll("EventoAbonos="+"\\d"+";","").replace("EventoAbonos="+"null"+";","").replaceAll("EventoAbonos="+"\\d"+"\\d"+"\\d"+";","").replaceAll("EventoAbonos="+"\\d"+"\\d"+";","").replace("; ",";");
 
         } catch (Exception q) {
             q.printStackTrace();

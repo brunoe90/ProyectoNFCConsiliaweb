@@ -20,7 +20,7 @@
         android:textColor="@color/verdeboleteria"
         android:textSize="20sp"
         android:textAlignment="center"
-        android:maxLength="40"
+        android:maxLength="60"
         android:inputType="textWebEditText"
         android:layout_below="@+id/imageView2"
         android:layout_alignParentRight="true"

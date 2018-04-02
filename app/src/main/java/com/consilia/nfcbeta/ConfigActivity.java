@@ -15,6 +15,11 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStreamReader;
+
 
 public class ConfigActivity extends AppCompatActivity {
     Bundle bundle;
@@ -26,6 +31,10 @@ public class ConfigActivity extends AppCompatActivity {
     int  idStadium;
     String Puerta;
     int posicion;
+
+    FileOutputStream myFileOutput;
+    FileInputStream myFileInput;
+    String myFilename = "configFilePuerta.cfg";
     //Typeface face= Typeface.createFromAsset(getAssets(),"fonts/digital.ttf");
     //txtV.setTypeface(face);
 
@@ -35,6 +44,10 @@ public class ConfigActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_config);
+
+
+
+
         bundle = new Bundle();
         spinner = (Spinner) findViewById(R.id.Estadio);
         etip        = (EditText)findViewById(R.id.etstadio);
@@ -42,6 +55,26 @@ public class ConfigActivity extends AppCompatActivity {
 
         idStadium =     (bundle.getInt("idStadium"));
         Puerta =        (bundle.getString("Puerta"));
+        // Recupera texto ################################################################
+        try {
+            // Abrimos stream y creamos buffer...
+            myFileInput                         = openFileInput(myFilename);
+            InputStreamReader inputStreamReader = new InputStreamReader( myFileInput );
+            BufferedReader bufferedReader       = new BufferedReader( inputStreamReader );
+
+            // Obtenemos string
+            String strAux = bufferedReader.readLine();
+
+            // Grabamos string
+            etip.setText( strAux );
+
+            // Cerramos flujo
+            myFileInput.close();
+        }
+        catch (Exception ignored){
+
+        }
+        // ################################################################################
 
         if (Puerta != null){
             etip.setText(String.valueOf(Puerta));
@@ -106,6 +139,7 @@ public class ConfigActivity extends AppCompatActivity {
                     if (!etip.getText().toString().equals("")){
                         bundle.putInt("idStadium",idStadium);
                         bundle.putString("Puerta", (etip.getText().toString()));
+
                         bundle.putString("IP",bundle.getString("IP"));
                         bundle.putString("port",bundle.getString("port"));
                         Intent intent = new Intent(ConfigActivity.this, MainActivity.class);
@@ -122,6 +156,19 @@ public class ConfigActivity extends AppCompatActivity {
         if (!etip.getText().toString().equals("")) {
             bundle.putString("Puerta", (etip.getText().toString()));
             bundle.putInt("idStadium", idStadium);
+            // Guarda en archivo ##############################################################
+            //String strAux = IP.getText().toString();
+
+            // Al presionar el boton... guardamos en un archivo...
+            try{
+                myFileOutput = openFileOutput(myFilename, Context.MODE_PRIVATE);
+                myFileOutput.write((etip.getText().toString().getBytes()));
+                myFileOutput.close();
+            }
+            catch ( Exception ignored){
+
+            }
+            // ###############################################################################
             Intent intent = new Intent(ConfigActivity.this, MainActivity.class);
             intent.putExtras(bundle);
             startActivity(intent);

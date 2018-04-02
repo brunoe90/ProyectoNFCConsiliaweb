@@ -446,11 +446,11 @@ public class pasanopasaActivity extends AppCompatActivity {
                                     if (puerta>0){
                                         //String info = stringsoap.substring(puerta+"Puertas:".length());
                                         puertas=stringsoap.substring(numpuertas+8);
-                                        puertas=puertas.replace("Puerta","").replace("PUERTA","").replace("puerta","").replace("S","").replace("s","").replace(" ","");
-                                        String estadios[] =puertas.split(",");
+                                        //puertas=puertas.replace("Puerta","").replace("PUERTA","").replace("puerta","").replace("S","").replace("s","").replace(" ","");
+                                        String estadios[] =puertas.split(", ");
                                         puerta=0;
                                         for (String estadio : estadios) {
-                                            if (estadio.equals(Puerta.replace(" ",""))) {
+                                            if (estadio.equals(Puerta)) {
                                                 puerta = 1;
                                             }
                                         }

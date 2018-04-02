@@ -52,7 +52,6 @@
         android:layout_height="50dp"
         android:ems="10"
         android:maxLength="20"
-        android:inputType="textCapCharacters"
         android:textColor="@color/grisboleteria"
         android:id="@+id/etstadio"
         android:layout_gravity="center_horizontal"
