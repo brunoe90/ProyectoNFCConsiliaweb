@@ -52,7 +52,8 @@ public class loginActivity extends AppCompatActivity   {
                     public void run() {
 
                         SoapRequests ex = new SoapRequests();
-                        stringsoap = ex.GetStadiums(IP.getText().toString());
+                        //stringsoap = ex.GetStadiums(IP.getText().toString());
+                        stringsoap = ex.getversion(IP.getText().toString());//paradebug
 
                         // Guarda en archivo ##############################################################
                         String strAux = IP.getText().toString();
@@ -70,14 +71,14 @@ public class loginActivity extends AppCompatActivity   {
 
 
 
-                        if (stringsoap!=null ) {
-                            if (!stringsoap.equals("0")) {
-                                handler.sendEmptyMessage(1);
-
-                            } else {
-                                handler.sendEmptyMessage(0);
-                            }
-                        }else handler.sendEmptyMessage(0);
+//                        if (stringsoap!=null ) {
+//                            if (!stringsoap.equals("0")) {
+//                                handler.sendEmptyMessage(1);
+//
+//                            } else {
+//                                handler.sendEmptyMessage(0);
+//                            }
+//                        }else handler.sendEmptyMessage(0);
 
                     }
 

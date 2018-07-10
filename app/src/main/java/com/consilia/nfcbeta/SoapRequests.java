@@ -5,10 +5,13 @@ import android.util.Log;
 
 import org.ksoap2.HeaderProperty;
 import org.ksoap2.SoapEnvelope;
+import org.ksoap2.SoapFault;
 import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapPrimitive;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
+import org.kxml2.kdom.Element;
+import org.kxml2.kdom.Node;
 
 import java.net.Proxy;
 import java.net.SocketTimeoutException;
@@ -21,16 +24,16 @@ import java.util.Locale;
 
 class SoapRequests {
     private static final boolean DEBUG_SOAP_REQUEST_RESPONSE = true;
-    private static final String NAMESPACE =                     "http://controlplus.net/WebService.asmx";
-    private static final String SOAP_ACTION_getversion =        "http://controlplus.net/cwpwebservice/GetVersion";
-    private static final String SOAP_ACTION_SearchSocioByDoc =  "http://controlplus.net/cwpwebservice/SearchSocioByDoc";
-    private static final String SOAP_ACTION_SearchInvitadoByDoc =  "http://controlplus.net/cwpwebservice/SearchInvitadoByDoc";
-    private static final String SOAP_ACTION_SearchSocio =       "http://controlplus.net/cwpwebservice/SearchSocio";
-    private static final String SOAP_ACTION_getfoto =           "http://controlplus.net/cwpwebservice/GetFotoSocio";
-    private static final String SOAP_ACTION_getfoto_Invitado =  "http://controlplus.net/cwpwebservice/GetFotoInvitado";
-    private static final String SOAP_ACTION_searchcarnet =      "http://controlplus.net/cwpwebservice/SearchCarnet";
-    private static final String SOAP_ACTION_SearchInvitado =    "http://controlplus.net/cwpwebservice/SearchInvitado";
-    private static final String SOAP_ACTION_GetStadiums =    "http://controlplus.net/cwpwebservice/GetStadiums";
+    private static final String NAMESPACE =                         "http://controlplus.net/cwpwcfservice";
+    private static final String SOAP_ACTION_getversion =            "http://controlplus.net/cwpwcfservice/ICwpWcfService/GetVersion";
+    private static final String SOAP_ACTION_SearchSocioByDoc =      "http://controlplus.net/cwpwcfservice/SearchSocioByDoc";
+    private static final String SOAP_ACTION_SearchInvitadoByDoc =   "http://controlplus.net/cwpwcfservice/SearchInvitadoByDoc";
+    private static final String SOAP_ACTION_SearchSocio =           "http://controlplus.net/cwpwcfservice/SearchSocio";
+    private static final String SOAP_ACTION_getfoto =               "http://controlplus.net/cwpwcfservice/GetFotoSocio";
+    private static final String SOAP_ACTION_getfoto_Invitado =      "http://controlplus.net/cwpwcfservice/GetFotoInvitado";
+    private static final String SOAP_ACTION_searchcarnet =          "http://controlplus.net/cwpwcfservice/SearchCarnet";
+    private static final String SOAP_ACTION_SearchInvitado =        "http://controlplus.net/cwpwcfservice/SearchInvitado";
+    private static final String SOAP_ACTION_GetStadiums =           "http://controlplus.net/cwpwcfservice/ICwpWcfService/GetStadiums";
 
     private static String SESSION_ID;
 
@@ -49,8 +52,15 @@ class SoapRequests {
         String methodname = "GetVersion";
         SoapObject request = new SoapObject(NAMESPACE, methodname);
         //request.addProperty("symbol", Value);
+        SoapSerializationEnvelope envelope= getSoapSerializationEnvelope(request);
 
-        SoapSerializationEnvelope envelope = getSoapSerializationEnvelope(request);
+        //envelope = new SoapSerializationEnvelope(SoapEnvelope.VER_BVIP);
+
+        //envelope.dotNet=false;
+//
+        //envelope.implicitTypes = false;
+//        //envelope.writeHeader();
+        //envelope.setAddAdornments(false);
 
         HttpTransportSE ht =  getHttpTransportSE( IP);
         try {
@@ -73,6 +83,9 @@ class SoapRequests {
             }
             data = resultsString.toString();
 
+        } catch (SoapFault soapFault){
+            soapFault.printStackTrace();
+            Log.e("LogsAndroid", "Mensaje de error- datos version");
         } catch (Exception q) {
             q.printStackTrace();
             Log.e("LogsAndroid", "Mensaje de error- datos version");
@@ -89,7 +102,15 @@ class SoapRequests {
         SoapObject request = new SoapObject(NAMESPACE, methodname);
         //request.addProperty("symbol", Value);
 
-        SoapSerializationEnvelope envelope = getSoapSerializationEnvelope(request);
+
+        SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+
+        envelope.dotNet = true;
+        //envelope.setAddAdornments(false);
+        //envelope.encodingStyle = SoapSerializationEnvelope.XSD;
+
+
+        envelope.setOutputSoapObject(request);
 
         HttpTransportSE ht =  getHttpTransportSE( IP);
         try {
@@ -605,18 +626,19 @@ class SoapRequests {
 
     private  SoapSerializationEnvelope getSoapSerializationEnvelope(SoapObject request) {
         SoapSerializationEnvelope envelope;
-        envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+        envelope = new SoapSerializationEnvelope(SoapEnvelope.VER_BVIP);
         envelope.dotNet = true;
         envelope.implicitTypes = true;
-        envelope.setAddAdornments(false);
-        envelope.encodingStyle = SoapSerializationEnvelope.ENC2003; // XSD no anda // ENC no anda //env tampoco // env2003 menos // ENC 2003 nope
-        envelope.setOutputSoapObject(request);
-        envelope.dotNet = true;
-        envelope.implicitTypes = true;
-        //envelope.writeHeader();
         envelope.setAddAdornments(false);
 
-        envelope.encodingStyle = SoapSerializationEnvelope.ENC2003;
+        Element[] header = new Element[1];
+        header[0] = new Element().createElement(null/*"http://schemas.microsoft.com/ws/2005/05/addressing/none"*/,"Action");
+        header[0].setAttribute(null, "s:mustUnderstand"+"=\"1\"  xmlns","http://schemas.microsoft.com/ws/2005/05/addressing/none");
+        header[0].addChild(Node.TEXT,SOAP_ACTION_getversion);
+        envelope.headerOut = header;
+
+        envelope.setOutputSoapObject(request);
+
         return envelope;
     }
 
@@ -624,7 +646,7 @@ class SoapRequests {
         HttpTransportSE ht = new HttpTransportSE(Proxy.NO_PROXY,method,8000);
         ht.debug = true;
 
-        ht.setXmlVersionTag("<?xml version=\"1.0\" encoding= \"UTF-8\" ?>");
+       // ht.setXmlVersionTag("<?xml version=\"1.0\" encoding= \"UTF-8\" ?>");
         return ht;
     }
 
