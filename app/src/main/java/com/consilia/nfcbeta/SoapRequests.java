@@ -10,8 +10,6 @@ import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapPrimitive;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
-import org.kxml2.kdom.Element;
-import org.kxml2.kdom.Node;
 
 import java.net.Proxy;
 import java.net.SocketTimeoutException;
@@ -21,21 +19,20 @@ import java.util.List;
 import java.util.Locale;
 
 
-
 class SoapRequests {
     private static final boolean DEBUG_SOAP_REQUEST_RESPONSE = true;
     private static final String NAMESPACE =                         "http://controlplus.net/cwpwcfservice";
     private static final String SOAP_ACTION_getversion =            "http://controlplus.net/cwpwcfservice/ICwpWcfService/GetVersion";
-    private static final String SOAP_ACTION_SearchSocioByDoc =      "http://controlplus.net/cwpwcfservice/SearchSocioByDoc";
-    private static final String SOAP_ACTION_SearchInvitadoByDoc =   "http://controlplus.net/cwpwcfservice/SearchInvitadoByDoc";
-    private static final String SOAP_ACTION_SearchSocio =           "http://controlplus.net/cwpwcfservice/SearchSocio";
-    private static final String SOAP_ACTION_getfoto =               "http://controlplus.net/cwpwcfservice/GetFotoSocio";
-    private static final String SOAP_ACTION_getfoto_Invitado =      "http://controlplus.net/cwpwcfservice/GetFotoInvitado";
-    private static final String SOAP_ACTION_searchcarnet =          "http://controlplus.net/cwpwcfservice/SearchCarnet";
-    private static final String SOAP_ACTION_SearchInvitado =        "http://controlplus.net/cwpwcfservice/SearchInvitado";
+    private static final String SOAP_ACTION_getversion_test =       "http://controlplus.net/cwpwcfservice/ICwpWcfService/ICwpWcfService/GetVersion";
+    private static final String SOAP_ACTION_SearchSocioByDoc =      "http://controlplus.net/cwpwcfservice/ICwpWcfService/SearchSocioByDoc";
+    private static final String SOAP_ACTION_SearchInvitadoByDoc =   "http://controlplus.net/cwpwcfservice/ICwpWcfService/SearchInvitadoByDoc";
+    private static final String SOAP_ACTION_SearchSocio =           "http://controlplus.net/cwpwcfservice/ICwpWcfService/SearchSocio";
+    private static final String SOAP_ACTION_getfoto =               "http://controlplus.net/cwpwcfservice/ICwpWcfService/GetFotoSocio";
+    private static final String SOAP_ACTION_getfoto_Invitado =      "http://controlplus.net/cwpwcfservice/ICwpWcfService/GetFotoInvitado";
+    private static final String SOAP_ACTION_searchcarnet =          "http://controlplus.net/cwpwcfservice/ICwpWcfService/SearchCarnet";
+    private static final String SOAP_ACTION_SearchInvitado =        "http://controlplus.net/cwpwcfservice/ICwpWcfService/SearchInvitado";
     private static final String SOAP_ACTION_GetStadiums =           "http://controlplus.net/cwpwcfservice/ICwpWcfService/GetStadiums";
-
-    private static String SESSION_ID;
+    private static       String SESSION_ID;
 
     private void testHttpResponse(HttpTransportSE ht) {
         ht.debug = DEBUG_SOAP_REQUEST_RESPONSE;
@@ -51,17 +48,7 @@ class SoapRequests {
 
         String methodname = "GetVersion";
         SoapObject request = new SoapObject(NAMESPACE, methodname);
-        //request.addProperty("symbol", Value);
         SoapSerializationEnvelope envelope= getSoapSerializationEnvelope(request);
-
-        //envelope = new SoapSerializationEnvelope(SoapEnvelope.VER_BVIP);
-
-        //envelope.dotNet=false;
-//
-        //envelope.implicitTypes = false;
-//        //envelope.writeHeader();
-        //envelope.setAddAdornments(false);
-
         HttpTransportSE ht =  getHttpTransportSE( IP);
         try {
             ht.call(SOAP_ACTION_getversion, envelope);
@@ -86,10 +73,10 @@ class SoapRequests {
         } catch (SoapFault soapFault){
             soapFault.printStackTrace();
             Log.e("LogsAndroid", "Mensaje de error- datos version");
+
         } catch (Exception q) {
             q.printStackTrace();
             Log.e("LogsAndroid", "Mensaje de error- datos version");
-
         }
         return data;
     }
@@ -100,21 +87,10 @@ class SoapRequests {
 
         String methodname = "GetStadiums";
         SoapObject request = new SoapObject(NAMESPACE, methodname);
-        //request.addProperty("symbol", Value);
-
-
-        SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
-
-        envelope.dotNet = true;
-        //envelope.setAddAdornments(false);
-        //envelope.encodingStyle = SoapSerializationEnvelope.XSD;
-
-
-        envelope.setOutputSoapObject(request);
-
+        SoapSerializationEnvelope envelope= getSoapSerializationEnvelope(request);
         HttpTransportSE ht =  getHttpTransportSE( IP);
         try {
-            ht.call(SOAP_ACTION_GetStadiums, envelope);
+            ht.call(SOAP_ACTION_GetStadiums, envelope,null);
 
             testHttpResponse(ht);
             SoapObject resultsString = (SoapObject)envelope.getResponse();
@@ -146,7 +122,7 @@ class SoapRequests {
         String data;
 
         String methodname = "SearchCarnet";
-        SoapObject request = new SoapObject("http://controlplus.net/cwpwebservice",methodname);// new SoapObject(NAMESPACE, methodname);
+        SoapObject request = new SoapObject(NAMESPACE,methodname);// new SoapObject(NAMESPACE, methodname);
 
         request.addProperty("idEstadio", idEstadio);
         request.addProperty("idSerie",idSerie);
@@ -192,7 +168,7 @@ class SoapRequests {
         String data = null  ;
 
         String methodname = "SearchSocioByDoc";
-        SoapObject request = new SoapObject("http://controlplus.net/cwpwebservice",methodname);// new SoapObject(NAMESPACE, methodname);
+        SoapObject request = new SoapObject(NAMESPACE,methodname);// new SoapObject(NAMESPACE, methodname);
 
         request.addProperty("idStadium", idStadium);
         request.addProperty("idTipoDoc",idTipoDoc);
@@ -236,7 +212,7 @@ class SoapRequests {
         String data = null  ;
 
         String methodname = "SearchInvitadoByDoc";
-        SoapObject request = new SoapObject("http://controlplus.net/cwpwebservice",methodname);// new SoapObject(NAMESPACE, methodname);
+        SoapObject request = new SoapObject(NAMESPACE,methodname);// new SoapObject(NAMESPACE, methodname);
 
         request.addProperty("idStadium", idStadium);
         request.addProperty("idTipoDoc",idTipoDoc);
@@ -281,12 +257,12 @@ class SoapRequests {
         String data = null;
        // idStadium="2";
         String methodname = "SearchSocio";
-        SoapObject request = new SoapObject("http://controlplus.net/cwpwebservice",methodname);// new SoapObject(NAMESPACE, methodname);
+        SoapObject request = new SoapObject(NAMESPACE,methodname);// new SoapObject(NAMESPACE, methodname);
 
         request.addProperty("idStadium", idStadium);
         request.addProperty("numSocio",numSocio);
-        request.addProperty("documento",null);
-        request.addProperty("traerFoto","0");
+        //request.addProperty("documento",);
+        request.addProperty("traerFoto",1);
         SoapSerializationEnvelope envelope;
 
 
@@ -414,7 +390,7 @@ class SoapRequests {
         String data;
 
         String methodname = "SearchInvitado";
-        SoapObject request = new SoapObject("http://controlplus.net/cwpwebservice",methodname);// new SoapObject(NAMESPACE, methodname);
+        SoapObject request = new SoapObject(NAMESPACE,methodname);// new SoapObject(NAMESPACE, methodname);
 
         request.addProperty("idStadium", idStadium);
         request.addProperty("numInvitado",numInvitado);
@@ -542,7 +518,7 @@ class SoapRequests {
         byte data[] = new byte[1];
         String methodname = "GetFotoSocio";
 
-        SoapObject request = new SoapObject("http://controlplus.net/cwpwebservice", methodname);
+        SoapObject request = new SoapObject(NAMESPACE, methodname);
         request.addProperty("idStadium", idStadium);
         request.addProperty("numSocio", numSocio);
 
@@ -583,7 +559,7 @@ class SoapRequests {
         byte data[] = new byte[1];
         String methodname = "GetFotoInvitado";
 
-        SoapObject request = new SoapObject("http://controlplus.net/cwpwebservice", methodname);
+        SoapObject request = new SoapObject(NAMESPACE, methodname);
         request.addProperty("idStadium", idStadium);
         request.addProperty("numInvitado", numInvitado);
 
@@ -626,16 +602,14 @@ class SoapRequests {
 
     private  SoapSerializationEnvelope getSoapSerializationEnvelope(SoapObject request) {
         SoapSerializationEnvelope envelope;
-        envelope = new SoapSerializationEnvelope(SoapEnvelope.VER_BVIP);
+        envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+
+
+
+
         envelope.dotNet = true;
         envelope.implicitTypes = true;
         envelope.setAddAdornments(false);
-
-        Element[] header = new Element[1];
-        header[0] = new Element().createElement(null/*"http://schemas.microsoft.com/ws/2005/05/addressing/none"*/,"Action");
-        header[0].setAttribute(null, "s:mustUnderstand"+"=\"1\"  xmlns","http://schemas.microsoft.com/ws/2005/05/addressing/none");
-        header[0].addChild(Node.TEXT,SOAP_ACTION_getversion);
-        envelope.headerOut = header;
 
         envelope.setOutputSoapObject(request);
 
@@ -646,7 +620,8 @@ class SoapRequests {
         HttpTransportSE ht = new HttpTransportSE(Proxy.NO_PROXY,method,8000);
         ht.debug = true;
 
-       // ht.setXmlVersionTag("<?xml version=\"1.0\" encoding= \"UTF-8\" ?>");
+
+        //ht.setXmlVersionTag("<?xml version=\"1.0\" encoding= \"UTF-8\" ?>");
         return ht;
     }
 

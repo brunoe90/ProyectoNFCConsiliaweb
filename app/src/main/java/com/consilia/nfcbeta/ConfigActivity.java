@@ -2,8 +2,6 @@ package com.consilia.nfcbeta;
 
 import android.content.Context;
 import android.content.Intent;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -58,18 +56,18 @@ public class ConfigActivity extends AppCompatActivity {
         // Recupera texto ################################################################
         try {
             // Abrimos stream y creamos buffer...
-            myFileInput                         = openFileInput(myFilename);
-            InputStreamReader inputStreamReader = new InputStreamReader( myFileInput );
-            BufferedReader bufferedReader       = new BufferedReader( inputStreamReader );
+                myFileInput                         = openFileInput(myFilename);
+                InputStreamReader inputStreamReader = new InputStreamReader( myFileInput );
+                BufferedReader bufferedReader       = new BufferedReader( inputStreamReader );
 
-            // Obtenemos string
-            String strAux = bufferedReader.readLine();
+                // Obtenemos string
+                String strAux = bufferedReader.readLine();
 
-            // Grabamos string
-            etip.setText( strAux );
+                // Grabamos string
+                etip.setText( strAux );
 
-            // Cerramos flujo
-            myFileInput.close();
+                // Cerramos flujo
+                myFileInput.close();
         }
         catch (Exception ignored){
 
@@ -88,7 +86,7 @@ public class ConfigActivity extends AppCompatActivity {
         for(int i = 0; i!=(EstadioCrudo.length); i++){
             if ( (i %2)==0 ) {
 
-                EstadioPos[i/2]=EstadioCrudo[i];
+                EstadioPos[i/2]=EstadioCrudo[i].replace(" ","");
                             //even... PAR
             } else {
 
@@ -99,13 +97,13 @@ public class ConfigActivity extends AppCompatActivity {
         }
 
 
-        boolean connected;
-        ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
-        //we are connected to a network
-        connected = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
-                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED;
-
-        if (!connected) Toast.makeText(getBaseContext(), "Falla la coneccion a internet!!!!", Toast.LENGTH_LONG).show();
+//        boolean connected;
+//        ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+//        //we are connected to a network
+//        connected = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+//                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED;
+//
+//        if (!connected) Toast.makeText(getBaseContext(), "Falla la coneccion a internet!!!!", Toast.LENGTH_LONG).show();
 
         ArrayAdapter<String> dataAdapter;
         dataAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, estadios);

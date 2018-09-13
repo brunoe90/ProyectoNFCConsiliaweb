@@ -2,14 +2,16 @@ package com.consilia.nfcbeta;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import org.ksoap2.serialization.SoapObject;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -22,6 +24,7 @@ public class loginActivity extends AppCompatActivity   {
     EditText  IP;
     Bundle bundle;
     String stringsoap;
+    SoapObject GetStadiums_Response;
     FileOutputStream myFileOutput;
     FileInputStream myFileInput;
     String myFilename = "configFile.cfg";
@@ -52,8 +55,8 @@ public class loginActivity extends AppCompatActivity   {
                     public void run() {
 
                         SoapRequests ex = new SoapRequests();
-                        //stringsoap = ex.GetStadiums(IP.getText().toString());
-                        stringsoap = ex.getversion(IP.getText().toString());//paradebug
+                        stringsoap = ex.GetStadiums(IP.getText().toString());
+                        //stringsoap = ex.getversion(IP.getText().toString());//paradebug
 
                         // Guarda en archivo ##############################################################
                         String strAux = IP.getText().toString();
@@ -71,14 +74,13 @@ public class loginActivity extends AppCompatActivity   {
 
 
 
-//                        if (stringsoap!=null ) {
-//                            if (!stringsoap.equals("0")) {
-//                                handler.sendEmptyMessage(1);
-//
-//                            } else {
-//                                handler.sendEmptyMessage(0);
-//                            }
-//                        }else handler.sendEmptyMessage(0);
+                        if (stringsoap!=null ) {
+                            if (!stringsoap.equals("0")) {
+                                handler.sendEmptyMessage(1);
+                            } else {
+                                handler.sendEmptyMessage(0);
+                            }
+                        }else handler.sendEmptyMessage(0);
 
                     }
 
@@ -126,10 +128,6 @@ public class loginActivity extends AppCompatActivity   {
                     bundle.putStringArray("Estadios",estadios);
                     bundle.putString("IP",IP.getText().toString());
                     Intent intent = new Intent(loginActivity.this, ConfigActivity.class);
-
-
-
-
                     intent.putExtras(bundle);
                     startActivity(intent);
                     break;
